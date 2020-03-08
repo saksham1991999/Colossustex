@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/colossustex/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/colossustex/settings.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -16,7 +17,7 @@
         <entry file="file://$PROJECT_DIR$/core/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#37#0" expanded="true" />
               </folding>
@@ -45,7 +46,7 @@
         <entry file="file://$PROJECT_DIR$/core/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="468">
-              <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+              <caret line="230" selection-start-line="230" selection-end-line="230" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#149#228#0" />
@@ -96,8 +97,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="27" column="99" selection-start-line="27" selection-start-column="99" selection-end-line="27" selection-end-column="99" />
+            <state relative-caret-position="462">
+              <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
+              <folding>
+                <element signature="e#313#322#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -142,8 +146,8 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="-7" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="676" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
@@ -228,19 +232,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583662713029</updated>
-      <workItem from="1583662716149" duration="8206000" />
+      <workItem from="1583662716149" duration="8694000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8206000" />
+    <option name="totallyTimeSpent" value="8694000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="676" y="0" width="697" height="735" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.120272316" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960753" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -279,7 +283,7 @@
     <entry file="file://$PROJECT_DIR$/core/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#37#0" expanded="true" />
           </folding>
@@ -302,7 +306,7 @@
     <entry file="file://$PROJECT_DIR$/core/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
-          <caret line="230" lean-forward="true" selection-start-line="230" selection-end-line="230" />
+          <caret line="230" selection-start-line="230" selection-end-line="230" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
             <element signature="e#149#228#0" />
@@ -351,8 +355,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="27" column="99" selection-start-line="27" selection-start-column="99" selection-end-line="27" selection-end-column="99" />
+        <state relative-caret-position="462">
+          <caret line="175" lean-forward="true" selection-start-line="175" selection-end-line="175" />
+          <folding>
+            <element signature="e#313#322#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
