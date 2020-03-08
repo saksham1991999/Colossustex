@@ -84,6 +84,7 @@ class product(models.Model):
 
 class supplier(models.Model):
     cts = models.SlugField()
+    products = models.ManyToManyField(product)
     name = models.CharField(max_length=100)
     consignee = models.CharField(max_length=100)
     addr1 = models.CharField(max_length=100)

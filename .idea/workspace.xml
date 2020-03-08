@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/colossustex/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/colossustex/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -11,7 +13,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -41,62 +43,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="468">
-              <caret line="230" selection-start-line="230" selection-end-line="230" />
+            <state relative-caret-position="400">
+              <caret line="86" column="45" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
-                <element signature="e#149#228#0" />
-                <element signature="e#275#359#0" />
-                <element signature="e#378#465#0" />
-                <element signature="e#506#579#0" />
-                <element signature="e#625#698#0" />
-                <element signature="e#717#726#0" />
-                <element signature="e#901#982#0" />
-                <element signature="e#81#97#0" />
-                <element signature="e#115#148#0" />
-                <element signature="e#1814#2374#0" />
-                <element signature="e#2300#2316#0" />
-                <element signature="e#2342#2374#0" />
-                <element signature="e#2411#2972#0" />
-                <element signature="e#2897#2913#0" />
-                <element signature="e#2939#2972#0" />
-                <element signature="e#3008#3570#0" />
-                <element signature="e#3495#3511#0" />
-                <element signature="e#3537#3570#0" />
-                <element signature="e#3657#4156#0" />
-                <element signature="e#4084#4100#0" />
-                <element signature="e#4126#4156#0" />
-                <element signature="e#3548#4057#0" />
-                <element signature="e#3985#4001#0" />
-                <element signature="e#4027#4057#0" />
-                <element signature="e#6187#6209#0" />
-                <element signature="e#6313#6921#0" />
-                <element signature="e#6782#6852#0" />
-                <element signature="e#6830#6863#0" />
-                <element signature="e#6948#7710#0" />
-                <element signature="e#7572#7598#0" />
-                <element signature="e#7667#7710#0" />
-                <element signature="e#7700#8106#0" />
-                <element signature="e#8042#8058#0" />
-                <element signature="e#8053#8089#0" />
-                <element signature="e#8323#9311#0" />
-                <element signature="e#9226#9243#0" />
-                <element signature="e#9272#9311#0" />
-                <element signature="e#9353#9686#0" />
-                <element signature="e#9603#9620#0" />
-                <element signature="e#9646#9686#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
+            <state relative-caret-position="-1759">
               <caret line="45" selection-start-line="45" selection-end-line="45" />
               <folding>
                 <element signature="e#313#322#0" expanded="true" />
@@ -140,13 +102,13 @@
         <option value="$PROJECT_DIR$/colossustex/urls.py" />
         <option value="$PROJECT_DIR$/core/urls.py" />
         <option value="$PROJECT_DIR$/core/admin.py" />
-        <option value="$PROJECT_DIR$/core/models.py" />
         <option value="$PROJECT_DIR$/colossustex/settings.py" />
+        <option value="$PROJECT_DIR$/core/models.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="676" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-7" />
     <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
@@ -231,26 +193,21 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1583662713029</updated>
-      <workItem from="1583662716149" duration="9113000" />
+      <workItem from="1583662716149" duration="9713000" />
+      <workItem from="1583688586193" duration="37000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9113000" />
+    <option name="totallyTimeSpent" value="9750000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="676" y="0" width="697" height="735" extended-state="0" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24960753" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12405446" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" weight="0.5057283" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -258,27 +215,23 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="SciView" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.5057283" />
+      <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/colossustex/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
-          <folding>
-            <element signature="e#1#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -302,62 +255,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/models.py">
+    <entry file="file://$PROJECT_DIR$/colossustex/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="230" selection-start-line="230" selection-end-line="230" />
+        <state relative-caret-position="153">
+          <caret line="9" column="47" selection-start-line="9" selection-start-column="47" selection-end-line="9" selection-end-column="47" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#149#228#0" />
-            <element signature="e#275#359#0" />
-            <element signature="e#378#465#0" />
-            <element signature="e#506#579#0" />
-            <element signature="e#625#698#0" />
-            <element signature="e#717#726#0" />
-            <element signature="e#901#982#0" />
-            <element signature="e#81#97#0" />
-            <element signature="e#115#148#0" />
-            <element signature="e#1814#2374#0" />
-            <element signature="e#2300#2316#0" />
-            <element signature="e#2342#2374#0" />
-            <element signature="e#2411#2972#0" />
-            <element signature="e#2897#2913#0" />
-            <element signature="e#2939#2972#0" />
-            <element signature="e#3008#3570#0" />
-            <element signature="e#3495#3511#0" />
-            <element signature="e#3537#3570#0" />
-            <element signature="e#3657#4156#0" />
-            <element signature="e#4084#4100#0" />
-            <element signature="e#4126#4156#0" />
-            <element signature="e#3548#4057#0" />
-            <element signature="e#3985#4001#0" />
-            <element signature="e#4027#4057#0" />
-            <element signature="e#6187#6209#0" />
-            <element signature="e#6313#6921#0" />
-            <element signature="e#6782#6852#0" />
-            <element signature="e#6830#6863#0" />
-            <element signature="e#6948#7710#0" />
-            <element signature="e#7572#7598#0" />
-            <element signature="e#7667#7710#0" />
-            <element signature="e#7700#8106#0" />
-            <element signature="e#8042#8058#0" />
-            <element signature="e#8053#8089#0" />
-            <element signature="e#8323#9311#0" />
-            <element signature="e#9226#9243#0" />
-            <element signature="e#9272#9311#0" />
-            <element signature="e#9353#9686#0" />
-            <element signature="e#9603#9620#0" />
-            <element signature="e#9646#9686#0" />
+            <element signature="e#1#33#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
+        <state relative-caret-position="-1759">
           <caret line="45" selection-start-line="45" selection-end-line="45" />
           <folding>
             <element signature="e#313#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="86" column="45" selection-start-line="86" selection-start-column="45" selection-end-line="86" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

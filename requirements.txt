@@ -40,3 +40,4 @@ s3transfer==0.2.1
 requests==2.21.0
 whitenoise
 django-autocomplete-light
+django-google-analytics-app
