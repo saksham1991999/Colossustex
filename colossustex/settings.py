@@ -25,7 +25,7 @@ SECRET_KEY = '*$uy-+yf317dfw8e7#*sva1dcs)d%mb49#_!%t+k+*+98(34^+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['colossustex.herokuapp.com', 'https://colossustex.herokuapp.com/', 'localhost:8000']
 
 
 # Application definition
