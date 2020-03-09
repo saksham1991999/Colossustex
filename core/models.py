@@ -15,8 +15,8 @@ Product_PolymerFiber_Choices = (
 
 
 Product_Luster_Choices = (
-    ('sd', 'sd'),
-    ('brt', 'brt'),
+    ('sd', 'Semi Dull'),
+    ('brt', 'Bright'),
     ('sbrt', 'superbrt'),
 )
 
@@ -61,14 +61,42 @@ class User(AbstractUser):
     is_customer = models.BooleanField(default=0)
     is_agent = models.BooleanField(default=0)
 
+class category(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Category'
+
+class subcategory1(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Sub-Category 1'
+
+class subcategory2(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Sub-Category 2'
+
 class product(models.Model):
     product_code = models.SlugField()
     name = models.CharField(max_length=200)
-    category = models.CharField(max_length=3, choices=Product_Category_Choices)
-    sub_category = models.CharField(max_length=50)
+    category = models.ForeignKey(category, on_delete=models.DO_NOTHING)
+    sub_category_1 = models.ForeignKey(subcategory1, on_delete=models.DO_NOTHING)
+    sub_category_2 = models.ForeignKey(subcategory2, on_delete=models.DO_NOTHING)
     application = models.CharField(max_length=50)
     polymer_fiber = models.CharField(max_length=4, choices=Product_PolymerFiber_Choices, verbose_name='Polymer/Fiber')
-    luster =  models.CharField(max_length=4, choices=Product_Luster_Choices)
+    luster = models.CharField(max_length=4, choices=Product_Luster_Choices)
     filament_cross_section =  models.CharField(max_length=4, choices=Product_FilamentCrossSection_Choices)
     tex_specification =  models.CharField(max_length=4, choices=Product_TexSpecification_Choices)
     required_no_of_nips =  models.CharField(max_length=4, choices=Product_NoOfNips_Choices)
