@@ -4,5 +4,6 @@ app_name = 'core'
 
 
 urlpatterns = [
-    # path('', views.HomeView, name='home'),
+    path('', views.HomeView, name='home'),
+    path('todo/', views.ToDoList, name='todo')
 ]

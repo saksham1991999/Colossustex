@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block extra_stylesheet %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}">
+    <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+	{% endblock extra_stylesheet %}
+
+
+
+{% block content %}
+
+
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="account-settings-container layout-top-spacing">
+
+                    <div class="account-content">
+                        <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                            <div class="row">
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                    <form id="contact" class="section contact" method="post">
+                                        {% csrf_token %}
+
+                                        <div class="info">
+                                            <h5 class="">Profile</h5>
+                                            <div class="row">
+                                                <div class="col-md-11 mx-auto">
+                                                    <div class="row">
+
+                                                        {% for field in form %}
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="address">{{ field.label }}</label>
+
+                                                                {{ field }}
+
+                                                            </div>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+
+                                                    <div class="d-sm-flex justify-content-between">
+                                                        <div class="field-wrapper">
+                                                            <button type="submit" class="btn btn-primary" value="">Save</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+
+
+
+
+{% endblock content %}
+
+    {% block extra_scripts %}
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+    <script src="{% static 'plugins/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'plugins/blockui/jquery.blockUI.min.js' %}"></script>
+    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+    <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+    {% endblock extra_scripts %}

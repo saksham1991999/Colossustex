@@ -40,8 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django.contrib.sites',
-    'allauth',
-    'allauth.account',
     'storages',
 
     'core',
@@ -50,6 +48,7 @@ INSTALLED_APPS = [
     'supplier',
     'agent',
     'hr',
+    'accounts',
 
 ]
 
@@ -139,10 +138,10 @@ STATICFILES_ROOT = os.path.join(BASE_DIR, 'static_root')
 
 
 # Auth
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend'
-)
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend'
+# )
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
 
@@ -154,10 +153,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'saksham191999@gmail.com'
 EMAIL_HOST_PASSWORD = 's2ksh2m19'
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+# ACCOUNT_USERNAME_REQUIRED = False
 AUTH_USER_MODEL = 'core.User'
 
 # GOOGLE_ANALYTICS = {

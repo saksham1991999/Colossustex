@@ -1,10 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
-# Create your models here.
-Product_Category_Choices = (
-    ('P', 'Polyster'),
-)
+from supplier.models import supplier
+from agent.models import agent
+from buyer.models import buyer
+from employee.models import employee
+from hr.models import *
 
 Product_PolymerFiber_Choices = (
     ('P', 'Polyster'),
@@ -17,29 +17,21 @@ Product_PolymerFiber_Choices = (
 Product_Luster_Choices = (
     ('sd', 'Semi Dull'),
     ('brt', 'Bright'),
-    ('sbrt', 'superbrt'),
+    ('fd', 'Full Dull'),
 )
 
 
 Product_FilamentCrossSection_Choices = (
     ('C', 'Circular'),
-    ('cir', 'cir'),
-    ('tbl', 'tbl'),
-    ('T', 'triangular'),
+    ('TL', 'Trilobal'),
+    ('TA', 'Triangular'),
+    ('OL', 'Octalobal'),
+    ('S', 'Star'),
+    ('R', 'Rice'),
+    ('O', 'Orange'),
+    ('C', 'Coolmax'),
 )
 
-Product_TexSpecification_Choices = (
-    ('210', '210mm'),
-    ('z-t', 'z - twist'),
-    ('na', 'Not Applicable'),
-)
-
-Product_NoOfNips_Choices = (
-    ('40-50', '40 - 50'),
-    ('85-90', '85 - 90'),
-    ('sim', 'sim'),
-    ('na', 'Not Applicable'),
-)
 
 # (sample
 #  required / under
@@ -88,6 +80,28 @@ class subcategory2(models.Model):
     class Meta:
         verbose_name_plural = 'Sub-Category 2'
 
+class product_shade(models.Model):
+    shade_name =  models.CharField(max_length=50)
+    shade_code =  models.CharField(max_length=50)
+
+class intermingle(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Intermingle'
+
+class required_no_of_nips(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Required No of Nips'
+
 class product(models.Model):
     product_code = models.SlugField()
     name = models.CharField(max_length=200)
@@ -98,11 +112,13 @@ class product(models.Model):
     polymer_fiber = models.CharField(max_length=4, choices=Product_PolymerFiber_Choices, verbose_name='Polymer/Fiber')
     luster = models.CharField(max_length=4, choices=Product_Luster_Choices)
     filament_cross_section =  models.CharField(max_length=4, choices=Product_FilamentCrossSection_Choices)
-    tex_specification =  models.CharField(max_length=4, choices=Product_TexSpecification_Choices)
-    required_no_of_nips =  models.CharField(max_length=4, choices=Product_NoOfNips_Choices)
+    intermingle =  models.ForeignKey(intermingle, on_delete=models.DO_NOTHING)
+    required_no_of_nips = models.ForeignKey(required_no_of_nips, on_delete=models.DO_NOTHING)
     lycra_percent_or_any_additional_additive = models.CharField(max_length=4)
-    shade_name =  models.CharField(max_length=50)
-    shade_code =  models.CharField(max_length=10)
+    shade = models.ForeignKey(product_shade, on_delete=models.DO_NOTHING)
+    additional_info = models.TextField()
+    remarks = models.TextField()
+
 
     def __str__(self):
         return self.name
@@ -110,62 +126,6 @@ class product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
 
-class supplier(models.Model):
-    cts = models.SlugField()
-    products = models.ManyToManyField(product)
-    name = models.CharField(max_length=100)
-    consignee = models.CharField(max_length=100)
-    addr1 = models.CharField(max_length=100)
-    addr2 = models.CharField(max_length=100)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
-    email = models.EmailField()
-    document = models.FileField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Suppliers'
-
-class customer(models.Model):
-    ctc = models.SlugField()
-    name = models.CharField(max_length=100)
-    buyer_name = models.CharField(max_length=100)
-    addr1 = models.CharField(max_length=100)
-    addr2 = models.CharField(max_length=100)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
-    email = models.EmailField()
-    document = models.FileField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Customers'
-
-class agent(models.Model):
-    cta = models.SlugField()
-    name = models.CharField(max_length=100)
-    addr1 = models.CharField(max_length=100)
-    addr2 = models.CharField(max_length=100)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
-    email = models.EmailField()
-    document = models.FileField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Agents'
 
 class office(models.Model):
     name = models.CharField(max_length=100)
@@ -184,33 +144,13 @@ class office(models.Model):
     class Meta:
         verbose_name_plural = 'Responsible Offices'
 
-class employee(models.Model):
-    cti = models.SlugField()
-    name = models.CharField(max_length=100)
-    Designation = models.CharField(max_length=100)
-    dob = models.DateField()
-    addr1 = models.CharField(max_length=100)
-    addr2 = models.CharField(max_length=100)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
-    email = models.EmailField()
-    document = models.FileField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Employees'
-
 class order(models.Model):
     inquiry_no = models.SlugField()
     date_of_inquiry = models.DateField()
     responsible_office = models.ForeignKey(office ,on_delete=models.DO_NOTHING)
     product = models.ForeignKey(product, on_delete=models.DO_NOTHING)
     final_supplier = models.ForeignKey(supplier, on_delete=models.DO_NOTHING, related_name='final_supplier')
-    customer = models.ForeignKey(customer, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(buyer, on_delete=models.DO_NOTHING)
     agent = models.ForeignKey(agent, on_delete=models.DO_NOTHING)
     po_no = models.CharField(max_length=20)
     contract_no = models.CharField(max_length=20)
@@ -227,39 +167,20 @@ class order(models.Model):
     month = models.CharField(max_length=10)
     status = models.BooleanField(default=0)
     order_confirmation = models.CharField(max_length = 4)
+
     indenting_commission = models.IntegerField()
-    commission = models.IntegerField()
-    net_commission = models.IntegerField()
-    commission_on_invoice_beneficiary = models.IntegerField()
+    agent_commission = models.IntegerField()
     suppliers_quotation = models.ManyToManyField(supplier, related_name='initial_suppliers')
 
     def __str__(self):
         return self.inquiry_no
 
     class Meta:
-        verbose_name_plural = 'Order Details'
+        verbose_name_plural = 'Enquiry Details'
 
-class supplierquotation(models.Model):
-    supplier = models.ForeignKey(supplier, on_delete=models.DO_NOTHING)
-    order = models.ForeignKey(order, on_delete=models.DO_NOTHING)
-    available_quantity = models.FloatField()
-    price_kg = models.FloatField()
-    total_amount = models.FloatField()
-    gst = models.FloatField()
-    freight = models.FloatField()
-    discount = models.FloatField()
-    total_amount_payable = models.FloatField()
-    document = models.FileField()
-
-    def __str__(self):
-        name = str(self.order) + ' ' + str(self.supplier)
-        return name
-
-    class Meta:
-        verbose_name_plural = 'Supplier Quotations'
 
 class bill(models.Model):
-    order = models.ForeignKey(order, on_delete=models.DO_NOTHING)
+    enquiry = models.ForeignKey(order, on_delete=models.DO_NOTHING)
     currency = models.CharField(max_length=10)
     invoice_date = models.DateField()
     invoice_number = models.CharField(max_length=10)
@@ -297,7 +218,7 @@ class payment(models.Model):
         verbose_name_plural = 'Payment Details'
 
 class shipment(models.Model):
-    order = models.ForeignKey(order, on_delete=models.DO_NOTHING)
+    enquiry = models.ForeignKey(order, on_delete=models.DO_NOTHING)
     freight = models.FloatField()
     dispatch_by = models.CharField(max_length=100)
     delivery_date = models.DateField()
@@ -317,23 +238,128 @@ class shipment(models.Model):
     status = models.CharField(max_length=4, choices=Shipment_Status_Choices)
 
     def __str__(self):
-        return self.order
+        return self.enquiry
 
     class Meta:
         verbose_name_plural = 'Shipment Details'
 
-class customerfeedback(models.Model):
-    order = models.ForeignKey(order, on_delete=models.DO_NOTHING)
-    customer = models.ForeignKey(customer, on_delete=models.DO_NOTHING)
-    subject = models.CharField(max_length=100)
-    message = models.TextField()
+
+
+
+
+
+
+
+
+
+# ---------------------------------------------------------------------------------------------------
+
+class to_do(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date = models.DateField()
+    is_important = models.BooleanField(default=0)
+    is_completed = models.BooleanField(default=0)
+    is_deleted = models.BooleanField(default=0)
 
     def __str__(self):
-        return self.order
+        return str(self.title)
 
     class Meta:
-        verbose_name_plural = 'Customer Feedbacks'
+        verbose_name_plural = 'To Do\'s'
+
+note_tag_choices = (
+    ('P', 'Personal'),
+    ('W', 'Work'),
+    ('S', 'Social'),
+    ('I', 'Important'),
+)
+
+class note(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    date = models.DateField()
+    is_favourite = models.BooleanField(default=0)
+    tag = models.CharField(max_length=1, choices=note_tag_choices)
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        verbose_name_plural = 'Notes'
 
 
+event_tag_choices = (
+    ('P', 'Personal'),
+    ('W', 'Work'),
+    ('T', 'Travel'),
+    ('I', 'Important'),
+)
+
+class event(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    start_date = models.DateField()
+    end_date = models.DateField()
+    tag = models.CharField(max_length=1, choices=event_tag_choices)
+
+    def __str__(self):
+        return str(self.title)
+
+    class Meta:
+        verbose_name_plural = 'Calendar Events'
+
+update_choices = (
+    ('IU', 'Industry Updates'),
+    ('TA', 'Technological Advancements'),
+    ('IDT', 'International Duties and Trade'),
+    ('PTA', 'Price Trend Analysis'),
+)
 
 
+class updates(models.Model):
+    category = models.CharField(max_length=3, choices=update_choices)
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+    image = models.ImageField(blank=True, null=True)
+    file = models.FileField(blank=True, null=True)
+
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'Updates/News'
+
+class notisfications(models.Model):
+    user = models.ForeignKey('core.User', on_delete=models.DO_NOTHING)
+    title = models.CharField(max_length=100)
+    content = models.TextField(blank=True, null= True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = 'User Notisfications'
+
+class suplus_product(models.Model):
+    product = models.ForeignKey(product, on_delete=models.DO_NOTHING,  blank=True, null=True)
+    other_product = models.CharField(max_length=200, blank=True, null=True)
+    qty = models.IntegerField()
+    price_unit = models.IntegerField()
+    office = models.CharField(max_length=100)
+    supplier = models.CharField(max_length=100)
+    supplier_mob = models.CharField(max_length=15, blank=True, null=True)
+    remarks = models.TextField( blank=True, null=True)
+
+    def __str__(self):
+        if self.product:
+            return self.product
+        else:
+            return self.other_product
+
+    class Meta:
+        verbose_name_plural = 'Suplus Product Details'
