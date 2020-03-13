@@ -18,10 +18,13 @@ from rest_framework.parsers import JSONParser
 from rest_framework import viewsets
 
 from . import models, forms
+from supplier import models as suppliermodels
+from agent import models as agentmodels
+from buyer import models as buyermodels
 
 def HomeView(request):
     context = {}
-    return render(request, 'profile.html', context)
+    return render(request, 'dashboard.html', context)
 
 def ProfileView(request):
     employee = models.employee.objects.get(user = request.user)
@@ -47,6 +50,44 @@ def ProfileView(request):
         }
         return render(request, 'profile.html', context)
 
+def SuppliersView(request):
+    suppliers = suppliermodels.supplier.objects.all()
+    context = {
+        'suppliers': suppliers,
+    }
+    return render(request, 'suppliers_list.html', context)
+
+
+def SupplierDeleteView(request, id):
+    supplier = suppliermodels.supplier.objects.get(id=id)
+    supplier.delete()
+    return redirect('employee:suppliers')
+
+def SubAgentView(request):
+    agents = agentmodels.agent.objects.all()
+    context = {
+        'agents': agents,
+    }
+    return render(request, 'sub_agents_list.html', context)
+
+
+def SubAgentDeleteView(request, id):
+    sub_agent = agentmodels.agent.objects.get(id=id)
+    sub_agent.delete()
+    return redirect('employee:sub_agents')
+
+def BuyersView(request):
+    buyers = buyermodels.buyer.objects.all()
+    context = {
+        'buyers': buyers,
+    }
+    return render(request, 'buyers_list.html', context)
+
+
+def BuyerDeleteView(request, id):
+    buyer = buyermodels.buyer.objects.get(id=id)
+    buyer.delete()
+    return redirect('employee:buyers')
 
 # def ContactView(request):
 #     if request.method == 'POST':

@@ -259,9 +259,9 @@ class to_do(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     date = models.DateField()
-    is_important = models.BooleanField(default=0)
-    is_completed = models.BooleanField(default=0)
-    is_deleted = models.BooleanField(default=0)
+    is_important = models.BooleanField(default=False)
+    is_completed = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.title)
@@ -334,7 +334,7 @@ class updates(models.Model):
     class Meta:
         verbose_name_plural = 'Updates/News'
 
-class notisfications(models.Model):
+class notifications(models.Model):
     user = models.ForeignKey('core.User', on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=100)
     content = models.TextField(blank=True, null= True)

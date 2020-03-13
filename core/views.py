@@ -30,3 +30,51 @@ def ToDoList(request):
         'todolists': todolists,
     }
     return render(request, 'apps_todoList.html',context)
+
+
+def ToDoEdit(request, id):
+
+    return redirect('core:todo')
+
+
+def ToDoMarkDelete(request, id):
+    todo = models.to_do.objects.get(id=id)
+    todo.is_deleted = True
+    todo.is_completed = False
+    todo.is_important = False
+    todo.save()
+    return redirect('core:todo')
+
+
+def ToDoMarkImportant(request, id):
+    todo = models.to_do.objects.get(id=id)
+    todo.is_important = True
+    todo.save()
+    return redirect('core:todo')
+
+
+def ToDoMarkComplete(request, id):
+    todo = models.to_do.objects.get(id=id)
+    todo.is_completed = True
+    todo.save()
+    return redirect('core:todo')
+
+
+def ToDoPermanentDelete(request, id):
+    todo = models.to_do.objects.get(id=id)
+    todo.delete()
+    return redirect('core:todo')
+
+
+def ToDoReviveTask(request, id):
+    todo = models.to_do.objects.get(id=id)
+    todo.is_deleted = False
+    todo.save()
+    return redirect('core:todo')
+
+def NotesList(request):
+    notes = models.note.objects.all()
+    context = {
+        'notes': notes,
+    }
+    return render(request, 'notes.html',context)
