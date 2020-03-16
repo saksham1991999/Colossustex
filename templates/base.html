@@ -47,19 +47,11 @@
 
 	{% include "navbar.html" %}
 
-    <!--  BEGIN MAIN CONTAINER  -->
-    <div class="main-container" id="container">
-
-        <div class="overlay"></div>
-        <div class="search-overlay"></div>
-
-        {% include 'sidebar.html' %}
 
     {% block content %}
     {% endblock content %}
 
-    </div>
-    <!-- END MAIN CONTAINER -->
+
 
     {% block extra_body %}
     {% endblock extra_body %}

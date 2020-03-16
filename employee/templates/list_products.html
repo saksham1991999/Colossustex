@@ -12,7 +12,18 @@
 
 
 {% block content %}
-<!--  BEGIN CONTENT AREA  -->
+
+<!--  BEGIN MAIN CONTAINER  -->
+<div class="main-container" id="container">
+
+    <div class="overlay"></div>
+    <div class="cs-overlay"></div>
+    <div class="search-overlay"></div>
+
+    {% include 'sidebar.html' %}
+
+
+    <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
 
@@ -23,7 +34,7 @@
                             <div class="widget-header">
                                 <div class="row">
                                     <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                        <h4>Suppliers</h4>
+                                        <h4>Products</h4>
                                     </div>
                                 </div>
                             </div>
@@ -32,34 +43,47 @@
                                     <table id="style-3" class="table style-3  table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="checkbox-column text-center"> Record Id </th>
-                                                <th class="text-center">Image</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Email</th>
-                                                <th>Mobile No.</th>
-                                                <th class="text-center">Status</th>
-                                                <th class="text-center">Action</th>
+                                                <th class="checkbox-column text-center"> Product Code </th>
+
+                                                <th>Name</th>
+                                                <th>Category</th>
+                                                <th>Sub Category 1</th>
+                                                <th>Sub Category 2</th>
+                                                <th>Application</th>
+                                                <th>Polymer Fiber</th>
+                                                <th>Luster</th>
+                                                <th>Filament Cross Section</th>
+                                                <th>Intermingle</th>
+                                                <th class="text-center">Required No of Nips</th>
+                                                <th class="text-center">Lycra Percent/Additional Additive</th>
+                                                <th class="text-center">Shade</th>
                                             </tr>
                                         </thead>
                                         <tbody>
 
 
-                                            {% for supplier in suppliers %}
+                                            {% for product in products %}
                                             <tr>
-                                                <td class="checkbox-column text-center"> 7 </td>
-                                                <td class="text-center">
-                                                    <span><img src="assets\img\profile-24.jpeg" class="profile-img" alt="avatar"></span>
-                                                </td>
-                                                <td>Nia</td>
-                                                <td>Hillyer</td>
-                                                <td>niaHill@yahoo.com</td>
-                                                <td>111-666-1111</td>
-                                                <td class="text-center"><span class="shadow-none badge badge-primary">Approved</span></td>
+                                                <td class="checkbox-column text-center"> {{ product.product_code }} </td>
+                                                <td>{{ product.name }}</td>
+                                                <td class="text-center"><span class="shadow-none badge badge-primary">{{ product.category }}</span></td>
+                                                <td>{{ product.sub_category_1 }}</td>
+                                                <td>{{ product.sub_category_2 }}</td>
+                                                <td>{{ product.application }}</td>
+                                                <td>{{ product.polymer_fiber }}</td>
+                                                <td>{{ product.luster }}</td>
+                                                <td>{{ product.filament_cross_section }}</td>
+                                                <td>{{ product.intermingle }}</td>
+                                                <td>{{ product.required_no_of_nips }}</td>
+                                                <td>{{ product.lycra_percent_or_any_additional_additive }}</td>
+                                                <td>{{ product.shade }}</td>
+
+
+
                                                 <td class="text-center">
                                                     <ul class="table-controls">
-                                                        <li><a href="javascript:void(0);" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-6 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
-                                                        <li><a href="javascript:void(0);" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash p-1 br-6 mb-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a></li>
+                                                        <li><a href="{% url 'employee:edit_product' product.id %}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 p-1 br-6 mb-1"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                                        <li><a href="{% url 'employee:delete_product' product.id %}" class="bs-tooltip" data-toggle="tooltip" data-placement="top" title="" data-original-title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash p-1 br-6 mb-1"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></a></li>
                                                     </ul>
                                                 </td>
                                             </tr>
@@ -79,6 +103,11 @@
 
         </div>
         <!--  END CONTENT AREA  -->
+
+
+    </div>
+    <!-- END MAIN CONTAINER -->
+
 {% endblock content %}
 
 {% block extra_scripts %}

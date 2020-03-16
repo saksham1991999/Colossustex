@@ -11,6 +11,14 @@
 
 {% block content %}
 
+   <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+
+    {% include 'sidebar.html' %}
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -27,7 +35,7 @@
                                         {% csrf_token %}
 
                                         <div class="info">
-                                            <h5 class="">Profile</h5>
+                                            <h5 class="">{{ formtitle }}</h5>
                                             <div class="row">
                                                 <div class="col-md-11 mx-auto">
                                                     <div class="row">
@@ -67,7 +75,8 @@
         </div>
         <!--  END CONTENT AREA  -->
 
-
+        </div>
+    <!-- END MAIN CONTAINER -->
 
 
 {% endblock content %}

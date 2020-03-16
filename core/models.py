@@ -52,6 +52,7 @@ class User(AbstractUser):
     is_supplier = models.BooleanField(default=0)
     is_customer = models.BooleanField(default=0)
     is_agent = models.BooleanField(default=0)
+    is_employee = models.BooleanField(default=0)
 
 class category(models.Model):
     title = models.CharField(max_length=100)
@@ -178,7 +179,6 @@ class order(models.Model):
     class Meta:
         verbose_name_plural = 'Enquiry Details'
 
-
 class bill(models.Model):
     enquiry = models.ForeignKey(order, on_delete=models.DO_NOTHING)
     currency = models.CharField(max_length=10)
@@ -203,7 +203,7 @@ class bill(models.Model):
 
 class payment(models.Model):
     bill = models.ForeignKey(bill, on_delete=models.DO_NOTHING)
-    cuurency = models.CharField(max_length=10)
+    currency = models.CharField(max_length=10)
     payment_terms = models.CharField(max_length=100)
     payment_due_date = models.DateField()
     remarks = models.CharField(max_length=200)

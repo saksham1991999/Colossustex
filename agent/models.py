@@ -14,6 +14,7 @@ class agent(models.Model):
     commission = models.IntegerField(blank=True, null = True)
     email = models.EmailField()
     document = models.FileField()
+    image = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.name
