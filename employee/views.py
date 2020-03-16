@@ -23,6 +23,7 @@ from agent import models as agentmodels
 from buyer import models as buyermodels
 from core import models as coremodels
 
+@login_required(login_url='/admin')
 def HomeView(request):
     context = {}
     return render(request, 'dashboard.html', context)

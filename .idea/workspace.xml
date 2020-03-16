@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agent/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/agent/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/templates/apps_todoList.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/apps_todoList.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/templates/buyers_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_buyers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/templates/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/templates/sub_agents_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_sub_agents.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/templates/suppliers_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_suppliers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/sidebar.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,11 +26,59 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/employee/templates/dashboard.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="558" column="12" selection-start-line="558" selection-start-column="12" selection-end-line="558" selection-end-column="12" />
+            <state relative-caret-position="4561">
+              <caret line="558" selection-start-line="558" selection-end-line="558" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/employee/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="493">
+              <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#973#1039#0" />
+                <element signature="e#1071#1998#0" />
+                <element signature="e#1172#1755#0" />
+                <element signature="e#1335#1682#0" />
+                <element signature="e#1774#1998#0" />
+                <element signature="e#1874#1945#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/employee/templates/sidebar.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/templatetags/template_tag.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="12" lean-forward="true" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/employee/templatetags/template_tag.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -84,7 +119,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/supplier/urls.py" />
         <option value="$PROJECT_DIR$/core/forms.py" />
         <option value="$PROJECT_DIR$/employee/templates/scripts.html" />
         <option value="$PROJECT_DIR$/employee/templates/navbar.html" />
@@ -129,12 +163,13 @@
         <option value="$PROJECT_DIR$/employee/templates/list_suppliers.html" />
         <option value="$PROJECT_DIR$/employee/templates/list_buyers.html" />
         <option value="$PROJECT_DIR$/employee/templates/list_products.html" />
-        <option value="$PROJECT_DIR$/employee/views.py" />
         <option value="$PROJECT_DIR$/employee/urls.py" />
         <option value="$PROJECT_DIR$/core/models.py" />
         <option value="$PROJECT_DIR$/employee/templates/sidebar.html" />
         <option value="$PROJECT_DIR$/core/templatetags/template_tag.py" />
         <option value="$PROJECT_DIR$/employee/templates/dashboard.html" />
+        <option value="$PROJECT_DIR$/employee/templatetags/template_tag.py" />
+        <option value="$PROJECT_DIR$/employee/views.py" />
       </list>
     </option>
   </component>
@@ -176,12 +211,6 @@
             <path>
               <item name="Colossustex" type="b2602c69:ProjectViewProjectNode" />
               <item name="Colossustex" type="462c0819:PsiDirectoryNode" />
-              <item name="employee" type="462c0819:PsiDirectoryNode" />
-              <item name="templates" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Colossustex" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Colossustex" type="462c0819:PsiDirectoryNode" />
               <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -198,6 +227,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Github\Colossustex\employee" />
       <recent name="D:\Github\Colossustex\accounts\templates" />
     </key>
   </component>
@@ -257,12 +287,12 @@
       <workItem from="1583958533482" duration="666000" />
       <workItem from="1584034001325" duration="15891000" />
       <workItem from="1584093385566" duration="597000" />
-      <workItem from="1584288531811" duration="19063000" />
+      <workItem from="1584288531811" duration="19784000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82192000" />
+    <option name="totallyTimeSpent" value="82913000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -333,7 +363,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/accounts/base.html" />
     <entry file="file://$PROJECT_DIR$/accounts/formss.py" />
     <entry file="file://$PROJECT_DIR$/accounts/forms.py">
       <provider selected="true" editor-type-id="text-editor" />
@@ -698,21 +727,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4913">
-          <caret line="338" column="20" lean-forward="true" selection-start-line="338" selection-start-column="20" selection-end-line="338" selection-end-column="20" />
-          <folding>
-            <element signature="e#973#1039#0" />
-            <element signature="e#1071#1998#0" />
-            <element signature="e#1172#1755#0" />
-            <element signature="e#1335#1682#0" />
-            <element signature="e#1774#1998#0" />
-            <element signature="e#1874#1945#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/employee/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -762,10 +776,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/employee/templates/dashboard.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4561">
+          <caret line="558" selection-start-line="558" selection-end-line="558" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/employee/templates/sidebar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="54" lean-forward="true" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="54" />
+        <state relative-caret-position="119">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -779,10 +800,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee/templates/dashboard.html">
+    <entry file="file://$PROJECT_DIR$/employee/templatetags/template_tag.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="558" column="12" selection-start-line="558" selection-start-column="12" selection-end-line="558" selection-end-column="12" />
+        <state relative-caret-position="238">
+          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/employee/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="55" column="33" selection-start-line="55" selection-start-column="33" selection-end-line="55" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#973#1039#0" />
+            <element signature="e#1071#1998#0" />
+            <element signature="e#1172#1755#0" />
+            <element signature="e#1335#1682#0" />
+            <element signature="e#1774#1998#0" />
+            <element signature="e#1874#1945#0" />
+          </folding>
         </state>
       </provider>
     </entry>
