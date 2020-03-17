@@ -19,7 +19,7 @@ admin.site.register(models.order)
 admin.site.register(models.payment)
 admin.site.register(models.shipment)
 admin.site.register(models.bill)
-
+admin.site.register(models.updates)
 admin.site.register(models.to_do)
 admin.site.register(models.note)
 admin.site.register(models.event)

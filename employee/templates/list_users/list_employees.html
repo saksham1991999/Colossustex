@@ -2,6 +2,11 @@
 {% load static %}
 {% block extra_stylesheet %}
 
+<!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/custom_dt_html5.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
+    <!-- END PAGE LEVEL CUSTOM STYLES -->
+
     <!-- BEGIN PAGE LEVEL STYLES -->
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/datatables.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
@@ -29,7 +34,25 @@
 
                 <div class="row layout-top-spacing" id="cancel-row">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
                         <div class="widget-content widget-content-area br-6">
+                            <div class="widget-header">
+                                <div class="row">
+                                    <div class="col-xl-8 col-md-8 col-sm-8 col-8">
+                                        <h4>Buyers</h4>
+                                    </div>
+                                    <div class="col-xl-4 col-md-4 col-sm-4 col-4">
+                                        <div class="dt-buttons" style="float: right;">
+                                            <a href="{% url 'employee:add_employee' %}">
+                                                <button class="dt-button buttons-copy buttons-html5 btn">
+                                                    <span>Add Employee</span>
+                                                </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="multi-column-ordering" class="table table-hover" style="width:100%">
                                     <thead>

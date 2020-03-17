@@ -76,3 +76,21 @@ class ShipmentForm(forms.ModelForm):
         model = coremodels.shipment
         fields = '__all__'
 
+
+class VisitNoteForm(forms.ModelForm):
+    class Meta:
+        model = models.employee_visit
+        exclude = ['employee']
+
+
+class SuplusProductForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.suplus_product
+        fields = '__all__'
+
+
+class UpdateNewsForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.updates
+        fields = '__all__'
+

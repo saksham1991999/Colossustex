@@ -60,7 +60,7 @@ def EmployeesView(request):
     context = {
         'employees': employees,
     }
-    return render(request, 'list_employees.html', context)
+    return render(request, 'list_users/list_employees.html', context)
 
 def EmployeeAddView(request):
     if request.method == 'POST':
@@ -120,7 +120,7 @@ def SuppliersView(request):
     context = {
         'suppliers': suppliers,
     }
-    return render(request, 'list_suppliers.html', context)
+    return render(request, 'list_users/list_suppliers.html', context)
 
 def SuppliersAddView(request):
     if request.method == 'POST':
@@ -184,7 +184,7 @@ def SubAgentView(request):
     context = {
         'agents': agents,
     }
-    return render(request, 'list_sub_agents.html', context)
+    return render(request, 'list_users/list_sub_agents.html', context)
 
 def SubAgentAddView(request):
     if request.method == 'POST':
@@ -238,7 +238,7 @@ def BuyersView(request):
     context = {
         'buyers': buyers,
     }
-    return render(request, 'list_buyers.html', context)
+    return render(request, 'list_users/list_buyers.html', context)
 
 def BuyersAddView(request):
     if request.method == 'POST':
@@ -292,7 +292,7 @@ def ProductsView(request):
     context = {
         'products': products,
     }
-    return render(request, 'list_products.html', context)
+    return render(request, 'list_users/list_products.html', context)
 
 def ProductAddView(request):
     if request.method == 'POST':
@@ -346,7 +346,7 @@ def EnquiriesView(request):
     context = {
         'enquiries': enquiries,
     }
-    return render(request, 'list_buyers.html', context)
+    return render(request, 'list_enquiry/list_enquiries.html', context)
 
 def EnquiryAddView(request):
     if request.method == 'POST':
@@ -379,7 +379,7 @@ def EnquiryEditView(request, id):
                                 'Details Saved Successfully',
                                 extra_tags='alert alert-success alert-dismissible fade show'
                             )
-        return redirect('employee:products')
+        return redirect('employee:enquiries')
     else:
         form = forms.ProductForm(instance=enquiry)
         formtitle = 'Edit Enquiry Details'
@@ -392,7 +392,7 @@ def EnquiryEditView(request, id):
 def EnquiryDeleteView(request, id):
     enquiry = coremodels.order.objects.get(id=id)
     enquiry.delete()
-    return redirect('employee:products')
+    return redirect('employee:enquiries')
 
 
 def BillsView(request):
@@ -400,7 +400,7 @@ def BillsView(request):
     context = {
         'bills': bills,
     }
-    return render(request, 'list_buyers.html', context)
+    return render(request, 'list_enquiry/list_bills.html', context)
 
 def BillAddView(request):
     if request.method == 'POST':
@@ -412,7 +412,7 @@ def BillAddView(request):
                                 'Details Saved Successfully',
                                 extra_tags='alert alert-success alert-dismissible fade show'
                             )
-        return redirect('employee:enquiries')
+        return redirect('employee:bills')
     else:
         form = forms.BillForm()
         formtitle = 'Add Bill Details'
@@ -454,7 +454,7 @@ def PaymentsView(request):
     context = {
         'payments': payments,
     }
-    return render(request, 'list_buyers.html', context)
+    return render(request, 'list_enquiry/list_payments.html', context)
 
 def PaymentAddView(request):
     if request.method == 'POST':
@@ -508,7 +508,7 @@ def ShipmentsView(request):
     context = {
         'shipments': shipments,
     }
-    return render(request, 'list_buyers.html', context)
+    return render(request, 'list_enquiry/list_shipment.html', context)
 
 def ShipmentAddView(request):
     if request.method == 'POST':
@@ -555,5 +555,173 @@ def ShipmentDeleteView(request, id):
     shipment = coremodels.shipment.objects.get(id=id)
     shipment.delete()
     return redirect('employee:shipments')
+
+
+
+def VisitNotesView(request):
+    employee = models.employee.objects.get(user = request.user)
+    notes = models.employee_visit.objects.filter(employee=employee)
+    context = {
+        'notes': notes,
+    }
+    return render(request, 'list_others/list_visit_notes.html', context)
+
+def VisitNotesAddView(request):
+    if request.method == 'POST':
+        employee = models.employee.objects.get(user = request.user)
+        form = forms.VisitNoteForm(request.POST)
+        print(employee)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.employee = employee
+            new_form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:visit-notes')
+    else:
+        form = forms.VisitNoteForm()
+        formtitle = 'Add Visit Notes'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def VisitNotesEditView(request, id):
+    note = models.employee_visit.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.VisitNoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:visit-notes')
+    else:
+        form = forms.VisitNoteForm(instance=note)
+        formtitle = 'Edit Visit Note'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def VisitNotesDeleteView(request, id):
+    note = models.employee_visit.objects.get(id=id)
+    note.delete()
+    return redirect('employee:visit-notes')
+
+
+def SuplusProductsView(request):
+    suplus_products = coremodels.suplus_product.objects.all()
+    context = {
+        'suplus_products': suplus_products,
+    }
+    return render(request, 'list_others/list_suplus_products.html', context)
+
+def SuplusProductsAddView(request):
+    if request.method == 'POST':
+        form = forms.SuplusProductForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:suplus-products')
+    else:
+        form = forms.SuplusProductForm()
+        formtitle = 'Add Suplus Product Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def SuplusProductsEditView(request, id):
+    suplus_product = coremodels.suplus_product.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.SuplusProductForm(request.POST, instance=suplus_product)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:suplus-products')
+    else:
+        form = forms.SuplusProductForm(instance=suplus_product)
+        formtitle = 'Edit Suplus Product Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def SuplusProductsDeleteView(request, id):
+    suplus_product = coremodels.suplus_product.objects.get(id=id)
+    suplus_product.delete()
+    return redirect('employee:suplus-products')
+
+
+def UpdatesView(request):
+    updates = coremodels.suplus_product.objects.all()
+    context = {
+        'updates': updates,
+    }
+    return render(request, 'list_others/list_updates.html', context)
+
+def UpdatesAddView(request):
+    if request.method == 'POST':
+        form = forms.UpdateNewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:updates-news')
+    else:
+        form = forms.UpdateNewsForm()
+        formtitle = 'Add Update/News'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def UpdatesEditView(request, id):
+    update = coremodels.updates.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.UpdateNewsForm(request.POST, instance=update)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:updates-news')
+    else:
+        form = forms.UpdateNewsForm(instance=update)
+        formtitle = 'Edit Update/News'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def UpdatesDeleteView(request, id):
+    update = coremodels.updates.objects.get(id=id)
+    update.delete()
+    return redirect('employee:updates-news')
 
 

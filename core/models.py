@@ -146,7 +146,7 @@ class office(models.Model):
         verbose_name_plural = 'Responsible Offices'
 
 class order(models.Model):
-    inquiry_no = models.SlugField()
+    enquiry_no = models.SlugField()
     date_of_inquiry = models.DateField()
     responsible_office = models.ForeignKey(office ,on_delete=models.DO_NOTHING)
     product = models.ForeignKey(product, on_delete=models.DO_NOTHING)
