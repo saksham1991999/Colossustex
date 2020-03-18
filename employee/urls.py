@@ -52,10 +52,15 @@ urlpatterns = [
     path('shipments/edit/<int:id>/', views.ShipmentEditView, name='edit_shipment'),
     path('shipments/delete/<int:id>/', views.ShipmentDeleteView, name='delete_shipment'),
 
-    path('visit-notes/', views.VisitNotesView, name='visit-notes'),
-    path('visit-notes/add/', views.VisitNotesAddView, name='add_visit-note'),
-    path('visit-notes/edit/<int:id>/', views.VisitNotesEditView, name='edit_visit-note'),
-    path('visit-notes/delete/<int:id>/', views.VisitNotesDeleteView, name='delete_visit-note'),
+    path('inspections/', views.ShipmentsView, name='inspections'),
+    path('inspections/add/', views.ShipmentAddView, name='add_inspection'),
+    path('inspections/edit/<int:id>/', views.ShipmentEditView, name='edit_inspection'),
+    path('inspections/delete/<int:id>/', views.ShipmentDeleteView, name='delete_inspection'),
+
+    path('visit-notes/', views.InspectionsView, name='visit-notes'),
+    path('visit-notes/add/', views.InspectionsAddView, name='add_visit-note'),
+    path('visit-notes/edit/<int:id>/', views.InspectionsEditView, name='edit_visit-note'),
+    path('visit-notes/delete/<int:id>/', views.InspectionsDeleteView, name='delete_visit-note'),
 
     path('suplus-products/', views.SuplusProductsView, name='suplus-products'),
     path('suplus-products/add/', views.SuplusProductsAddView, name='add_suplus-product'),
@@ -66,4 +71,7 @@ urlpatterns = [
     path('updates-news/add/', views.UpdatesAddView, name='add_updates-news'),
     path('updates-news/edit/<int:id>/', views.UpdatesEditView, name='edit_updates-news'),
     path('updates-news/delete/<int:id>/', views.UpdatesDeleteView, name='delete_updates-news'),
+
+    path('leave-applications/', views.UpdatesView, name='leave_applications'),
+    path('submit-leave-applications/add/', views.UpdatesAddView, name='add_leave_application'),
 ]

@@ -22,6 +22,7 @@ from supplier import models as suppliermodels
 from agent import models as agentmodels
 from buyer import models as buyermodels
 from core import models as coremodels
+from hr import models as hrmodels
 
 @login_required(login_url='/admin')
 def HomeView(request):
@@ -557,6 +558,60 @@ def ShipmentDeleteView(request, id):
     return redirect('employee:shipments')
 
 
+def InspectionsView(request):
+    inspections = models.inspection.objects.all()
+    context = {
+        'inspections': inspections,
+    }
+    return render(request, 'list_enquiry/list_shipment.html', context)
+
+def InspectionsAddView(request):
+    if request.method == 'POST':
+        form = forms.InspectionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:inspections')
+    else:
+        form = forms.ShipmentForm()
+        formtitle = 'Add Inspection Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def InspectionsEditView(request, id):
+    inspection = models.inspection.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.InspectionForm(request.POST, instance=inspection)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:inspections')
+    else:
+        form = forms.InspectionForm(instance=inspection)
+        formtitle = 'Edit Inspection Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def InspectionsDeleteView(request, id):
+    inspection = models.inspection.objects.get(id=id)
+    inspection.delete()
+    return redirect('employee:inspections')
+
+
 
 def VisitNotesView(request):
     employee = models.employee.objects.get(user = request.user)
@@ -725,3 +780,32 @@ def UpdatesDeleteView(request, id):
     return redirect('employee:updates-news')
 
 
+def LeaveApplicationsView(request):
+    employee = models.employee.objects.get(user = request.user)
+    applications = hrmodels.leaveapplication.objects.filter(employee=employee)
+
+    context = {
+        'applications': applications,
+    }
+    return render(request, 'list_others/list_leave_applications.html', context)
+
+def SubmitLeaveApplicationView(request):
+    if request.method == 'POST':
+        employee = models.employee.objects.get(user=request.user)
+        form = forms.LeaveApplicationEmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:updates-news')
+    else:
+        form = forms.LeaveApplicationEmployeeForm()
+        formtitle = 'Submit A new Leave Application'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)

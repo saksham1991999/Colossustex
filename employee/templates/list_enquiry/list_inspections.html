@@ -30,43 +30,46 @@
                 <div class="row layout-top-spacing" id="cancel-row">
 
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-
                         <div class="widget-content widget-content-area br-6">
-
                             <div class="table-responsive mb-4 mt-4">
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-8 col-md-8 col-sm-8 col-8">
-                                            <h4>News/Updates</h4>
+                                            <h4>Inspection Details</h4>
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">
                                             <div class="dt-buttons" style="float: right;">
-                                                <a href="{% url 'employee:add_updates-news' %}">
-                                                <button class="dt-button buttons-copy buttons-html5 btn" href="{% url 'employee:add_payment' %}">
-                                                    <span>Add News/Update</span>
+                                                <a href="{% url 'employee:add_bill' %}">
+                                                <button class="dt-button buttons-copy buttons-html5 btn" href="{% url 'employee:add_inspection' %}">
+                                                    <span>Add Inspection Details</span>
                                                 </button>
                                                 </a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Category</th>
-                                            <th>Title</th>
-                                            <th>Content</th>
+                                            <th>Enquiry No</th>
+                                            <th>Inspection Officer</th>
+                                            <th>Contact</th>
+                                            <th>Confirmation</th>
+                                            <th>Remarks</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                    {% for update in updates %}
+                                    {% for inspection in inspections %}
                                         <tr>
-                                            <td>{{ update.category }}</td>
-                                            <td>{{ update.title }}</td>
-                                            <td>{{ update.content }}</td>
+                                            <td>{{ inspection.enquiry }}</td>
+                                            <td>{{ inspection.inspection_officer }}</td>
+                                            <td>{{ inspection.inspection_officer_contact }}</td>
+                                            <td>{{ inspection.inspection_confirmation }}</td>
+                                            <td>{{ inspection.inspection_remarks }}</td>
+
+
 
 
                                             <td>

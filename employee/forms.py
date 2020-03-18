@@ -7,6 +7,7 @@ from supplier.models import supplier
 from agent.models import agent
 from buyer.models import buyer
 from core import models as coremodels
+from hr import models as hrmodels
 
 
 class EmployeeProfileForm(forms.ModelForm):
@@ -92,5 +93,16 @@ class SuplusProductForm(forms.ModelForm):
 class UpdateNewsForm(forms.ModelForm):
     class Meta:
         model = coremodels.updates
+        fields = '__all__'
+
+class LeaveApplicationEmployeeForm(forms.ModelForm):
+    class Meta:
+        model = hrmodels.leaveapplication
+        exclude = ['employee', 'status']
+
+
+class InspectionForm(forms.ModelForm):
+    class Meta:
+        model = models.inspection
         fields = '__all__'
 
