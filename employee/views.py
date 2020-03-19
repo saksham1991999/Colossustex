@@ -21,6 +21,7 @@ from . import models, forms
 from supplier import models as suppliermodels
 from agent import models as agentmodels
 from buyer import models as buyermodels
+from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
 
@@ -353,6 +354,7 @@ def EnquiryAddView(request):
     if request.method == 'POST':
         form = forms.EnquiryForm(request.POST)
         if form.is_valid():
+            print('Adding Enquiry')
             form.save()
             messages.success(
                                 request,
@@ -610,6 +612,60 @@ def InspectionsDeleteView(request, id):
     inspection = models.inspection.objects.get(id=id)
     inspection.delete()
     return redirect('employee:inspections')
+
+
+def SampleRequestsView(request):
+    sample_requests = buyermodels.sample_request.objects.all()
+    context = {
+        'sample_requests': sample_requests,
+    }
+    return render(request, 'list_enquiry/list_sample_requests.html', context)
+
+def SampleRequestAddView(request):
+    if request.method == 'POST':
+        form = buyerforms.SampleRequestForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:sample-requests')
+    else:
+        form = buyerforms.SampleRequestForm()
+        formtitle = 'Add Sample Request Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def SampleRequestEditView(request, id):
+    sample_request = buyermodels.sample_request.objects.get(id=id)
+    if request.method == 'POST':
+        form = buyerforms.SampleRequestForm(request.POST, instance=sample_request)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                                request,
+                                'Details Saved Successfully',
+                                extra_tags='alert alert-success alert-dismissible fade show'
+                            )
+        return redirect('employee:sample-requests')
+    else:
+        form = buyerforms.SampleRequestForm(instance=sample_request)
+        formtitle = 'Edit Sample Request Details'
+        context = {
+            'formtitle':formtitle,
+            'form':form,
+        }
+        return render(request, 'form.html', context)
+
+def SampleRequestDeleteView(request, id):
+    sample_request = buyermodels.sample_request.objects.get(id=id)
+    sample_request.delete()
+    return redirect('employee:sample-requests')
 
 
 

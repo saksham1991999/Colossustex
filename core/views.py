@@ -25,7 +25,7 @@ def HomeView(request):
 
 
 def ToDoList(request):
-    todolists = models.to_do.objects.all()
+    todolists = models.to_do.objects.filter(user=request.user)
     context = {
         'todolists': todolists,
     }
@@ -56,6 +56,7 @@ def ToDoMarkImportant(request, id):
 def ToDoMarkComplete(request, id):
     todo = models.to_do.objects.get(id=id)
     todo.is_completed = True
+    todo.is_important = False
     todo.save()
     return redirect('core:todo')
 

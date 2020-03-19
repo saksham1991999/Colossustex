@@ -174,7 +174,7 @@ class order(models.Model):
     suppliers_quotation = models.ManyToManyField(supplier, related_name='initial_suppliers')
 
     def __str__(self):
-        return self.inquiry_no
+        return self.enquiry_no
 
     class Meta:
         verbose_name_plural = 'Enquiry Details'
@@ -212,7 +212,7 @@ class payment(models.Model):
 
 
     def __str__(self):
-        return self.bill
+        return '1'
 
     class Meta:
         verbose_name_plural = 'Payment Details'

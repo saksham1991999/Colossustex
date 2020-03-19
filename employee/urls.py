@@ -52,10 +52,15 @@ urlpatterns = [
     path('shipments/edit/<int:id>/', views.ShipmentEditView, name='edit_shipment'),
     path('shipments/delete/<int:id>/', views.ShipmentDeleteView, name='delete_shipment'),
 
-    path('inspections/', views.ShipmentsView, name='inspections'),
-    path('inspections/add/', views.ShipmentAddView, name='add_inspection'),
-    path('inspections/edit/<int:id>/', views.ShipmentEditView, name='edit_inspection'),
-    path('inspections/delete/<int:id>/', views.ShipmentDeleteView, name='delete_inspection'),
+    path('inspections/', views.InspectionsView, name='inspections'),
+    path('inspections/add/', views.InspectionsAddView, name='add_inspection'),
+    path('inspections/edit/<int:id>/', views.InspectionsEditView, name='edit_inspection'),
+    path('inspections/delete/<int:id>/', views.InspectionsDeleteView, name='delete_inspection'),
+
+    path('sample-requests/', views.SampleRequestsView, name='sample-requests'),
+    path('sample-requests/add/', views.ShipmentAddView, name='add_sample-request'),
+    path('sample-requests/edit/<int:id>/', views.ShipmentEditView, name='edit_sample-request'),
+    path('sample-requests/delete/<int:id>/', views.ShipmentDeleteView, name='delete_sample-request'),
 
     path('visit-notes/', views.InspectionsView, name='visit-notes'),
     path('visit-notes/add/', views.InspectionsAddView, name='add_visit-note'),

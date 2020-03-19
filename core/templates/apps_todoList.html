@@ -1,27 +1,26 @@
 ﻿{% extends 'base.html' %}
 {% load static %}
 {% block extra_stylesheet %}
-
     <!--  BEGIN CUSTOM STYLE FILE  -->
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/editors/quill/quill.snow.css' %}">
     <link href="{% static 'assets/css/apps/todolist.css' %}" rel="stylesheet" type="text/css">
     <!--  END CUSTOM STYLE FILE  -->
-    {% endblock %}
+{% endblock extra_stylesheet %}
+
 
 {% block body_css %}
-    <body class="alt-menu sidebar-noneoverflow">
+<body class="alt-menu sidebar-noneoverflow">
 {% endblock body_css %}
 
-{% block extra_body %}
-
-    <!--  BEGIN MAIN CONTAINER  -->
+{% block content %}
+<!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container sidebar-closed sbar-open" id="container">
 
         <div class="overlay"></div>
         <div class="cs-overlay"></div>
         <div class="search-overlay"></div>
 
-		{% include 'sidebar.html' %}
+
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -68,19 +67,18 @@
                                     <input type="text" class="form-control input-search" placeholder="Search Here...">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu mail-menu d-lg-none"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                                 </div>
-                        
+
                                 <div class="todo-box">
-                                    
                                     <div id="ct" class="todo-box-scroll">
 
 
-<!--------------------------------- for to-do list main ------------------ -->
+
+
+
+
+
                                         {% for todo in todolists %}
-
-
-                    <!-- is_completed/done starts -->
-                                        {% if todo.is_completed == True %}
-                                            <div class="todo-item all-list todo-task-done">
+                                        <div class="{% if todo.is_deleted %}todo-item todo-task-trash{% else %}todo-item all-list{% if todo.is_completed %}todo-task-done{% elif todo.is_important %}todo-task-important{% endif %}{% endif %}">
                                             <div class="todo-item-inner">
                                                 <div class="n-chk text-center">
                                                     <label class="new-control new-checkbox checkbox-primary">
@@ -90,166 +88,19 @@
                                                 </div>
 
                                                 <div class="todo-content">
-                                                    <h5 class="todo-heading" data-todoheading="{{ todo.title }}">{{ todo.title }}</h5>
-                                                    <p class="meta-date">{{ todo.date }}</p>
-                                                    <p class="todo-text" data-todohtml="<p>{{ todo.content }}</p>" data-todotext='{"ops":[{"insert":"{{ todo.content }}\n"}]}'> {{ todo.content }}</p>
+                                                    <h5 class="todo-heading" data-todoheading="Meeting with Shaun Park at 4:50pm">{{ todo.title }}</h5>
+                                                    <p class="meta-date">{{ todo.date|date }}</p>
+                                                    <p class="todo-text" data-todohtml="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pulvinar feugiat consequat. Duis lacus nibh, sagittis id varius vel, aliquet non augue. Vivamus sem ante, ultrices at ex a, rhoncus ullamcorper tellus. Nunc iaculis eu ligula ac consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum mattis urna neque, eget posuere lorem tempus non. Suspendisse ac turpis dictum, convallis est ut, posuere sem. Etiam imperdiet aliquam risus, eu commodo urna vestibulum at. Suspendisse malesuada lorem eu sodales aliquam.</p>" data-todotext='{"ops":[{"insert":"{{ todo.content|linebreaks|escape }}"}]}'>{{ todo.content|linebreaks|escape }}</p>
                                                 </div>
 
+                                                {% comment %}
                                                 <div class="priority-dropdown custom-dropdown-icon">
                                                     <div class="dropdown p-dropdown">
-                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-16" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
-                                                        </a>
 
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-16">
-                                                            <a class="dropdown-item danger" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> High</a>
-                                                            <a class="dropdown-item warning" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Middle</a>
-                                                            <a class="dropdown-item primary" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Low</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="action-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-17" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                                        </a>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-17">
-                                                            <a class="edit dropdown-item" href="{% url 'core:todo_edit' todo.id %}">Edit</a>
-                                                            <a class="important dropdown-item" href="{% url 'core:todo_mark_important' todo.id %}">Important</a>
-                                                            <a class="dropdown-item delete" href="{% url 'core:todo_mark_deleted' todo.id %}">Delete</a>
-                                                            <a class="dropdown-item permanent-delete" href="{% url 'core:todo_permanent_delete' todo.id %}">Permanent Delete </a>
-                                                            <a class="dropdown-item revive" href="{% url 'core:todo_revive_task' todo.id %}">Revive Task</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        {% endif %}
-                    <!-- is_completed/done ends -->
-                    <!-- is_deleted/Trash starts -->
-                                        {% if todo.is_deleted == True and todo.is_important == False and todo.is_completed == False %}
-                                             <div class="todo-item todo-task-trash">
-                                            <div class="todo-item-inner">
-                                                <div class="n-chk text-center">
-                                                    <label class="new-control new-checkbox checkbox-primary">
-                                                      <input type="checkbox" class="new-control-input inbox-chkbox">
-                                                      <span class="new-control-indicator"></span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="todo-content">
-                                                    <h5 class="todo-heading" data-todoheading="{{ todo.title }}">{{ todo.title }}</h5>
-                                                    <p class="meta-date">{{ todo.date }}</p>
-                                                    <p class="todo-text" data-todohtml="<p>{{ todo.content }}</p>" data-todotext="{{ todo.content }}">{{ todo.content }} </p>
-                                                </div>
-
-                                                <div class="priority-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown p-dropdown">
-                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-18" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
-                                                        </a>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-18">
-                                                            <a class="dropdown-item danger" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> High</a>
-                                                            <a class="dropdown-item warning" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Middle</a>
-                                                            <a class="dropdown-item primary" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Low</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="action-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-19" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                                        </a>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-19">
-                                                            <a class="edit dropdown-item" href="{% url 'core:todo_edit' todo.id %}">Edit</a>
-                                                            <a class="important dropdown-item" href="{% url 'core:todo_mark_important' todo.id %}">Important</a>
-                                                            <a class="dropdown-item delete" href="{% url 'core:todo_mark_deleted' todo.id %}">Delete</a>
-                                                            <a class="dropdown-item permanent-delete" href="{% url 'core:todo_permanent_delete' todo.id %}">Permanent Delete </a>
-                                                            <a class="dropdown-item revive" href="{% url 'core:todo_revive_task' todo.id %}">Revive Task</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                    <!-- is_deleted/Trash ends -->
-                    <!-- is_important starts -->
-                                        {% if todo.is_important == True %}
-                                            <div class="todo-item all-list todo-task-important">
-                                            <div class="todo-item-inner">
-                                                <div class="n-chk text-center">
-                                                    <label class="new-control new-checkbox checkbox-primary">
-                                                      <input type="checkbox" class="new-control-input inbox-chkbox">
-                                                      <span class="new-control-indicator"></span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="todo-content">
-                                                    <h5 class="todo-heading" data-todoheading="{{ todo.title }}">{{ todo.title }}</h5>
-                                                    <p class="meta-date">{{ todo.date }}</p>
-                                                    <p class="todo-text" data-todohtml="<p>{{ todo.content }}</p>" data-todotext='{"ops":[{"insert":"{{ todo.content }}\n"}]}'> {{ todo.content }}</p>
-                                                </div>
-
-                                                <div class="priority-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown p-dropdown">
-                                                        <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-14" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
-                                                        </a>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-14">
-                                                            <a class="dropdown-item danger" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> High</a>
-                                                            <a class="dropdown-item warning" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Middle</a>
-                                                            <a class="dropdown-item primary" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> Low</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="action-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown">
-                                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink-15" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                                                        </a>
-
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-15">
-                                                            <a class="edit dropdown-item" href="{% url 'core:todo_edit' todo.id %}">Edit</a>
-                                                            <a class="important dropdown-item" href="{% url 'core:todo_mark_important' todo.id %}">Important</a>
-                                                            <a class="dropdown-item delete" href="{% url 'core:todo_mark_deleted' todo.id %}">Delete</a>
-                                                            <a class="dropdown-item permanent-delete" href="{% url 'core:todo_permanent_delete' todo.id %}">Permanent Delete </a>
-                                                            <a class="dropdown-item revive" href="{% url 'core:todo_revive_task' todo.id %}">Revive Task</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {% endif %}
-                    <!-- is_important ends -->
-                                        {% if todo.is_completed == False and todo.is_important == False and todo.is_deleted == False %}
-                                        <div class="todo-item all-list">
-                                            <div class="todo-item-inner">
-                                                <div class="n-chk text-center">
-                                                    <label class="new-control new-checkbox checkbox-primary">
-                                                      <input type="checkbox" class="new-control-input inbox-chkbox">
-                                                      <span class="new-control-indicator"></span>
-                                                    </label>
-                                                </div>
-
-                                                <div class="todo-content">
-                                                    <h5 class="todo-heading" data-todoheading="{{ todo.title }}">{{ todo.title }}</h5>
-                                                    <p class="meta-date">{{ todo.date }}</p>
-                                                    <p class="todo-text" data-todohtml="<p>{{ todo.content }}</p>" data-todotext='{"ops":[{"insert":"{{ todo.content }}/n"}]}'>{{ todo.content }}</p>
-                                                </div>
-
-                                                <div class="priority-dropdown custom-dropdown-icon">
-                                                    <div class="dropdown p-dropdown">
                                                         <a class="dropdown-toggle warning" href="#" role="button" id="dropdownMenuLink-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
                                                         </a>
+
 
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-1">
                                                             <a class="dropdown-item danger" href="javascript:void(0);"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-octagon"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"></polygon><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg> High</a>
@@ -258,6 +109,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {% endcomment %}
 
                                                 <div class="action-dropdown custom-dropdown-icon">
                                                     <div class="dropdown">
@@ -267,25 +119,31 @@
 
                                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink-2">
                                                             <a class="edit dropdown-item" href="{% url 'core:todo_edit' todo.id %}">Edit</a>
+                                                            {% if todo.is_important %}
+                                                            <a class="important dropdown-item" href="javascript:void(0);">Back to List</a>
                                                             <a class="important dropdown-item" href="{% url 'core:todo_mark_important' todo.id %}">Important</a>
+                                                            {% else %}
+                                                            <a class="important dropdown-item" href="{% url 'core:todo_edit' todo.id %}">Important</a>
+                                                            {% endif %}
+                                                            {% if todo.is_deleted %}
                                                             <a class="dropdown-item delete" href="{% url 'core:todo_mark_deleted' todo.id %}">Delete</a>
-                                                            <a class="dropdown-item permanent-delete" href="{% url 'core:todo_permanent_delete' todo.id %}">Permanent Delete </a>
+                                                            {% else %}
                                                             <a class="dropdown-item revive" href="{% url 'core:todo_revive_task' todo.id %}">Revive Task</a>
+                                                            {% endif %}
+                                                            <a class="dropdown-item permanent-delete" href="{% url 'core:todo_permanent_delete' todo.id %}">Permanent Delete</a>
+
                                                         </div>
                                                     </div>
                                                 </div>
 
                                             </div>
                                         </div>
-                                        {% endif %}
-
 
 
                                         {% endfor %}
-<!------------------ endfor ---------------->
-                                    </div>
-                                </div>
-                            </div>
+
+
+
 
                                     <div class="modal fade" id="todoShowListItem" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -307,7 +165,7 @@
                                     </div>
                                 </div>
 
-                            </div>                                    
+                            </div>
                         </div>
 
                         <!-- Modal -->
@@ -352,29 +210,22 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
 
                 </div>
-        <div class="footer-wrapper">
-                <div class="footer-section f-section-1">
-                    <p class="">Copyright © 2020 <a target="_blank" href="https://designreset.com">DesignReset</a>, All rights reserved.</p>
-                </div>
-                <div class="footer-section f-section-2">
-                    <p class="">Coded with <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></p>
-                </div>
-            </div>
+
         </div>
         <!--  END CONTENT AREA  -->
+{% endblock content %}
 
-    </div>
-    <!-- END MAIN CONTAINER -->
 
-{% endblock %}
+
+
 
 {% block extra_scripts %}
     <script src="{% static 'assets/js/ie11fix/fn.fix-padStart.js' %}"></script>
     <script src="{% static 'plugins/editors/quill/quill.js' %}"></script>
-    <script src="{% static 'assets/js/apps/todoList.js' %}"></script>
-{% endblock %}
+    <script src="{% static 'assets/js/apps/todoList2.js' %}"></script>
+{% endblock extra_scripts %}
