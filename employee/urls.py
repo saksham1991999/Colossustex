@@ -31,6 +31,7 @@ urlpatterns = [
     path('products/add/', views.ProductAddView, name='add_product'),
     path('products/edit/<int:id>/', views.ProductEditView, name='edit_product'),
     path('products/delete/<int:id>/', views.ProductDeleteView, name='delete_product'),
+    path('products/<int:id>/', views.ProductView, name='single_product'),
 
     path('enquiries/', views.EnquiriesView, name='enquiries'),
     path('enquiries/add/', views.EnquiryAddView, name='add_enquiry'),
@@ -79,4 +80,28 @@ urlpatterns = [
 
     path('leave-applications/', views.UpdatesView, name='leave_applications'),
     path('submit-leave-applications/add/', views.UpdatesAddView, name='add_leave_application'),
+
+    path('buyer-complaints/', views.BuyerComplaintsView, name='buyer_complaints'),
+    path('buyer-complaints/add/', views.BuyerComplaintAddView, name='add_buyer_complaint'),
+    path('buyer-complaints/<int:id>/', views.BuyerComplaintView, name='single_buyer_complaint'),
+
+    path('supplier-complaints/', views.SupplierComplaintsView, name='supplier_complaints'),
+    path('supplier-complaints/add/', views.SupplierComplaintAddView, name='add_supplier_complaint'),
+    path('supplier-complaints/<int:id>/', views.SupplierComplaintView, name='single_supplier_complaint'),
+
+    path('sub-agent-complaints/', views.SubAgentComplaintsView, name='sub_agent_complaints'),
+    path('sub-agent-complaints/add/', views.SubAgentComplaintAddView, name='add_sub_agent_complaint'),
+    path('sub-agent-complaints/<int:id>/', views.SubAgentComplaintView, name='single_sub_agent_complaint'),
+
+    path('buyer-feedbacks/', views.BuyerFeedbacksView, name='buyer_feedbacks'),
+    path('buyer-feedbacks/add/', views.BuyerFedbackAddView, name='add_buyer_feedback'),
+    path('buyer-feedbacks/<int:id>/', views.BuyerFeedbackView, name='single_buyer_feedback'),
+
+    path('supplier-feedbacks/', views.SupplierFeedbacksView, name='supplier_feedbacks'),
+    path('supplier-feedbacks/add/', views.SupplierFedbackAddView, name='add_supplier_feedback'),
+    path('supplier-feedbacks/<int:id>/', views.SupplierFeedbackView, name='single_supplier_feedback'),
+
+    path('sub-agent-feedbacks/', views.SubAgentFeedbacksView, name='sub_agent_feedbacks'),
+    path('sub-agent-feedbacks/add/', views.SubAgentFedbackAddView, name='add_sub_agent_feedback'),
+    path('sub-agent-feedbacks/<int:id>/', views.SubAgentFeedbackView, name='single_sub_agent_feedback'),
 ]

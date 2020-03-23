@@ -34,7 +34,7 @@ def ProfileView(request):
     employee = models.employee.objects.get(user = request.user)
     if request.method == 'POST':
         print('POST REQUEST')
-        form = forms.EmployeeProfileForm(request.POST, instance=employee)
+        form = forms.EmployeeProfileForm(request.POST, request.FILES, instance=employee)
         print(form.errors)
         if form.is_valid():
             print('FORM IS VALID')
@@ -66,7 +66,7 @@ def EmployeesView(request):
 
 def EmployeeAddView(request):
     if request.method == 'POST':
-        form = forms.EmployeeProfileForm(request.POST)
+        form = forms.EmployeeProfileForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.save()
@@ -88,7 +88,7 @@ def EmployeeAddView(request):
 def EmployeeEditView(request, id):
     employee = models.employee.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.EmployeeProfileForm(request.POST, instance=employee)
+        form = forms.EmployeeProfileForm(request.POST, request.FILES, instance=employee)
         print(form.errors)
         if form.is_valid():
             print('FORM IS VALID')
@@ -127,7 +127,7 @@ def SuppliersView(request):
 def SuppliersAddView(request):
     if request.method == 'POST':
         print('POST REQUEST')
-        form = forms.SupplierProfileForm(request.POST)
+        form = forms.SupplierProfileForm(request.POST, request.FILES)
         print(form.errors)
         if form.is_valid():
             print('FORM IS VALID')
@@ -153,7 +153,7 @@ def SupplierEditView(request, id):
     supplier = suppliermodels.supplier.objects.get(id=id)
     if request.method == 'POST':
         print('POST REQUEST')
-        form = forms.SupplierProfileForm(request.POST, instance=supplier)
+        form = forms.SupplierProfileForm(request.POST, request.FILES, instance=supplier)
         print(form.errors)
         if form.is_valid():
             print('FORM IS VALID')
@@ -190,7 +190,7 @@ def SubAgentView(request):
 
 def SubAgentAddView(request):
     if request.method == 'POST':
-        form = forms.SubAgentProfileForm(request.POST)
+        form = forms.SubAgentProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -211,7 +211,7 @@ def SubAgentAddView(request):
 def SubAgentEditView(request, id):
     agent = agentmodels.agent.objects.get(id = id)
     if request.method == 'POST':
-        form = forms.SubAgentProfileForm(request.POST, instance=agent)
+        form = forms.SubAgentProfileForm(request.POST, request.FILES, instance=agent)
         if form.is_valid():
             form.save()
             messages.success(
@@ -244,7 +244,7 @@ def BuyersView(request):
 
 def BuyersAddView(request):
     if request.method == 'POST':
-        form = forms.BuyerProfileForm(request.POST)
+        form = forms.BuyerProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -265,7 +265,7 @@ def BuyersAddView(request):
 def BuyersEditView(request, id):
     buyer = buyermodels.buyer.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.BuyerProfileForm(request.POST, instance=buyer)
+        form = forms.BuyerProfileForm(request.POST, request.FILES, instance=buyer)
         if form.is_valid():
             form.save()
             messages.success(
@@ -298,7 +298,7 @@ def ProductsView(request):
 
 def ProductAddView(request):
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST)
+        form = forms.ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -319,7 +319,7 @@ def ProductAddView(request):
 def ProductEditView(request, id):
     product = coremodels.product.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST, instance=product)
+        form = forms.ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             messages.success(
@@ -342,6 +342,14 @@ def ProductDeleteView(request, id):
     product.delete()
     return redirect('employee:products')
 
+def ProductView(request,id):
+    product = coremodels.product.objects.get(id=id)
+    context = {
+        'product' : product,
+    }
+
+    return render(request, 'single_product.html', context)
+
 
 def EnquiriesView(request):
     enquiries = coremodels.order.objects.all()
@@ -352,7 +360,7 @@ def EnquiriesView(request):
 
 def EnquiryAddView(request):
     if request.method == 'POST':
-        form = forms.EnquiryForm(request.POST)
+        form = forms.EnquiryForm(request.POST, request.FILES)
         if form.is_valid():
             print('Adding Enquiry')
             form.save()
@@ -374,7 +382,7 @@ def EnquiryAddView(request):
 def EnquiryEditView(request, id):
     enquiry = coremodels.order.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.ProductForm(request.POST, instance=enquiry)
+        form = forms.ProductForm(request.POST, request.FILES, instance=enquiry)
         if form.is_valid():
             form.save()
             messages.success(
@@ -407,7 +415,7 @@ def BillsView(request):
 
 def BillAddView(request):
     if request.method == 'POST':
-        form = forms.BillForm(request.POST)
+        form = forms.BillForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -428,7 +436,7 @@ def BillAddView(request):
 def BillEditView(request, id):
     bill = coremodels.bill.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.BillForm(request.POST, instance=bill)
+        form = forms.BillForm(request.POST, request.FILES, instance=bill)
         if form.is_valid():
             form.save()
             messages.success(
@@ -461,7 +469,7 @@ def PaymentsView(request):
 
 def PaymentAddView(request):
     if request.method == 'POST':
-        form = forms.PaymentForm(request.POST)
+        form = forms.PaymentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -482,7 +490,7 @@ def PaymentAddView(request):
 def PaymentEditView(request, id):
     payment = coremodels.payment.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.PaymentForm(request.POST, instance=payment)
+        form = forms.PaymentForm(request.POST, request.FILES, instance=payment)
         if form.is_valid():
             form.save()
             messages.success(
@@ -515,7 +523,7 @@ def ShipmentsView(request):
 
 def ShipmentAddView(request):
     if request.method == 'POST':
-        form = forms.ShipmentForm(request.POST)
+        form = forms.ShipmentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -536,7 +544,7 @@ def ShipmentAddView(request):
 def ShipmentEditView(request, id):
     shipment = coremodels.shipment.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.ShipmentForm(request.POST, instance=shipment)
+        form = forms.ShipmentForm(request.POST, request.FILES, instance=shipment)
         if form.is_valid():
             form.save()
             messages.success(
@@ -569,7 +577,7 @@ def InspectionsView(request):
 
 def InspectionsAddView(request):
     if request.method == 'POST':
-        form = forms.InspectionForm(request.POST)
+        form = forms.InspectionForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -590,7 +598,7 @@ def InspectionsAddView(request):
 def InspectionsEditView(request, id):
     inspection = models.inspection.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.InspectionForm(request.POST, instance=inspection)
+        form = forms.InspectionForm(request.POST, request.FILES, instance=inspection)
         if form.is_valid():
             form.save()
             messages.success(
@@ -623,7 +631,7 @@ def SampleRequestsView(request):
 
 def SampleRequestAddView(request):
     if request.method == 'POST':
-        form = buyerforms.SampleRequestForm(request.POST)
+        form = buyerforms.SampleRequestForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -644,7 +652,7 @@ def SampleRequestAddView(request):
 def SampleRequestEditView(request, id):
     sample_request = buyermodels.sample_request.objects.get(id=id)
     if request.method == 'POST':
-        form = buyerforms.SampleRequestForm(request.POST, instance=sample_request)
+        form = buyerforms.SampleRequestForm(request.POST, request.FILES, instance=sample_request)
         if form.is_valid():
             form.save()
             messages.success(
@@ -667,8 +675,6 @@ def SampleRequestDeleteView(request, id):
     sample_request.delete()
     return redirect('employee:sample-requests')
 
-
-
 def VisitNotesView(request):
     employee = models.employee.objects.get(user = request.user)
     notes = models.employee_visit.objects.filter(employee=employee)
@@ -680,7 +686,7 @@ def VisitNotesView(request):
 def VisitNotesAddView(request):
     if request.method == 'POST':
         employee = models.employee.objects.get(user = request.user)
-        form = forms.VisitNoteForm(request.POST)
+        form = forms.VisitNoteForm(request.POST, request.FILES)
         print(employee)
         if form.is_valid():
             new_form = form.save(commit=False)
@@ -704,7 +710,7 @@ def VisitNotesAddView(request):
 def VisitNotesEditView(request, id):
     note = models.employee_visit.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.VisitNoteForm(request.POST, instance=note)
+        form = forms.VisitNoteForm(request.POST, request.FILES, instance=note)
         if form.is_valid():
             form.save()
             messages.success(
@@ -737,7 +743,7 @@ def SuplusProductsView(request):
 
 def SuplusProductsAddView(request):
     if request.method == 'POST':
-        form = forms.SuplusProductForm(request.POST)
+        form = forms.SuplusProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -758,7 +764,7 @@ def SuplusProductsAddView(request):
 def SuplusProductsEditView(request, id):
     suplus_product = coremodels.suplus_product.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.SuplusProductForm(request.POST, instance=suplus_product)
+        form = forms.SuplusProductForm(request.POST, request.FILES, instance=suplus_product)
         if form.is_valid():
             form.save()
             messages.success(
@@ -782,6 +788,7 @@ def SuplusProductsDeleteView(request, id):
     return redirect('employee:suplus-products')
 
 
+
 def UpdatesView(request):
     updates = coremodels.suplus_product.objects.all()
     context = {
@@ -791,7 +798,7 @@ def UpdatesView(request):
 
 def UpdatesAddView(request):
     if request.method == 'POST':
-        form = forms.UpdateNewsForm(request.POST)
+        form = forms.UpdateNewsForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -812,7 +819,7 @@ def UpdatesAddView(request):
 def UpdatesEditView(request, id):
     update = coremodels.updates.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.UpdateNewsForm(request.POST, instance=update)
+        form = forms.UpdateNewsForm(request.POST, request.FILES, instance=update)
         if form.is_valid():
             form.save()
             messages.success(
@@ -848,7 +855,7 @@ def LeaveApplicationsView(request):
 def SubmitLeaveApplicationView(request):
     if request.method == 'POST':
         employee = models.employee.objects.get(user=request.user)
-        form = forms.LeaveApplicationEmployeeForm(request.POST)
+        form = forms.LeaveApplicationEmployeeForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(
@@ -865,3 +872,212 @@ def SubmitLeaveApplicationView(request):
             'form':form,
         }
         return render(request, 'form.html', context)
+
+
+
+###########################################################################################################################
+def BuyerComplaintsView(request):
+    complaints = buyermodels.buyer_complaints.objects.all()
+    context = {
+        'complaints': complaints,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def BuyerComplaintAddView(request):
+    if request.method == 'POST':
+        form = forms.BuyerComplaintForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Complaint Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.BuyerComplaintForm()
+        formtitle = 'Add Complaint'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def BuyerComplaintView(request,id):
+    complaint = buyermodels.buyer_complaints.objects.get(id=id)
+    context = {
+        'complaint': complaint,
+    }
+
+    return render(request, 'single_product.html', context)
+
+def SupplierComplaintsView(request):
+    complaints = suppliermodels.supplier_complaints.objects.all()
+    context = {
+        'complaints': complaints,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def SupplierComplaintAddView(request):
+    if request.method == 'POST':
+        form = forms.SupplierComplaintForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Complaint Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.SupplierComplaintForm()
+        formtitle = 'Add Complaint'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SupplierComplaintView(request,id):
+    complaint = suppliermodels.supplier_complaints.objects.get(id=id)
+    context = {
+        'complaint': complaint,
+    }
+
+    return render(request, 'single_product.html', context)
+
+def SubAgentComplaintsView(request):
+    complaints = agentmodels.agent_complaints.objects.all()
+    context = {
+        'complaints': complaints,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def SubAgentComplaintAddView(request):
+    if request.method == 'POST':
+        form = forms.SubAgentComplaintForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Complaint Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.SubAgentComplaintForm()
+        formtitle = 'Add Complaint'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SubAgentComplaintView(request,id):
+    complaint = agentmodels.agent_complaints.objects.get(id=id)
+    context = {
+        'complaint': complaint,
+    }
+    return render(request, 'single_product.html', context)
+
+def BuyerFeedbacksView(request):
+    feedbacks = buyermodels.buyer_general_feedback.objects.all()
+    context = {
+        'feedbacks': feedbacks,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def BuyerFedbackAddView(request):
+    if request.method == 'POST':
+        form = forms.BuyerFeedbackForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Feedback Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.BuyerFeedbackForm()
+        formtitle = 'Add Feedback'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def BuyerFeedbackView(request,id):
+    feedback = buyermodels.buyer_general_feedback.objects.get(id=id)
+    context = {
+        'feedback': feedback,
+    }
+    return render(request, 'single_product.html', context)
+
+def SupplierFeedbacksView(request):
+    feedbacks = suppliermodels.supplier_feedback.objects.all()
+    context = {
+        'feedbacks': feedbacks,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def SupplierFedbackAddView(request):
+    if request.method == 'POST':
+        form = forms.SupplierFeedbackForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Feedback Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.SupplierFeedbackForm()
+        formtitle = 'Add Feedback'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SupplierFeedbackView(request,id):
+    feedback = suppliermodels.supplier_feedback.objects.get(id=id)
+    context = {
+        'feedback': feedback,
+    }
+    return render(request, 'single_product.html', context)
+
+def SubAgentFeedbacksView(request):
+    feedbacks = agentmodels.agent_general_feedback.objects.all()
+    context = {
+        'feedbacks': feedbacks,
+    }
+    return render(request, 'list_users/list_products.html', context)
+
+def SubAgentFedbackAddView(request):
+    if request.method == 'POST':
+        form = forms.SubAgentFeedbackForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Feedback Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:')
+    else:
+        form = forms.SubAgentFeedbackForm()
+        formtitle = 'Add Feedback'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SubAgentFeedbackView(request,id):
+    feedback = agentmodels.agent_general_feedback.objects.get(id=id)
+    context = {
+        'feedback': feedback,
+    }
+    return render(request, 'single_product.html', context)

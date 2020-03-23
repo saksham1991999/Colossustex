@@ -6,6 +6,9 @@ from . import models
 from supplier.models import supplier
 from agent.models import agent
 from buyer.models import buyer
+from buyer import models as buyermodels
+from supplier import models as suppliermodels
+from agent import models as agentmodels
 from core import models as coremodels
 from hr import models as hrmodels
 
@@ -104,5 +107,41 @@ class LeaveApplicationEmployeeForm(forms.ModelForm):
 class InspectionForm(forms.ModelForm):
     class Meta:
         model = models.inspection
+        fields = '__all__'
+
+
+class BuyerComplaintForm(forms.ModelForm):
+    class Meta:
+        model = buyermodels.buyer_complaints
+        fields = '__all__'
+
+
+class SupplierComplaintForm(forms.ModelForm):
+    class Meta:
+        model = suppliermodels.supplier_complaints
+        fields = '__all__'
+
+
+class SubAgentComplaintForm(forms.ModelForm):
+    class Meta:
+        model = agentmodels.agent_complaints
+        fields = '__all__'
+
+
+class BuyerFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = buyermodels.buyer_general_feedback
+        fields = '__all__'
+
+
+class SupplierFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = suppliermodels.supplier_feedback
+        fields = '__all__'
+
+
+class SubAgentFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = agentmodels.agent_general_feedback
         fields = '__all__'
 
