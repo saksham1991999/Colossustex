@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_stylesheet %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link href="{% static 'assets/css/elements/custom-typography.css' %}" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+{% endblock extra_stylesheet %}
+
+{% block body_css %}
+<body class="sidebar-noneoverflow" data-spy="scroll" data-target="#navSection" data-offset="140">
+{% endblock body_css %}
+
+{% block content %}
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+
+        <div class="sidenav-overlay"></div>
+
+    {% include 'sidebar.html' %}
+
+    <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="container">
+
+                <div class="container">
+
+
+                    <div class="row layout-top-spacing">
+
+
+                        <div id="typographyBlockquotes" class="col-lg-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4> Buyer Feedbacks</h4>
+                                            <a href="{% url 'employee:add_buyer_feedback' %}"><h5 style="float: left">Add Buyer Feedback</h5></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+
+                                    <div class="row">
+                                        {% for feedback in feedbacks %}
+                                        <div class="col-xl-6 mx-auto">
+                                            <blockquote class="blockquote">
+                                               <p class="d-inline"><b>{{ feedback.subject }}</b></p><br>
+                                               <p class="d-inline">{{ feedback.message }}</p>
+                                                <small>{{ feedback.buyer }} <cite title="Source Title">{{ feedback.date|date }}</cite></small>
+                                            </blockquote>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+
+                </div>
+
+        </div>
+        <!--  END CONTENT AREA  -->
+    </div>
+{% endblock content %}
+
+{% block extra_scripts %}
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+{% endblock extra_scripts %}

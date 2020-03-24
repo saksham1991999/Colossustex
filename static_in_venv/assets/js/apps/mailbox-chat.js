@@ -138,8 +138,11 @@ $('.switch-to-phone-call').off('click').on('click', function(event) {
     setTimeout(callOnConnect, 2000);
 })
 
+
 $('.mail-write-box').on('keydown', function(event) {
     if(event.key === 'Enter') {
+        form = $('#responseform');
+        form.submit();
         var chatInput = $(this);
         var chatMessageValue = chatInput.val();
         if (chatMessageValue === '') { return; }
@@ -150,6 +153,7 @@ $('.mail-write-box').on('keydown', function(event) {
         var clearChatInput = chatInput.val('');
     }
 })
+
 
 $('.hamburger, .chat-system .chat-box .chat-not-selected p').on('click', function(event) {
   $(this).parents('.chat-system').find('.user-list-box').toggleClass('user-list-box-show')

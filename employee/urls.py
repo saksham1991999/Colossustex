@@ -83,15 +83,15 @@ urlpatterns = [
 
     path('buyer-complaints/', views.BuyerComplaintsView, name='buyer_complaints'),
     path('buyer-complaints/add/', views.BuyerComplaintAddView, name='add_buyer_complaint'),
-    path('buyer-complaints/<int:id>/', views.BuyerComplaintView, name='single_buyer_complaint'),
+    path('buyer-complaints/<int:id>/', views.BuyerComplaintAddResponseView, name='single_buyer_complaint'),
 
     path('supplier-complaints/', views.SupplierComplaintsView, name='supplier_complaints'),
     path('supplier-complaints/add/', views.SupplierComplaintAddView, name='add_supplier_complaint'),
-    path('supplier-complaints/<int:id>/', views.SupplierComplaintView, name='single_supplier_complaint'),
+    path('supplier-complaints/<int:id>/', views.SupplierComplaintAddResponseView, name='single_supplier_complaint'),
 
     path('sub-agent-complaints/', views.SubAgentComplaintsView, name='sub_agent_complaints'),
     path('sub-agent-complaints/add/', views.SubAgentComplaintAddView, name='add_sub_agent_complaint'),
-    path('sub-agent-complaints/<int:id>/', views.SubAgentComplaintView, name='single_sub_agent_complaint'),
+    path('sub-agent-complaints/<int:id>/', views.SubAgentComplaintAddResponseView, name='single_sub_agent_complaint'),
 
     path('buyer-feedbacks/', views.BuyerFeedbacksView, name='buyer_feedbacks'),
     path('buyer-feedbacks/add/', views.BuyerFedbackAddView, name='add_buyer_feedback'),

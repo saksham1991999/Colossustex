@@ -878,11 +878,19 @@ def SubmitLeaveApplicationView(request):
 
 ###########################################################################################################################
 def BuyerComplaintsView(request):
-    complaints = buyermodels.buyer_complaints.objects.all()
-    context = {
-        'complaints': complaints,
-    }
-    return render(request, 'list_users/list_products.html', context)
+    if request.method == 'POST':
+        print(request.POST)
+        complaint_id = int(request.POST['complaint_id'])
+        message = request.POST['message']
+        response = buyermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response.save()
+        return redirect('core:buyer_complaints')
+    else:
+        complaints = buyermodels.buyer_complaints.objects.all()
+        context = {
+            'complaints': complaints,
+        }
+        return render(request, 'complaints_management/buyer_complaints.html', context)
 
 def BuyerComplaintAddView(request):
     if request.method == 'POST':
@@ -904,20 +912,31 @@ def BuyerComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def BuyerComplaintView(request,id):
-    complaint = buyermodels.buyer_complaints.objects.get(id=id)
-    context = {
-        'complaint': complaint,
-    }
+def BuyerComplaintAddResponseView(request,id):
+    if request.method == 'POST':
+        message = request.POST['message']
+        response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
+                                                                 user=request.user)
+        response.save()
+        return redirect('employee:buyer_complaints')
+    else:
+        return redirect('employee:buyer_complaints')
 
-    return render(request, 'single_product.html', context)
+
 
 def SupplierComplaintsView(request):
-    complaints = suppliermodels.supplier_complaints.objects.all()
-    context = {
-        'complaints': complaints,
-    }
-    return render(request, 'list_users/list_products.html', context)
+    if request.method == 'POST':
+        complaint_id = request.POST['complaint_id']
+        message = request.POST['message']
+        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response.save()
+        return redirect('core:buyer_complaints')
+    else:
+        complaints = suppliermodels.supplier_complaints.objects.all()
+        context = {
+            'complaints': complaints,
+        }
+        return render(request, 'complaints_management/supplier_complaints.html', context)
 
 def SupplierComplaintAddView(request):
     if request.method == 'POST':
@@ -939,20 +958,30 @@ def SupplierComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SupplierComplaintView(request,id):
-    complaint = suppliermodels.supplier_complaints.objects.get(id=id)
-    context = {
-        'complaint': complaint,
-    }
+def SupplierComplaintAddResponseView(request,id):
+    if request.method == 'POST':
+        message = request.POST['message']
+        response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
+                                                                 user=request.user)
+        response.save()
+        return redirect('employee:supplier_complaints')
+    else:
+        return redirect('employee:supplier_complaints')
 
-    return render(request, 'single_product.html', context)
 
 def SubAgentComplaintsView(request):
-    complaints = agentmodels.agent_complaints.objects.all()
-    context = {
-        'complaints': complaints,
-    }
-    return render(request, 'list_users/list_products.html', context)
+    if request.method == 'POST':
+        complaint_id = request.POST['complaint_id']
+        message = request.POST['message']
+        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response.save()
+        return redirect('core:buyer_complaints')
+    else:
+        complaints = agentmodels.agent_complaints.objects.all()
+        context = {
+            'complaints': complaints,
+        }
+        return render(request, 'complaints_management/sub_agent_complaint.html', context)
 
 def SubAgentComplaintAddView(request):
     if request.method == 'POST':
@@ -974,19 +1003,23 @@ def SubAgentComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SubAgentComplaintView(request,id):
-    complaint = agentmodels.agent_complaints.objects.get(id=id)
-    context = {
-        'complaint': complaint,
-    }
-    return render(request, 'single_product.html', context)
+def SubAgentComplaintAddResponseView(request,id):
+    if request.method == 'POST':
+        message = request.POST['message']
+        response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
+                                                                 user=request.user)
+        response.save()
+        return redirect('employee:sub_agent_complaints')
+    else:
+        return redirect('employee:sub_agent_complaints')
+
 
 def BuyerFeedbacksView(request):
     feedbacks = buyermodels.buyer_general_feedback.objects.all()
     context = {
         'feedbacks': feedbacks,
     }
-    return render(request, 'list_users/list_products.html', context)
+    return render(request, 'feedbacks/buyer_feedbacks.html', context)
 
 def BuyerFedbackAddView(request):
     if request.method == 'POST':
@@ -998,7 +1031,7 @@ def BuyerFedbackAddView(request):
                 'Feedback Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:')
+        return redirect('employee:buyer_feedbacks')
     else:
         form = forms.BuyerFeedbackForm()
         formtitle = 'Add Feedback'
@@ -1015,12 +1048,13 @@ def BuyerFeedbackView(request,id):
     }
     return render(request, 'single_product.html', context)
 
+
 def SupplierFeedbacksView(request):
     feedbacks = suppliermodels.supplier_feedback.objects.all()
     context = {
         'feedbacks': feedbacks,
     }
-    return render(request, 'list_users/list_products.html', context)
+    return render(request, 'feedbacks/supplier_feedbacks.html', context)
 
 def SupplierFedbackAddView(request):
     if request.method == 'POST':
@@ -1032,7 +1066,7 @@ def SupplierFedbackAddView(request):
                 'Feedback Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:')
+        return redirect('employee:supplier_feedbacks')
     else:
         form = forms.SupplierFeedbackForm()
         formtitle = 'Add Feedback'
@@ -1049,12 +1083,13 @@ def SupplierFeedbackView(request,id):
     }
     return render(request, 'single_product.html', context)
 
+
 def SubAgentFeedbacksView(request):
     feedbacks = agentmodels.agent_general_feedback.objects.all()
     context = {
         'feedbacks': feedbacks,
     }
-    return render(request, 'list_users/list_products.html', context)
+    return render(request, 'feedbacks/sub_agent_feedbacks.html', context)
 
 def SubAgentFedbackAddView(request):
     if request.method == 'POST':
@@ -1066,7 +1101,7 @@ def SubAgentFedbackAddView(request):
                 'Feedback Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:')
+        return redirect('employee:sub_agent_feedbacks')
     else:
         form = forms.SubAgentFeedbackForm()
         formtitle = 'Add Feedback'

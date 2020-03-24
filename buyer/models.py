@@ -35,7 +35,7 @@ class sample_request(models.Model):
     sample_approved = models.BooleanField(default=0)
 
     def __str__(self):
-        return self.buyer
+        return str(self.buyer)
 
     class Meta:
         verbose_name_plural = 'Sample Requests (Enquiry)'
@@ -47,7 +47,7 @@ class sample_follow_up(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return self.sample_request
+        return str(self.sample_request)
 
     class Meta:
         verbose_name_plural = 'Sample Requests (Enquiry) Follow-Up'
@@ -69,7 +69,7 @@ class buyer_complaints(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.order
+        return str(self.order)
 
     class Meta:
         verbose_name_plural = 'Buyer Order Complaints'
@@ -102,7 +102,7 @@ class complaint_response(models.Model):
     message = models.TextField()
 
     def __str__(self):
-        return self.complaint
+        return str(self.complaint)
 
     class Meta:
         verbose_name_plural = 'Complaint Responses'
