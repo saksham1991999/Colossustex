@@ -146,6 +146,9 @@ STATICFILES_ROOT = os.path.join(BASE_DIR, 'static_root')
 # )
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'accounts:login'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
 
 # EMAIL
 EMAIL_USE_TLS = True
@@ -176,5 +179,7 @@ AUTH_USER_MODEL = 'core.User'
 # AWS_S3_SIGNATURE_VERSION = 's3v4'
 #
 # AWS_S3_HOST = 's3.us-east-2.amazonaws.com'
+
+
 
 django_heroku.settings(locals())

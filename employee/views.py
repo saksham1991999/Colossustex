@@ -25,11 +25,12 @@ from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
 
-@login_required(login_url='/admin')
+@login_required
 def HomeView(request):
     context = {}
     return render(request, 'dashboard.html', context)
 
+@login_required(login_url='/accounts/login/')
 def ProfileView(request):
     employee = models.employee.objects.get(user = request.user)
     if request.method == 'POST':
