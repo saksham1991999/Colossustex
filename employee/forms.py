@@ -40,7 +40,6 @@ class SupplierProfileForm(forms.ModelForm):
         model = supplier
         exclude = ['user']
 
-
 class SubAgentProfileForm(forms.ModelForm):
     class Meta:
         model = agent
@@ -57,41 +56,74 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
 
+#ENQUIRY MANAGEMENT FORMS
+class InquiryForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.inquiry
+        fields = ['buyer', 'source', 'agent', 'remarks']
+
+
+class InquiryProductForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.inquiry_product
+        fields = ['product', 'qty', 'remark']
+
+class NotifySuppliersForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.notified_suppliers
+        fields = ['suppliers']
+
+class SupplierQuotationsForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.supplier_quotations
+        fields = ['supplier', 'total_price', 'document', 'remark']
+
+class ForwardedQuotationsForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.forwarded_quotation
+        fields = ['quotations']
+
+class CustomerFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.customer_feedback
+        fields = ['feedback', 'document']
+
+class ClosingInquiryForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.inquiry
+        fields = ['close_choice']
+
+
+
 class EnquiryForm(forms.ModelForm):
     class Meta:
         model = coremodels.order
         fields = '__all__'
-
 
 class BillForm(forms.ModelForm):
     class Meta:
         model = coremodels.bill
         fields = '__all__'
 
-
 class PaymentForm(forms.ModelForm):
     class Meta:
         model = coremodels.payment
         fields = '__all__'
-
 
 class ShipmentForm(forms.ModelForm):
     class Meta:
         model = coremodels.shipment
         fields = '__all__'
 
-
 class VisitNoteForm(forms.ModelForm):
     class Meta:
         model = models.employee_visit
         exclude = ['employee']
 
-
 class SuplusProductForm(forms.ModelForm):
     class Meta:
         model = coremodels.suplus_product
         fields = '__all__'
-
 
 class UpdateNewsForm(forms.ModelForm):
     class Meta:
@@ -103,42 +135,35 @@ class LeaveApplicationEmployeeForm(forms.ModelForm):
         model = hrmodels.leaveapplication
         exclude = ['employee', 'status']
 
-
 class InspectionForm(forms.ModelForm):
     class Meta:
         model = models.inspection
         fields = '__all__'
-
 
 class BuyerComplaintForm(forms.ModelForm):
     class Meta:
         model = buyermodels.buyer_complaints
         fields = '__all__'
 
-
 class SupplierComplaintForm(forms.ModelForm):
     class Meta:
         model = suppliermodels.supplier_complaints
         fields = '__all__'
-
 
 class SubAgentComplaintForm(forms.ModelForm):
     class Meta:
         model = agentmodels.agent_complaints
         fields = '__all__'
 
-
 class BuyerFeedbackForm(forms.ModelForm):
     class Meta:
         model = buyermodels.buyer_general_feedback
         fields = '__all__'
 
-
 class SupplierFeedbackForm(forms.ModelForm):
     class Meta:
         model = suppliermodels.supplier_feedback
         fields = '__all__'
-
 
 class SubAgentFeedbackForm(forms.ModelForm):
     class Meta:

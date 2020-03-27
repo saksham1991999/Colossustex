@@ -24,6 +24,7 @@ from buyer import models as buyermodels
 from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
+import datetime
 
 @login_required
 def HomeView(request):
@@ -111,6 +112,13 @@ def EmployeeEditView(request, id):
         }
         return render(request, 'form.html', context)
 
+def EmployeeViewView(request, id):
+    employee = models.employee.objects.get(id=id)
+    context = {
+        'employee':employee,
+    }
+    return render(request, 'list_users/single_employee.html', context)
+
 def EmployeeDeleteView(request, id):
     employee = models.employee.objects.get(id=id)
     employee.delete()
@@ -176,6 +184,13 @@ def SupplierEditView(request, id):
         }
         return render(request, 'form.html', context)
 
+def SupplierViewView(request, id):
+    supplier = suppliermodels.supplier.objects.get(id=id)
+    context = {
+        'supplier':supplier,
+    }
+    return render(request, 'list_users/single_supplier.html', context)
+
 def SupplierDeleteView(request, id):
     supplier = suppliermodels.supplier.objects.get(id=id)
     supplier.delete()
@@ -230,6 +245,13 @@ def SubAgentEditView(request, id):
         }
         return render(request, 'form.html', context)
 
+def SubAgentViewView(request, id):
+    agent = agentmodels.agent.objects.get(id = id)
+    context = {
+        'agent':agent,
+    }
+    return render(request, 'list_users/single_agent.html', context)
+
 def SubAgentDeleteView(request, id):
     sub_agent = agentmodels.agent.objects.get(id=id)
     sub_agent.delete()
@@ -283,6 +305,14 @@ def BuyersEditView(request, id):
             'form':form,
         }
         return render(request, 'form.html', context)
+
+def BuyersViewView(request, id):
+    buyer = buyermodels.buyer.objects.get(id=id)
+
+    context = {
+        'buyer':buyer,
+    }
+    return render(request, 'list_users/single_buyer.html', context)
 
 def BuyerDeleteView(request, id):
     buyer = buyermodels.buyer.objects.get(id=id)
@@ -349,7 +379,7 @@ def ProductView(request,id):
         'product' : product,
     }
 
-    return render(request, 'single_product.html', context)
+    return render(request, 'list_users/single_product.html', context)
 
 
 def EnquiriesView(request):
@@ -874,6 +904,219 @@ def SubmitLeaveApplicationView(request):
         }
         return render(request, 'form.html', context)
 
+
+#INQUIRY MANAGEMENT VIEWS
+@login_required(login_url='/accounts/login/')
+def InquiresView(request):
+    inquiries = coremodels.inquiry.objects.all()
+    context = {
+        'inquiries':inquiries,
+    }
+    return render(request, 'list_enquiry/list_enquiries.html', context)
+
+@login_required(login_url='/accounts/login/')
+def InquiryView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id = id)
+    context = {
+        'inquiry':inquiry,
+    }
+    return render(request, 'list_inquiry/inquiry.html', context)
+
+@login_required(login_url='/accounts/login/')
+def AddInquiryView(request):
+    if request.method == 'POST':
+        form = forms.InquiryForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.received_datetime = datetime.datetime.now()
+            new_form.inquiry_user = request.user
+            new_form.save()
+            messages.success(
+                request,
+                'Inquiry Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiries')
+    else:
+        form = forms.InquiryForm()
+        formtitle = 'Add Inquiry Details'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def AddInquiryProductView(request, id):
+    if request.method == 'POST':
+        form = forms.InquiryProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            inquiry = coremodels.inquiry.objects.get(id=id)
+            new_form.inquiry = inquiry
+            new_form.save()
+            messages.success(
+                request,
+                'Product Details Added Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.InquiryProductForm()
+        formtitle = 'Add Inquiry Product Details'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def EditInquiryProductView(request, id):
+    inquiry_product = coremodels.inquiry_product.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.InquiryProductForm(request.POST, request.FILES, instance=inquiry_product)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Product Details Added Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', inquiry_product.inquiry.id)
+    else:
+        form = forms.InquiryProductForm(instance=inquiry_product)
+        formtitle = 'Edit Inquiry Product Details'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def DeleteInquiryProductView(request, id):
+    inquiry_product = coremodels.inquiry_product.objects.get(id=id)
+    inquiry_id = inquiry_product.inquiry.id
+    inquiry_product.delete()
+    return redirect('employee:inquiry', inquiry_id)
+
+def InquiryNotifySuppliersView(request, id):
+    if request.method == 'POST':
+        form = forms.NotifySuppliersForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            inquiry = coremodels.inquiry.objects.get(id=id)
+            inquiry.reply_datetime = datetime.datetime.now()
+            new_form.inquiry = inquiry
+            new_form.save()
+            messages.success(
+                request,
+                'Suppliers Selected Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.NotifySuppliersForm()
+        formtitle = 'Select Suppliers to Notify'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def AddSupplierQuotationView(request, id):
+    if request.method == 'POST':
+        form = forms.SupplierQuotationsForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            inquiry = coremodels.inquiry.objects.get(id=id)
+            inquiry.received_quotation_datetime = datetime.datetime.now()
+            new_form.inquiry = inquiry
+            new_form.save()
+            messages.success(
+                request,
+                'Supplier Quotation Added Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.SupplierQuotationsForm()
+        formtitle = 'Add Supplier Quotation'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SelectForwardQuotationsView(request, id):
+    if request.method == 'POST':
+        form = forms.ForwardedQuotationsForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            inquiry = coremodels.inquiry.objects.get(id=id)
+            inquiry.selected_quotation_datetime = datetime.datetime.now()
+            new_form.inquiry = inquiry
+            new_form.save()
+            messages.success(
+                request,
+                'Quotations Selected Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.ForwardedQuotationsForm()
+        formtitle = 'Select Quotations Forwarded'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def AddCustomerFeedbackView(request, id):
+    if request.method == 'POST':
+        form = forms.CustomerFeedbackForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            inquiry = coremodels.inquiry.objects.get(id=id)
+            inquiry.customer_feedback_datetime = datetime.datetime.now()
+            new_form.inquiry = inquiry
+            new_form.save()
+            messages.success(
+                request,
+                'Customer Feedback Successfully Added',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.CustomerFeedbackForm()
+        formtitle = 'Add Customer Feedback'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def ConfirmInquiryView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id=id)
+    inquiry.status = 'CM'
+    inquiry.confirming_user = request.user
+    inquiry.save()
+    return redirect('employee:inquiry', id)
+
+def CloseInquiryView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.ClosingInquiryForm(request.POST, request.FILES, instance=inquiry)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.status = 'CD'
+            new_form.confirming_user = request.user
+            new_form.save()
+        return redirect('employee:inquiry', id)
+    else:
+        form = forms.ClosingInquiryForm(instance=inquiry)
+        formtitle = 'Closing Inquiry Reason'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
 
 
 ###########################################################################################################################

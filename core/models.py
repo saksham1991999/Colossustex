@@ -127,7 +127,6 @@ class product(models.Model):
     class Meta:
         verbose_name_plural = 'Products'
 
-
 class office(models.Model):
     name = models.CharField(max_length=100)
     contact_person = models.CharField(max_length=100)
@@ -144,6 +143,119 @@ class office(models.Model):
 
     class Meta:
         verbose_name_plural = 'Responsible Offices'
+
+inquiry_source_choices = (
+    ('M', 'Mail'),
+    ('WC', 'WeChat'),
+    ('WP', 'Whatsapp'),
+    ('C', 'Call'),
+)
+inquiry_status_choices = (
+    ('O', 'Open'),
+    ('CM', 'Confirmed'),
+    ('CD', 'Closed'),
+)
+close_choices = (
+    ('HP', 'Prices are High'),
+    ('QS', 'Quality Not from nominated Supplier'),
+    ('AF', 'Awaiting Feedback'),
+    ('UD', 'Under Discussion or Development'),
+    ('NO', 'Not Offered'),
+)
+#INQUIRY DETAILS
+class inquiry(models.Model):
+    buyer = models.ForeignKey('buyer.buyer', on_delete=models.DO_NOTHING)
+    source = models.CharField(max_length=2, choices=inquiry_source_choices)
+    status = models.CharField(max_length=2, choices=inquiry_status_choices, default='O')
+    close_choice = models.CharField(max_length=2, choices=close_choices, blank=True, null=True)
+    inquiry_user = models.ForeignKey('employee.employee', on_delete=models.DO_NOTHING, related_name='inquiry_user')
+    confirming_user = models.ForeignKey('employee.employee', on_delete=models.DO_NOTHING, blank=True, null=True, related_name='closing_user')
+    agent = models.ForeignKey('agent.agent',on_delete=models.DO_NOTHING, blank=True, null=True, related_name='closing_user')
+    remarks = models.TextField(blank=True, null=True)
+
+    received_datetime = models.DateTimeField(auto_now_add=True)
+    reply_datetime = models.DateTimeField(blank=True, null=True)
+    received_quotation_datetime = models.DateTimeField(blank=True, null=True)
+    selected_quotation_datetime = models.DateTimeField(blank=True, null=True)
+    customer_feedback_datetime = models.DateTimeField(blank=True, null=True)
+    confirmation_datetime = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return 'CTI-' + str(self.id)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Details'
+
+    def inquiry_id(self):
+        return 'CTI-'+ str(self.id)
+
+    def suppliers_notified(self):
+        print('--------------------------------------NOTIFIED SUPPLIERS--------------')
+        notified_suppliers_qs = notified_suppliers.objects.get(inquiry=self)
+        suppliers = notified_suppliers_qs.suppliers.all()
+        print(suppliers)
+        return suppliers
+
+class inquiry_product(models.Model):
+    inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
+    product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
+    qty = models.PositiveSmallIntegerField()
+    remark = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.inquiry)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Products'
+
+
+
+class notified_suppliers(models.Model):
+    inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
+    suppliers = models.ManyToManyField('supplier.supplier')
+
+    def __str__(self):
+        return str(self.inquiry)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Notified Suppliers'
+
+class supplier_quotations(models.Model):
+    inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
+    supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
+    total_price = models.PositiveIntegerField()
+    document = models.FileField()
+    remark = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.inquiry)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Supplier Quotations'
+
+class forwarded_quotation(models.Model):
+    inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
+    quotations = models.ManyToManyField('core.supplier_quotations')
+
+    def __str__(self):
+        return str(self.inquiry)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Customer Forwarded Quotations'
+
+class customer_feedback(models.Model):
+    inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
+    feedback = models.TextField()
+    document = models.FileField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.inquiry)
+
+    class Meta:
+        verbose_name_plural = 'Inquiry Customer Feedback'
+
+
+#Indent Details
 
 class order(models.Model):
     enquiry_no = models.SlugField()
@@ -163,7 +275,7 @@ class order(models.Model):
     insurance = models.IntegerField()
     remarks = models.CharField(max_length=100)
     extra_remarks = models.TextField()
-    source = models.CharField(max_length=100)
+
     financial_year = models.CharField(max_length=4)
     month = models.CharField(max_length=10)
     status = models.BooleanField(default=0)
@@ -242,6 +354,8 @@ class shipment(models.Model):
 
     class Meta:
         verbose_name_plural = 'Shipment Details'
+
+
 
 
 

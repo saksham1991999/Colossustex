@@ -38,6 +38,5 @@ gunicorn==20.0.4
 Jinja2==2.10.3
 s3transfer==0.2.1
 requests==2.21.0
-whitenoise
 django-autocomplete-light
 django-google-analytics-app

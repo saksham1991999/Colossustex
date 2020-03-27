@@ -10,21 +10,25 @@ urlpatterns = [
     path('employees/', views.EmployeesView, name='employees'),
     path('employees/add/', views.EmployeeAddView, name='add_employee'),
     path('employees/edit/<int:id>/', views.EmployeeEditView, name='edit_employee'),
+    path('employees/view/<int:id>/', views.EmployeeViewView, name='view_employee'),
     path('employees/delete/<int:id>/', views.EmployeeDeleteView, name='delete_employee'),
 
     path('suppliers/', views.SuppliersView, name='suppliers'),
     path('suppliers/add/', views.SuppliersAddView, name='add_supplier'),
     path('suppliers/edit/<int:id>/', views.SupplierEditView, name='edit_supplier'),
+    path('suppliers/view/<int:id>/', views.SupplierViewView, name='view_supplier'),
     path('suppliers/delete/<int:id>/', views.SupplierDeleteView, name='delete_supplier'),
 
     path('sub_agents/', views.SubAgentView, name='sub_agents'),
     path('sub_agents/add/', views.SubAgentAddView, name='add_sub_agent'),
     path('sub_agents/edit/<int:id>/', views.SubAgentEditView, name='edit_sub_agent'),
+    path('sub_agents/view/<int:id>/', views.SubAgentViewView, name='view_sub_agent'),
     path('sub_agents/delete/<int:id>/', views.SubAgentEditView, name='delete_sub_agent'),
 
     path('buyers/', views.BuyersView, name='buyers'),
     path('buyers/add/', views.BuyersAddView, name='add_buyer'),
     path('buyers/edit/<int:id>/', views.BuyersEditView, name='edit_buyer'),
+    path('buyers/view/<int:id>/', views.BuyersViewView, name='edit_buyer'),
     path('buyers/delete/<int:id>/', views.BuyerDeleteView, name='delete_buyer'),
 
     path('products/', views.ProductsView, name='products'),
@@ -33,10 +37,6 @@ urlpatterns = [
     path('products/delete/<int:id>/', views.ProductDeleteView, name='delete_product'),
     path('products/<int:id>/', views.ProductView, name='single_product'),
 
-    path('enquiries/', views.EnquiriesView, name='enquiries'),
-    path('enquiries/add/', views.EnquiryAddView, name='add_enquiry'),
-    path('enquiries/edit/', views.EnquiryEditView, name='edit_enquiry'),
-    path('enquiries/delete/<int:id>/', views.EnquiryDeleteView, name='delete_enquiry'),
 
     path('bills/', views.BillsView, name='bills'),
     path('bills/add/', views.BillAddView, name='add_bill'),
@@ -104,4 +104,22 @@ urlpatterns = [
     path('sub-agent-feedbacks/', views.SubAgentFeedbacksView, name='sub_agent_feedbacks'),
     path('sub-agent-feedbacks/add/', views.SubAgentFedbackAddView, name='add_sub_agent_feedback'),
     path('sub-agent-feedbacks/<int:id>/', views.SubAgentFeedbackView, name='single_sub_agent_feedback'),
+
+    path('enquiries/', views.EnquiriesView, name='enquiries'),
+    path('enquiries/add/', views.EnquiryAddView, name='add_enquiry'),
+    path('enquiries/edit/', views.EnquiryEditView, name='edit_enquiry'),
+    path('enquiries/delete/<int:id>/', views.EnquiryDeleteView, name='delete_enquiry'),
+
+    #INQUIRY VIEWS
+    path('inquiries/', views.InquiresView, name='inquiries'),
+    path('inquiries/add/', views.AddInquiryView, name='add_inquiry'),
+    path('inquiry/<int:id>/', views.InquiryView, name='inquiry'),
+    path('inquiry/<int:id>/add-product/', views.AddInquiryProductView, name='inquiry_add_product'),
+    path('inquiry/<int:id>/edit-product/', views.EditInquiryProductView, name='inquiry_edit_product'),
+    path('inquiry/delete-product/<int:id>/', views.DeleteInquiryProductView, name='inquiry_delete_product'),
+    path('inquiry/select-suppliers/<int:id>/', views.InquiryNotifySuppliersView, name='inquiry_select_suppliers'),
+    path('inquiry/add-quotation/<int:id>/', views.AddSupplierQuotationView, name='inquiry_add_quotation'),
+    path('inquiry/select-quotations/<int:id>/', views.SelectForwardQuotationsView, name='inquiry_select_quotations'),
+    path('inquiry/add-customer-feedback/<int:id>/', views.AddCustomerFeedbackView, name='inquiry_add_customer_feedback'),
+
 ]

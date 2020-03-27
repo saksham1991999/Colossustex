@@ -6,7 +6,6 @@ class supplier(models.Model):
     cts = models.SlugField()
     products = models.ManyToManyField('core.product')
     name = models.CharField(max_length=100)
-    consignee = models.CharField(max_length=100)
     addr1 = models.CharField(max_length=100)
     addr2 = models.CharField(max_length=100)
     state = models.CharField(max_length=20)

@@ -1,0 +1,621 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_stylesheet %}
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link href="{% static 'assets/css/users/user-profile.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
+    <link href="{% static 'assets/css/tables/table-basic.css' %}" rel="stylesheet" type="text/css">
+    <!-- END PAGE LEVEL CUSTOM STYLES -->
+{% endblock extra_stylesheet %}
+
+
+
+{% block content %}
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+        {% include 'sidebar.html' %}
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="row layout-spacing">
+
+                    <!-- Content -->
+                    <div class="col-xl-4 col-lg-6 col-md-5 col-sm-12 layout-top-spacing">
+
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Buyer Details</h3>
+                                    {% comment %}
+                                    <a href="user_account_setting.html" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
+                                    {% endcomment %}
+                                </div>
+
+                                <div class="text-center user-info">
+
+                                    <p class="">{{ inquiry.inquiry_id }}</p>
+                                </div>
+                                <div class="user-info-list">
+
+                                    <div class="">
+                                        <ul class="contacts-block list-unstyled">
+                                            <li>
+                                                <a>Status:</a>&emsp;{{ inquiry.get_status_display }}
+                                            </li>
+                                            <li>
+                                                <a>Source:</a>&emsp;{{ inquiry.get_source_display }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                                {{ inquiry.buyer.name }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                {{ inquiry.received_datetime }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                                {{ inquiry.buyer.state }},{{ inquiry.buyer.country }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <a href="mailto:{{ inquiry.buyer.email }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>{{ inquiry.buyer.email }}</a>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                                {{ inquiry.buyer.mobile }}
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="buttonsSolid" class="col-lg-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Update Inquiry</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    {% if inquiry.customer_feedback_datetime %}
+                                        <a>
+                                            <button class="btn btn-success mb-2">Confirm Inquiry</button>
+                                        </a>
+                                        <a>
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
+                                    {% elif inquiry.selected_quotation_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Customer Feedback</button>
+                                        </a>
+                                    {% elif inquiry.received_quotation_datetime %}
+                                        <a href="{% url 'employee:inquiry_select_quotations' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Select Quotations</button>
+                                        </a>
+                                    {% elif inquiry.reply_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Supplier Quotation</button>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Select Suppliers</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Product</button>
+                                        </a>
+                                    {% endif %}
+
+
+                                    {% comment %}
+                                    <button class="btn btn-primary mb-2">Primary</button>
+                                    <button class="btn btn-info mb-2">Info</button>
+                                    <button class="btn btn-success mb-2">Success</button>
+                                    <button class="btn btn-warning mb-2">Warning</button>
+                                    <button class="btn btn-danger mb-2">Danger</button>
+                                    <button class="btn btn-secondary mb-2">Secondary</button>
+                                    <button class="btn btn-dark mb-2">Dark</button>
+                                <div class="widget-content widget-content-area text-center split-buttons">
+                                    <p class="mb-4">Apply <code>.btn-*</code> class followed by <code>.btn </code> class to create <b>default</b> buttons.</p>
+                                    <button class="btn btn-primary mb-2">Primary</button>
+                                    <button class="btn btn-info mb-2">Info</button>
+                                    <button class="btn btn-success mb-2">Success</button>
+                                    <button class="btn btn-warning mb-2">Warning</button>
+                                    <button class="btn btn-danger mb-2">Danger</button>
+                                    <button class="btn btn-secondary mb-2">Secondary</button>
+                                    <button class="btn btn-dark mb-2">Dark</button>
+                                    </div>
+                                    {% endcomment %}
+
+                            </div>
+                        </div>
+
+
+                        {% if inquiry.agent %}
+                        <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Agent Details</h3>
+                                    {% comment %}
+                                    <a href="user_account_setting.html" class="mt-2 edit-profile"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></a>
+                                    {% endcomment %}
+                                </div>
+
+                                <div class="text-center user-info">
+
+                                    <p class=""></p>
+                                </div>
+                                <div class="user-info-list">
+
+                                    <div class="">
+                                        <ul class="contacts-block list-unstyled">
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                                {{ inquiry.agent.name }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                                {{ inquiry.agent.state }}, {{ inquiry.agent.country }}
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <a href="mailto:example@mail.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>{{ inquiry.agent.email }}</a>
+                                            </li>
+                                            <li class="contacts-block__item">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                                {{ inquiry.agent.mobile }}
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="education layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Dates</h3>
+                                <div class="timeline-alter">
+
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.received_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Inquiry Received</p>
+                                        </div>
+                                    </div>
+
+                                    {% if inquiry.reply_datetime %}
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.reply_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Notified Suppliers</p>
+
+                                            <p>OTIF</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if received_quotation_datetime %}
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.received_quotation_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Received Seller Quotations</p>
+                                            <p>OTIF Passed</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if selected_quotation_datetime %}
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.selected_quotation_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Sent Selected Quotations</p>
+                                            <p>OTIF Passed</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+
+                                    {% if customer_feedback_datetime %}
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.customer_feedback_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Received Customer Feedback</p>
+                                            <p>OTIF Passed</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    {% if confirmation_datetime %}
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">{{ inquiry.confirmation_datetime }}</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Order Confirmed</p>
+                                            <p>OTIF Passed</p>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        {% comment %}
+                        <div class="work-experience layout-spacing ">
+
+                            <div class="widget-content widget-content-area">
+
+                                <h3 class="">Complaints</h3>
+
+                                <div class="timeline-alter">
+
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">04 Mar 2009</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Customer Complaints</p>
+                                            <p>Details</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">25 Apr 2014</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Buyer Complaints</p>
+                                            <p>Details</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item-timeline">
+                                        <div class="t-meta-date">
+                                            <p class="">04 Apr 2018</p>
+                                        </div>
+                                        <div class="t-dot">
+                                        </div>
+                                        <div class="t-text">
+                                            <p>Sub-Agent Complaints</p>
+                                            <p>Details</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        {% endcomment %}
+                    </div>
+
+                    <div class="col-xl-8 col-lg-6 col-md-7 col-sm-12 layout-top-spacing">
+
+                        {% if inquiry.inquiry_product_set.all %}
+                        <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Products</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Product ID</th>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    {% if inquiry.reply_datetime %}
+                                                        {% else %}
+                                                    <th class="text-center">Action</th>
+                                                        {% endif %}
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for product in inquiry.inquiry_product_set.all %}
+                                                <tr>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                    <td>
+                                                        <a href="{% url 'employee:single_product' product.product.id %}">{{ product.product.product_code }}</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="{% url 'employee:single_product' product.product.id %}">{{ product.product.name }}</a>
+                                                    </td>
+                                                    <td><p class="text-danger">{{ product.qty }}</p></td>
+                                                    {% if inquiry.reply_datetime %}
+                                                        {% else %}
+                                                    <td class="text-center">
+                                                        <ul class="table-controls">
+                                                            <li><a href="{% url 'employee:inquiry_edit_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                                            <li><a href="{% url 'employee:inquiry_delete_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
+                                                        </ul>
+                                                    </td>
+                                                {% endif %}
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.notified_suppliers.suppliers.all %}
+                        <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Notified Suppliers</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Supplier ID</th>
+                                                    <th>Supplier Name</th>
+                                                    <th>Mobile</th>
+                                                    <th class="text-center">Email</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                {% for supplier in inquiry.notified_suppliers.suppliers.all %}
+                                                <tr>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                    <td>
+                                                        <a href="{% url 'employee:view_supplier' supplier.id %}">{{ supplier.id  }}</a></td>
+                                                    <td>
+                                                        <a href="{% url 'employee:view_supplier' supplier.id %}">{{ supplier.name  }}</a></td>
+                                                    </td>
+                                                    <td><p class="text-danger">{{ supplier.mobile  }}</p></td>
+                                                    <td>
+                                                       {{ supplier.email  }}
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.notified_suppliers_set.all %}
+                        <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Supplier Quotations</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Quotation ID</th>
+                                                    <th>Supplier Name</th>
+                                                    <th>Total Price</th>
+                                                    <th class="text-center">Quotation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for quotation in inquiry.notified_suppliers_set.all %}
+                                                <tr>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                    <td>{{ quotation.id }}</td>
+                                                    <td>
+                                                       {{ quotation.supplier.id }}
+                                                    </td>
+                                                    <td><p class="text-danger">Rs {{ quotation.total_price }}</p></td>
+                                                    <td>
+                                                       <a href="{{ quotation.document.url }}">download</a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.forwarded_quotation.quotations.all %}
+                        <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Quotations Forwarded to Customer</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Quotation ID</th>
+                                                    <th>Supplier</th>
+                                                    <th>Total Price</th>
+                                                    <th class="text-center">Quotation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+
+                                                {% for quotation in inquiry.forwarded_quotation.quotations.all %}
+                                                <tr>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                    <td>{{ quotation.id }}</td>
+                                                    <td>
+                                                       {{ quotation.supplier.id }}
+                                                    </td>
+                                                    <td><p class="text-danger">Rs {{ quotation.total_price }}</p></td>
+                                                    <td>
+                                                       <a href="{{ quotation.document.url }}">download</a>
+                                                    </td>
+                                                </tr>
+                                                {% endfor %}
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.remarks %}
+                        <div class="bio layout-spacing ">
+                            <div class="widget-content widget-content-area">
+                                <h3 class="">Customer Feedback</h3>
+                                <p>{{ inquiry.remarks|linebreaks|escape }}</p>
+
+                                <div class="bio-skill-box">
+
+                                    <div class="row">
+
+                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-5 mb-5 ">
+
+                                            <div class="d-flex b-skills">
+                                                <div>
+                                                </div>
+                                                <div class="">
+                                                    <h5>Category 1</h5>
+                                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse eu fugiat nulla pariatur.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-5 mb-5 ">
+
+                                            <div class="d-flex b-skills">
+                                                <div>
+                                                </div>
+                                                <div class="">
+                                                    <h5>Category 2</h5>
+                                                    <p>Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-5 ">
+
+                                            <div class="d-flex b-skills">
+                                                <div>
+                                                </div>
+                                                <div class="">
+                                                    <h5>Category 3</h5>
+                                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia anim id est laborum.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-0 ">
+
+                                            <div class="d-flex b-skills">
+                                                <div>
+                                                </div>
+                                                <div class="">
+                                                    <h5>Category 4</h5>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do et dolore magna aliqua.</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+
+                </div>
+                </div>
+
+        </div>
+        <!--  END CONTENT AREA  -->
+
+    </div>
+    <!-- END MAIN CONTAINER -->
+{% endblock content %}
+
+{% block extra_scripts %}
+    <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+    <script>
+        checkall('todoAll', 'todochkbox');
+        $('[data-toggle="tooltip"]').tooltip()
+    </script>
+    <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
+{% endblock extra_scripts %}
