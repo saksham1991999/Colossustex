@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">
                                             <div class="dt-buttons" style="float: right;">
-                                                <a href="{% url 'employee:add_enquiry' %}">
+                                                <a href="{% url 'employee:add_inquiry' %}">
                                                 <button class="dt-button buttons-copy buttons-html5 btn" href="{% url 'employee:add_enquiry' %}">
                                                     <span>Add Enquiry</span>
                                                 </button>
@@ -55,54 +55,46 @@
                                     <thead>
                                         <tr>
                                             <th>Enquiry No.</th>
-                                            <th>Enq. Date</th>
-                                            <th>Office</th>
-                                            <th>Product</th>
-                                            <th>Supplier</th>
+                                            <th>Enquiry Date</th>
                                             <th>Buyer</th>
-                                            <th>Sub-Agent.</th>
-                                            <th>PO No</th>
-                                            <th>Contr. No</th>
-                                            <th>Price/Kg</th>
-                                            <th>QTY</th>
-                                            <th>SRC</th>
+                                            <th>Source</th>
+                                            <th>Sub-Agent</th>
                                             <th>Status</th>
-                                            <th>Indenting Comm.</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                    {% for enquiry in enquiries %}
+                                    {% for inquiry in inquiries %}
                                         <tr>
-                                            <td>{{ enquiry.enquiry_no }}</td>
-                                            <td>{{ enquiry.date_of_inquiry|date }}</td>
-                                            <td>{{ enquiry.responsible_office }}</td>
-                                            <td>{{ enquiry.product }}</td>
-                                            <td>{{ enquiry.final_supplier }}</td>
-                                            <td>{{ enquiry.customer }}</td>
-                                            <td>{{ enquiry.agent }}</td>
-                                            <td>{{ enquiry.po_no }}</td>
-                                            <td>{{ enquiry.contract_no }}</td>
-                                            <td>{{ enquiry.price_kg }}</td>
-                                            <td>{{ enquiry.quantity }}</td>
-                                            <td>{{ enquiry.source }}</td>
-                                            <td>{{ enquiry.status }}</td>
-                                            <td>{{ enquiry.indenting_commission }}</td>
+                                            <td>{{ inquiry.inquiry_id }}</td>
+                                            <td>{{ inquiry.received_datetime }}</td>
+                                            <td>{{ inquiry.buyer }}</td>
+                                            <td>{{ inquiry.get_source_display }}</td>
+                                            {% if inquiry.agent %}
+                                            <td>{{ inquiry.agent }}</td>
+                                            {% else %}
+                                            <td>-</td>
+                                            {% endif %}
+                                            <td>{{ inquiry.get_status_display }}</td>
 
 
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-dark btn-sm">Open</button>
+
+                                                    <a href="{% url 'employee:inquiry' inquiry.id %}"><button type="button" class="btn btn-dark btn-sm">Open</button></a>
+
                                                     <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                      <a class="dropdown-item" href="#">Action</a>
-                                                      <a class="dropdown-item" href="#">Another action</a>
+
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
                                                       <a class="dropdown-item" href="#">Something else here</a>
                                                       <div class="dropdown-divider"></div>
                                                       <a class="dropdown-item" href="#">Separated link</a>
+
                                                     </div>
                                                   </div>
                                             </td>
