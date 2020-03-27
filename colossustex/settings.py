@@ -182,4 +182,4 @@ AUTH_USER_MODEL = 'core.User'
 
 
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
