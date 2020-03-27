@@ -912,7 +912,7 @@ def InquiresView(request):
     context = {
         'inquiries':inquiries,
     }
-    return render(request, 'list_enquiry/list_enquiries.html', context)
+    return render(request, 'list_inquiry/list_inquiries.html', context)
 
 @login_required(login_url='/accounts/login/')
 def InquiryView(request, id):
