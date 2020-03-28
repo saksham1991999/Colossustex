@@ -929,7 +929,8 @@ def AddInquiryView(request):
         if form.is_valid():
             new_form = form.save(commit=False)
             new_form.received_datetime = datetime.datetime.now()
-            new_form.inquiry_user = request.user
+            employee = models.employee.objects.get(user=request.user)
+            new_form.inquiry_user = employee
             new_form.save()
             messages.success(
                 request,
@@ -998,13 +999,18 @@ def DeleteInquiryProductView(request, id):
 
 def InquiryNotifySuppliersView(request, id):
     if request.method == 'POST':
+        print('333333333333333333333333333333333333333333333333333333333333333333333333333333333333')
+        print(request.POST)
         form = forms.NotifySuppliersForm(request.POST, request.FILES)
         if form.is_valid():
             new_form = form.save(commit=False)
             inquiry = coremodels.inquiry.objects.get(id=id)
             inquiry.reply_datetime = datetime.datetime.now()
             new_form.inquiry = inquiry
+            inquiry.save()
             new_form.save()
+            form.save_m2m()
+            print(new_form.suppliers)
             messages.success(
                 request,
                 'Suppliers Selected Successfully',
@@ -1027,6 +1033,7 @@ def AddSupplierQuotationView(request, id):
             new_form = form.save(commit=False)
             inquiry = coremodels.inquiry.objects.get(id=id)
             inquiry.received_quotation_datetime = datetime.datetime.now()
+            inquiry.save()
             new_form.inquiry = inquiry
             new_form.save()
             messages.success(
@@ -1051,8 +1058,10 @@ def SelectForwardQuotationsView(request, id):
             new_form = form.save(commit=False)
             inquiry = coremodels.inquiry.objects.get(id=id)
             inquiry.selected_quotation_datetime = datetime.datetime.now()
+            inquiry.save()
             new_form.inquiry = inquiry
             new_form.save()
+            form.save_m2m()
             messages.success(
                 request,
                 'Quotations Selected Successfully',
@@ -1075,6 +1084,7 @@ def AddCustomerFeedbackView(request, id):
             new_form = form.save(commit=False)
             inquiry = coremodels.inquiry.objects.get(id=id)
             inquiry.customer_feedback_datetime = datetime.datetime.now()
+            inquiry.save()
             new_form.inquiry = inquiry
             new_form.save()
             messages.success(
@@ -1093,9 +1103,12 @@ def AddCustomerFeedbackView(request, id):
         return render(request, 'form.html', context)
 
 def ConfirmInquiryView(request, id):
+    print('----------------CONFIRMED INQUIRY------------------')
     inquiry = coremodels.inquiry.objects.get(id=id)
     inquiry.status = 'CM'
-    inquiry.confirming_user = request.user
+    employee = models.employee.objects.get(user=request.user)
+    inquiry.confirming_user = employee
+    inquiry.confirmation_datetime = datetime.datetime.now()
     inquiry.save()
     return redirect('employee:inquiry', id)
 
@@ -1106,7 +1119,9 @@ def CloseInquiryView(request, id):
         if form.is_valid():
             new_form = form.save(commit=False)
             new_form.status = 'CD'
-            new_form.confirming_user = request.user
+            employee = models.employee.objects.get(user=request.user)
+            new_form.confirming_user = employee
+            inquiry.confirmation_datetime = datetime.datetime.now()
             new_form.save()
         return redirect('employee:inquiry', id)
     else:

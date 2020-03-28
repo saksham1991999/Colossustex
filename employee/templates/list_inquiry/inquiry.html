@@ -77,6 +77,8 @@
                             </div>
                         </div>
 
+                        {% if inquiry.confirmation_datetime %}
+                            {% else %}
                         <div id="buttonsSolid" class="col-lg-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
@@ -88,10 +90,10 @@
                                 </div>
 
                                     {% if inquiry.customer_feedback_datetime %}
-                                        <a>
+                                        <a href="{% url 'employee:inquiry_confirm' inquiry.id %}">
                                             <button class="btn btn-success mb-2">Confirm Inquiry</button>
                                         </a>
-                                        <a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
                                             <button class="btn btn-danger mb-2">Close Inquiry</button>
                                         </a>
                                     {% elif inquiry.selected_quotation_datetime %}
@@ -107,12 +109,13 @@
                                             <button class="btn btn-primary mb-2">Add Supplier Quotation</button>
                                         </a>
                                     {% else %}
-                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
-                                            <button class="btn btn-primary mb-2">Select Suppliers</button>
-                                        </a>
                                         <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Product</button>
                                         </a>
+                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Select Suppliers</button>
+                                        </a>
+
                                     {% endif %}
 
 
@@ -138,7 +141,7 @@
 
                             </div>
                         </div>
-
+                        {% endif %}
 
                         {% if inquiry.agent %}
                         <div class="user-profile layout-spacing">
@@ -212,7 +215,7 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if received_quotation_datetime %}
+                                    {% if inquiry.received_quotation_datetime %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
                                             <p class="">{{ inquiry.received_quotation_datetime }}</p>
@@ -226,7 +229,7 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if selected_quotation_datetime %}
+                                    {% if inquiry.selected_quotation_datetime %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
                                             <p class="">{{ inquiry.selected_quotation_datetime }}</p>
@@ -241,7 +244,7 @@
                                     {% endif %}
 
 
-                                    {% if customer_feedback_datetime %}
+                                    {% if inquiry.customer_feedback_datetime %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
                                             <p class="">{{ inquiry.customer_feedback_datetime }}</p>
@@ -255,7 +258,7 @@
                                     </div>
                                     {% endif %}
 
-                                    {% if confirmation_datetime %}
+                                    {% if inquiry.confirmation_datetime %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
                                             <p class="">{{ inquiry.confirmation_datetime }}</p>
@@ -432,7 +435,7 @@
                         </div>
                         {% endif %}
 
-                        {% if inquiry.notified_suppliers_set.all %}
+                        {% if inquiry.supplier_quotations_set.all %}
                         <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
@@ -455,7 +458,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for quotation in inquiry.notified_suppliers_set.all %}
+                                                {% for quotation in inquiry.supplier_quotations_set.all %}
                                                 <tr>
                                                     <td class="text-center">{{ forloop.counter }}</td>
                                                     <td>{{ quotation.id }}</td>
@@ -479,7 +482,7 @@
                         </div>
                         {% endif %}
 
-                        {% if inquiry.forwarded_quotation.quotations.all %}
+                        {% if inquiry.forwarded_quotation %}
                         <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
@@ -533,7 +536,7 @@
                         <div class="bio layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Customer Feedback</h3>
-                                <p>{{ inquiry.remarks|linebreaks|escape }}</p>
+                                <p>{{ inquiry.customer_feedback.feedback|linebreaks|escape }}</p>
 
                                 <div class="bio-skill-box">
 

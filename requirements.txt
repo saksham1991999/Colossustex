@@ -41,3 +41,5 @@ requests==2.21.0
 django-autocomplete-light
 django-google-analytics-app
 whitenoise
+six==1.13.0
+django-js-asset==1.0.0

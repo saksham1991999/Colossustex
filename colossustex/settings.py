@@ -26,7 +26,7 @@ SECRET_KEY = '*$uy-+yf317dfw8e7#*sva1dcs)d%mb49#_!%t+k+*+98(34^+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['colossustex.herokuapp.com', 'https://colossustex.herokuapp.com/', 'localhost:8000']
+ALLOWED_HOSTS = ['colossustex.herokuapp.com', 'https://colossustex.herokuapp.com/', 'localhost:8000', '127.0.0.1:8000', '127.0.0.1']
 
 
 # Application definition
@@ -180,6 +180,4 @@ AUTH_USER_MODEL = 'core.User'
 #
 # AWS_S3_HOST = 's3.us-east-2.amazonaws.com'
 
-
-
-#django_heroku.settings(locals())
+django_heroku.settings(locals())
