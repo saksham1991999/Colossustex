@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/colossustex/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/colossustex/settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +30,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="92">
               <caret line="172" column="68" lean-forward="true" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
             </state>
           </provider>
@@ -228,16 +226,15 @@
       <workItem from="1584988911736" duration="6334000" />
       <workItem from="1585000232615" duration="9821000" />
       <workItem from="1585078030660" duration="9682000" />
-      <workItem from="1585214346117" duration="32870000" />
+      <workItem from="1585214346117" duration="33543000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52373000" />
+    <option name="totallyTimeSpent" value="53046000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.204236" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -253,7 +250,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3289689" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50075644" side_tool="true" weight="0.31587562" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49924356" weight="0.07037643" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" sideWeight="0.49924356" visible="true" weight="0.5695581" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -1040,7 +1037,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/colossustex/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
+        <state relative-caret-position="92">
           <caret line="172" column="68" lean-forward="true" selection-start-line="172" selection-start-column="68" selection-end-line="172" selection-end-column="68" />
         </state>
       </provider>
