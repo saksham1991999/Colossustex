@@ -180,4 +180,4 @@ AUTH_USER_MODEL = 'core.User'
 #
 # AWS_S3_HOST = 's3.us-east-2.amazonaws.com'
 
-django_heroku.settings(locals())
+#django_heroku.settings(locals())
