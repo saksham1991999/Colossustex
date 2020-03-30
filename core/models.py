@@ -233,7 +233,6 @@ class inquiry_product(models.Model):
     payment = models.CharField(max_length=100)
     packing_requirement = models.CharField(max_length=56)
     destination_port = models.CharField(max_length=100)
-    remark = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return str(self.inquiry) + ' ' + str(self.product)
@@ -251,6 +250,7 @@ class notified_suppliers(models.Model):
     class Meta:
         verbose_name_plural = 'Inquiry Notified Suppliers'
 
+
 class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
@@ -262,6 +262,7 @@ class supplier_quotations(models.Model):
 
     class Meta:
         verbose_name_plural = 'Inquiry Supplier Quotations'
+
 
 class forwarded_quotation(models.Model):
     inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)

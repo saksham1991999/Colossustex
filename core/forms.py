@@ -33,3 +33,6 @@ from . import models
         #     'mobile_no': forms.TextInput(attrs={'pattern':'[0-9]{10}'}),
         #     'pincode': forms.TextInput(attrs={'pattern': '[0-9]{6}'}),
         # }
+
+
+

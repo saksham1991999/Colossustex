@@ -1034,6 +1034,7 @@ def AddSupplierQuotationView(request, id):
 
     SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry','id'),
                                                   can_delete=False, extra=6)
+    #queryset=coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
     if request.method == 'POST':
         formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
         if formset.is_valid():
