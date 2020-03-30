@@ -1096,13 +1096,13 @@ def AddInquiryUpdateView(request, id):
             new_form.save()
             messages.success(
                 request,
-                'Customer Feedback Successfully Added',
+                'Update Successfully Added',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
         return redirect('employee:inquiry', id)
     else:
         form = forms.InquiryUpdateForm()
-        formtitle = 'Add Customer Feedback'
+        formtitle = 'Add Updates'
         context = {
             'formtitle': formtitle,
             'form': form,
