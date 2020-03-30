@@ -258,7 +258,7 @@ class supplier_quotations(models.Model):
     price_kg = models.PositiveIntegerField()
 
     def __str__(self):
-        return str(self.inquiry)
+        return str(self.product) + ': ' + str(self.supplier) + ' - ' + str(self.price_kg)
 
     class Meta:
         verbose_name_plural = 'Inquiry Supplier Quotations'

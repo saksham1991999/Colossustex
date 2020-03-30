@@ -1031,6 +1031,7 @@ def InquiryNotifySuppliersView(request, id):
 
 def AddSupplierQuotationView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
+
     SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry','id'),
                                                   can_delete=False, extra=6)
     if request.method == 'POST':
@@ -1045,6 +1046,7 @@ def AddSupplierQuotationView(request, id):
         return redirect('employee:inquiry', id)
     else:
         formset = SupplierFormSet(instance=inquiry, prefix='Product')
+
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
@@ -1072,6 +1074,8 @@ def SelectForwardQuotationsView(request, id):
         return redirect('employee:inquiry', id)
     else:
         form = forms.ForwardedQuotationsForm()
+        inquiry = coremodels.inquiry.objects.get(id=id)
+        form.fields['quotations'].queryset = coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
         formtitle = 'Select Quotations Forwarded'
         context = {
             'formtitle': formtitle,
