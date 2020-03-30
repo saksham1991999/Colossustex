@@ -196,19 +196,50 @@ class inquiry(models.Model):
         print(suppliers)
         return suppliers
 
+    # def suppliers_notified_otif(self):
+    #     timedelta = self.reply_datetime - self.received_datetime
+    #     if timedelta.hour > 48:
+    #         return False
+    #     else:
+    #         return True
+    #
+    # def received_quotation_otif(self):
+    #     timedelta = self.received_quotation_datetime - self.received_datetime
+    #     if timedelta.hour > 48:
+    #         return False
+    #     else:
+    #         return True
+    #
+    # def selected_quotation_otif(self):
+    #     timedelta = self.selected_quotation_datetime - self.received_datetime
+    #     if timedelta.hour > 48:
+    #         return False
+    #     else:
+    #         return True
+    #
+    # def customer_feedback_otif(self):
+    #     timedelta = self.customer_feedback_datetime - self.received_datetime
+    #     if timedelta.hour > 15:
+    #         return False
+    #     else:
+    #         return True
+
 class inquiry_product(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
     qty = models.PositiveSmallIntegerField()
+    inco_terms = models.CharField(max_length=56)
+    delivery_terms = models.CharField(max_length=56)
+    payment = models.CharField(max_length=100)
+    packing_requirement = models.CharField(max_length=56)
+    destination_port = models.CharField(max_length=100)
     remark = models.TextField(blank=True, null=True)
 
     def __str__(self):
-        return str(self.inquiry)
+        return str(self.inquiry) + ' ' + str(self.product)
 
     class Meta:
         verbose_name_plural = 'Inquiry Products'
-
-
 
 class notified_suppliers(models.Model):
     inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
@@ -223,9 +254,8 @@ class notified_suppliers(models.Model):
 class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
-    total_price = models.PositiveIntegerField()
-    document = models.FileField()
-    remark = models.TextField(blank=True, null=True)
+    product = models.ForeignKey('core.inquiry_product', on_delete=models.DO_NOTHING)
+    price_kg = models.PositiveIntegerField()
 
     def __str__(self):
         return str(self.inquiry)
@@ -243,9 +273,12 @@ class forwarded_quotation(models.Model):
     class Meta:
         verbose_name_plural = 'Inquiry Customer Forwarded Quotations'
 
-class customer_feedback(models.Model):
-    inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
-    feedback = models.TextField()
+class inquiry_update(models.Model):
+    inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
+    employee = models.ForeignKey('employee.employee', on_delete=models.DO_NOTHING)
+    update_date_time = models.DateField(auto_now_add=True)
+    subject = models.CharField(max_length=256)
+    content = models.TextField()
     document = models.FileField(blank=True, null=True)
 
     def __str__(self):

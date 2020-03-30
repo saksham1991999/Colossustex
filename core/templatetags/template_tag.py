@@ -10,7 +10,9 @@ def profileimage(user):
     if user.is_employee:
         try:
             image = employeemodels.employee.objects.get(user=user).image.url
+
             return image
         except:
             pass
     return ' '
+

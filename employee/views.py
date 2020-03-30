@@ -24,6 +24,8 @@ from buyer import models as buyermodels
 from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
+from django.forms import formset_factory, inlineformset_factory
+
 import datetime
 
 @login_required
@@ -948,13 +950,14 @@ def AddInquiryView(request):
         return render(request, 'form.html', context)
 
 def AddInquiryProductView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id=id)
+    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry', ), can_delete=False, extra=5)
+
     if request.method == 'POST':
-        form = forms.InquiryProductForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            inquiry = coremodels.inquiry.objects.get(id=id)
-            new_form.inquiry = inquiry
-            new_form.save()
+        formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product')
+
+        if formset.is_valid():
+            formset.save()
             messages.success(
                 request,
                 'Product Details Added Successfully',
@@ -962,13 +965,13 @@ def AddInquiryProductView(request, id):
             )
         return redirect('employee:inquiry', id)
     else:
-        form = forms.InquiryProductForm()
+        formset = InquiryProductFormSet(instance=inquiry, prefix='Product')
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
-            'form': form,
+            'formset': formset,
         }
-        return render(request, 'form.html', context)
+        return render(request, 'list_inquiry/formset.html', context)
 
 def EditInquiryProductView(request, id):
     inquiry_product = coremodels.inquiry_product.objects.get(id=id)
@@ -1027,29 +1030,28 @@ def InquiryNotifySuppliersView(request, id):
         return render(request, 'form.html', context)
 
 def AddSupplierQuotationView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id=id)
+    SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry','id'),
+                                                  can_delete=False, extra=6)
     if request.method == 'POST':
-        form = forms.SupplierQuotationsForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            inquiry = coremodels.inquiry.objects.get(id=id)
-            inquiry.received_quotation_datetime = datetime.datetime.now()
-            inquiry.save()
-            new_form.inquiry = inquiry
-            new_form.save()
+        formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
+        if formset.is_valid():
+            formset.save()
             messages.success(
                 request,
-                'Supplier Quotation Added Successfully',
+                'Product Details Added Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
         return redirect('employee:inquiry', id)
     else:
-        form = forms.SupplierQuotationsForm()
-        formtitle = 'Add Supplier Quotation'
+        formset = SupplierFormSet(instance=inquiry, prefix='Product')
+        formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
-            'form': form,
+            'formset': formset,
         }
-        return render(request, 'form.html', context)
+        return render(request, 'list_inquiry/formset.html', context)
+
 
 def SelectForwardQuotationsView(request, id):
     if request.method == 'POST':
@@ -1077,9 +1079,9 @@ def SelectForwardQuotationsView(request, id):
         }
         return render(request, 'form.html', context)
 
-def AddCustomerFeedbackView(request, id):
+def AddInquiryUpdateView(request, id):
     if request.method == 'POST':
-        form = forms.CustomerFeedbackForm(request.POST, request.FILES)
+        form = forms.InquiryUpdateForm(request.POST, request.FILES)
         if form.is_valid():
             new_form = form.save(commit=False)
             inquiry = coremodels.inquiry.objects.get(id=id)
@@ -1094,7 +1096,7 @@ def AddCustomerFeedbackView(request, id):
             )
         return redirect('employee:inquiry', id)
     else:
-        form = forms.CustomerFeedbackForm()
+        form = forms.InquiryUpdateForm()
         formtitle = 'Add Customer Feedback'
         context = {
             'formtitle': formtitle,

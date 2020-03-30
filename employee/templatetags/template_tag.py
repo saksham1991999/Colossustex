@@ -14,3 +14,52 @@ def profileimage(user):
         except:
             pass
     return ' '
+
+@register.filter
+def quotation_inquiry_product(inquiry, product):
+    quotations = coremodels.supplier_quotations.objects.filter(product=product, inquiry=inquiry)
+    return quotations
+
+@register.filter
+def quotation(quotations, supplier):
+    try:
+        quotation = quotations.filter(supplier=supplier)[0]
+        return str(quotation.price_kg)
+    except:
+        return '-'
+
+@register.filter
+def lowest_price(quotations, supplier):
+    try:
+        prices = quotations.values_list('price_kg', flat=True)
+        prices = list(prices)
+
+        min_price = 999999999999999999
+        for price in prices:
+            min_price = min(min_price, price)
+
+        quotation = quotations.filter(supplier=supplier)[0]
+        price_kg = quotation.price_kg
+        if price_kg == min_price:
+            return True
+        else:
+            return False
+    except:
+        return False
+
+@register.filter
+def max_price(quotations, supplier):
+    try:
+        prices = quotations.values_list('price_kg', flat=True)
+        prices = list(prices)
+        max_price = 0
+        for price in prices:
+            max_price = max(max_price, price)
+        quotation = quotations.filter(supplier=supplier)[0]
+        price_kg = quotation.price_kg
+        if price_kg == max_price:
+            return True
+        else:
+            return False
+    except:
+        return False

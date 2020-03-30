@@ -120,7 +120,7 @@ urlpatterns = [
     path('inquiry/select-suppliers/<int:id>/', views.InquiryNotifySuppliersView, name='inquiry_select_suppliers'),
     path('inquiry/add-quotation/<int:id>/', views.AddSupplierQuotationView, name='inquiry_add_quotation'),
     path('inquiry/select-quotations/<int:id>/', views.SelectForwardQuotationsView, name='inquiry_select_quotations'),
-    path('inquiry/add-customer-feedback/<int:id>/', views.AddCustomerFeedbackView, name='inquiry_add_customer_feedback'),
+    path('inquiry/add-customer-feedback/<int:id>/', views.AddInquiryUpdateView, name='inquiry_add_customer_feedback'),
     path('inquiry/confirm/<int:id>/', views.ConfirmInquiryView, name='inquiry_confirm'),
     path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 

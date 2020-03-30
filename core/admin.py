@@ -29,7 +29,7 @@ admin.site.register(models.inquiry_product)
 admin.site.register(models.notified_suppliers)
 admin.site.register(models.supplier_quotations)
 admin.site.register(models.forwarded_quotation)
-admin.site.register(models.customer_feedback)
+admin.site.register(models.inquiry_update)
 
 
 

@@ -66,7 +66,7 @@ class InquiryForm(forms.ModelForm):
 class InquiryProductForm(forms.ModelForm):
     class Meta:
         model = coremodels.inquiry_product
-        fields = ['product', 'qty', 'remark']
+        exclude = ['inquiry']
 
 class NotifySuppliersForm(forms.ModelForm):
     class Meta:
@@ -76,17 +76,17 @@ class NotifySuppliersForm(forms.ModelForm):
 class SupplierQuotationsForm(forms.ModelForm):
     class Meta:
         model = coremodels.supplier_quotations
-        fields = ['supplier', 'total_price', 'document', 'remark']
+        fields = ['supplier', 'product','price_kg']
 
 class ForwardedQuotationsForm(forms.ModelForm):
     class Meta:
         model = coremodels.forwarded_quotation
         fields = ['quotations']
 
-class CustomerFeedbackForm(forms.ModelForm):
+class InquiryUpdateForm(forms.ModelForm):
     class Meta:
-        model = coremodels.customer_feedback
-        fields = ['feedback', 'document']
+        model = coremodels.inquiry_update
+        exclude = ['inquiry']
 
 class ClosingInquiryForm(forms.ModelForm):
     class Meta:
