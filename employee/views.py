@@ -983,7 +983,7 @@ def AddInquiryProductView(request, id):
 
             # once all books are saved, redirect to book list view
             return redirect('employee:inquiry', id)
-        return redirect('employee:add_inquiry', id)
+        return redirect('employee:inquiry_add_product', id)
     return render(request, 'list_inquiry/formset.html', {
         'formset': formset,
         'heading': heading_message,
