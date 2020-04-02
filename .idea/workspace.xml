@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/employee/templates/list_inquiry/inquiry.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_inquiry/inquiry.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,8 +55,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/employee/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="965" column="58" selection-start-line="965" selection-start-column="58" selection-end-line="965" selection-end-column="58" />
+            <state relative-caret-position="255">
+              <caret line="1090" column="76" selection-start-line="1090" selection-start-column="76" selection-end-line="1090" selection-end-column="76" />
               <folding>
                 <element signature="e#1126#1240#0" />
                 <element signature="e#1136#1171#0" />
@@ -289,8 +289,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/employee/templates/list_inquiry/inquiry.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="109" column="87" selection-start-line="109" selection-start-column="87" selection-end-line="109" selection-end-column="87" />
+            <state relative-caret-position="393">
+              <caret line="113" column="44" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="44" />
             </state>
           </provider>
         </entry>
@@ -307,7 +307,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5525">
+            <state relative-caret-position="189">
               <caret line="497" column="81" selection-start-line="497" selection-start-column="81" selection-end-line="497" selection-end-column="81" />
               <folding>
                 <element signature="e#279#363#0" />
@@ -432,8 +432,8 @@
         <option value="$PROJECT_DIR$/employee/templates/list_others/updates_news.html" />
         <option value="$PROJECT_DIR$/employee/urls.py" />
         <option value="$PROJECT_DIR$/core/models.py" />
-        <option value="$PROJECT_DIR$/employee/views.py" />
         <option value="$PROJECT_DIR$/employee/forms.py" />
+        <option value="$PROJECT_DIR$/employee/views.py" />
         <option value="$PROJECT_DIR$/employee/templates/list_inquiry/inquiry.html" />
       </list>
     </option>
@@ -593,12 +593,12 @@
       <workItem from="1585576891441" duration="1511000" />
       <workItem from="1585740494640" duration="9787000" />
       <workItem from="1585768359363" duration="7694000" />
-      <workItem from="1585815088213" duration="1345000" />
+      <workItem from="1585815088213" duration="1977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="98805000" />
+    <option name="totallyTimeSpent" value="99437000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -694,7 +694,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/employee/views.py</url>
-          <line>1401</line>
+          <line>1402</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1098,9 +1098,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/employee/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="74" column="43" lean-forward="true" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5525">
+        <state relative-caret-position="189">
           <caret line="497" column="81" selection-start-line="497" selection-start-column="81" selection-end-line="497" selection-end-column="81" />
           <folding>
             <element signature="e#279#363#0" />
@@ -1146,8 +1156,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/employee/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="965" column="58" selection-start-line="965" selection-start-column="58" selection-end-line="965" selection-end-column="58" />
+        <state relative-caret-position="255">
+          <caret line="1090" column="76" selection-start-line="1090" selection-start-column="76" selection-end-line="1090" selection-end-column="76" />
           <folding>
             <element signature="e#1126#1240#0" />
             <element signature="e#1136#1171#0" />
@@ -1364,20 +1374,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/employee/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="74" column="43" lean-forward="true" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/employee/templates/list_inquiry/inquiry.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="109" column="87" selection-start-line="109" selection-start-column="87" selection-end-line="109" selection-end-column="87" />
+        <state relative-caret-position="393">
+          <caret line="113" column="44" selection-start-line="113" selection-start-column="44" selection-end-line="113" selection-end-column="44" />
         </state>
       </provider>
     </entry>

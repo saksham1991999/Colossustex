@@ -109,6 +109,9 @@
                                         <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Update Supplier Quotation</button>
                                         </a>
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Inquiry Update</button>
+                                        </a>
                                     {% elif inquiry.reply_datetime %}
                                         <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Supplier Quotation</button>

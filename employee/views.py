@@ -1079,27 +1079,28 @@ def AddSupplierQuotationView(request, id):
     if request.method == 'POST':
         print("#############################################################")
         print(request)
-        formset = forms.InquiryProductFormset(request.POST, inquiry_id=id)
+        formset = forms.SupplierQuotationsFormset(request.POST)
         print(formset.errors)
         if formset.is_valid():
             for form in formset:
                 inquiry = coremodels.inquiry.objects.get(id=id)
                 product = form.cleaned_data.get('product')
-                qty = form.cleaned_data.get('qty') or 1
-                inco_terms = form.cleaned_data.get('inco_terms')
-                delivery_date = form.cleaned_data.get('delivery_date')
-                payment = form.cleaned_data.get('payment')
-                packing_requirement = form.cleaned_data.get('packing_requirement')
-                destination_port = form.cleaned_data.get('destination_port')
-                inquiry_product = coremodels.inquiry_product(
-                    inquiry=inquiry,product=product,qty=qty,inco_terms=inco_terms,delivery_date=delivery_date,payment=payment,packing_requirement=packing_requirement,destination_port=destination_port
-                )
-                inquiry_product.save()
-                print(inquiry_product)
+                supplier = form.cleaned_data.get('supplier')
+                price_kg = form.cleaned_data.get('price_kg')
+                quotation = coremodels.supplier_quotations.objects.create(inquiry=inquiry, product=product, supplier=supplier, price_kg=price_kg)
+                inquiry.received_quotation_datetime = datetime.datetime.now()
+                quotation.save()
+                # qty = form.cleaned_data.get('qty') or 1
+                # inco_terms = form.cleaned_data.get('inco_terms')
+                # delivery_date = form.cleaned_data.get('delivery_date')
+                # payment = form.cleaned_data.get('payment')
+                # packing_requirement = form.cleaned_data.get('packing_requirement')
+                # destination_port = form.cleaned_data.get('destination_port')
+
 
             # once all books are saved, redirect to book list view
             return redirect('employee:inquiry', id)
-        return redirect('employee:add_inquiry', id)
+        return redirect('employee:inquiry_add_quotation', id)
     else:
         formset = forms.SupplierQuotationsFormset(request.GET or None)
         inquiry = coremodels.inquiry.objects.get(id=id)
