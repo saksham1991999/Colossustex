@@ -124,4 +124,7 @@ urlpatterns = [
     path('inquiry/confirm/<int:id>/', views.ConfirmInquiryView, name='inquiry_confirm'),
     path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 
+    #SAMPLE REQUEST
+    path('test/', views.TestView, name='test'),
+
 ]

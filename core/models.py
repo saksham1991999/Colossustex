@@ -229,7 +229,7 @@ class inquiry_product(models.Model):
     product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
     qty = models.PositiveSmallIntegerField()
     inco_terms = models.CharField(max_length=56)
-    delivery_terms = models.CharField(max_length=56)
+    delivery_date = models.DateField()
     payment = models.CharField(max_length=100)
     packing_requirement = models.CharField(max_length=56)
     destination_port = models.CharField(max_length=100)
@@ -474,7 +474,7 @@ class updates(models.Model):
     content = models.TextField()
     image = models.ImageField(blank=True, null=True)
     file = models.FileField(blank=True, null=True)
-
+    date = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -495,12 +495,13 @@ class notifications(models.Model):
 
 class suplus_product(models.Model):
     product = models.ForeignKey(product, on_delete=models.DO_NOTHING,  blank=True, null=True)
+    supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
     other_product = models.CharField(max_length=200, blank=True, null=True)
     qty = models.IntegerField()
     price_unit = models.IntegerField()
-    office = models.CharField(max_length=100)
-    supplier = models.CharField(max_length=100)
-    supplier_mob = models.CharField(max_length=15, blank=True, null=True)
+    employee = models.ForeignKey('employee.employee', on_delete=models.DO_NOTHING)
+    location = models.CharField(max_length=256)
+    document = models.FileField()
     remarks = models.TextField( blank=True, null=True)
 
     def __str__(self):

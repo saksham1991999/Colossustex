@@ -36,17 +36,20 @@
 
                                         <div class="info">
                                             <h5 class="">{{ formtitle }}</h5>
+                                            {{ formset.management_form }}
                                             <div class="row">
                                                 <div class="col-md-11 mx-auto">
                                                 <fieldset>
-                                                {{ formset.management_form }}
+                                                    <div id="form_set">
                                                     {% for form in formset %}
                                                         <div class="row">
+                                                        {{ form.errors }}
                                                             {% for field in form %}
                                                             <div class="col-md-3">
                                                                 <div class="form-group">
                                                                     <label for="address">{{ field.label }}</label>
                                                                     {{ field }}
+
                                                                 </div>
                                                             </div>
                                                                 <br>
@@ -54,13 +57,39 @@
                                                             {% endfor %}
                                                         </div>
                                                     {% endfor %}
+                                                    </div>
+
                                                 </fieldset>
-                                                <div class="d-sm-flex justify-content-between">
+
                                                     <div class="field-wrapper">
+                                                        <button type="button" class="btn btn-primary" id='add_more' value="">Add</button>
                                                         <button type="submit" class="btn btn-primary" value="">Save</button>
+
+
                                                     </div>
                                                 </div>
                                             </div>
+
+                                                            <div id="empty_form" style="display:none">
+                                                                <table class='no_error'>
+
+                                                                     <div class="row">
+                                                        {{ form.errors }}
+                                                            {% for field in formset.empty_form %}
+                                                            <div class="col-md-3">
+                                                                <div class="form-group">
+                                                                    <label for="address">{{ field.label }}</label>
+                                                                    {{ field }}
+
+                                                                </div>
+                                                            </div>
+                                                                <br>
+                                                                <hr>
+                                                            {% endfor %}
+                                                        </div>
+                                                                </table>
+                                                            </div>
+                                                <div class="d-sm-flex justify-content-between">
                                         </div>
                                     </div>
                                 </form>
@@ -132,6 +161,18 @@
         deleteText: 'Remove Contact'
     });
 </script>
+
+<script>
+    $('#add_more').click(function() {
+        console.log('button clicked');
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        console.log(form_idx);
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+});
+
+</script>
+
 
         <script>
 

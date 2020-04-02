@@ -11,6 +11,7 @@ from supplier import models as suppliermodels
 from agent import models as agentmodels
 from core import models as coremodels
 from hr import models as hrmodels
+from django.forms import formset_factory, inlineformset_factory, modelformset_factory
 
 
 class EmployeeProfileForm(forms.ModelForm):
@@ -68,6 +69,9 @@ class InquiryProductForm(forms.ModelForm):
         model = coremodels.inquiry_product
         exclude = ['inquiry']
 
+
+InquiryProductFormset = formset_factory(InquiryProductForm, extra=1)
+
 class NotifySuppliersForm(forms.ModelForm):
     class Meta:
         model = coremodels.notified_suppliers
@@ -77,6 +81,9 @@ class SupplierQuotationsForm(forms.ModelForm):
     class Meta:
         model = coremodels.supplier_quotations
         fields = ['supplier', 'product','price_kg']
+
+SupplierQuotationsFormset = formset_factory(SupplierQuotationsForm, extra=1)
+
 
 class ForwardedQuotationsForm(forms.ModelForm):
     class Meta:
