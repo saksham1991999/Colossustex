@@ -4,7 +4,6 @@
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/forms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/employee/templates/list_inquiry/formset.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_inquiry/formset.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
     </list>
@@ -160,7 +159,7 @@
       <workItem from="1585740494640" duration="9787000" />
       <workItem from="1585768359363" duration="7694000" />
       <workItem from="1585815088213" duration="1977000" />
-      <workItem from="1585835788922" duration="2004000" />
+      <workItem from="1585835788922" duration="4752000" />
     </task>
     <servers />
   </component>
@@ -222,7 +221,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/employee/views.py</url>
-          <line>1402</line>
+          <line>1385</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>

@@ -19,6 +19,7 @@
         <div class="search-overlay"></div>
 
     {% include 'sidebar.html' %}
+        {{ formset.management_form }}
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -29,19 +30,20 @@
                     <div class="account-content">
                         <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
                             <div class="row">
-
+                                {{ formset.management_form }}
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                     <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
 
                                         <div class="info">
                                             <h5 class="">{{ formtitle }}</h5>
-                                            {{ formset.management_form }}
+
                                             <div class="row">
                                                 <div class="col-md-11 mx-auto">
                                                 <fieldset>
                                                     <div id="form_set">
                                                     {% for form in formset %}
+                                                        {{ form.manangement_form }}
                                                         <div class="row">
                                                         {{ form.errors }}
                                                             {% for field in form %}

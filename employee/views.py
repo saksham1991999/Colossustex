@@ -26,12 +26,11 @@ from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
 
-
 import datetime
 
 def TestView(request):
     context = {
-        'tests':[1,2,3,4,5]
+        'tests': [1, 2, 3, 4, 5]
     }
     return render(request, 'list_others/updates_news.html', context)
 
@@ -42,7 +41,7 @@ def HomeView(request):
 
 @login_required(login_url='/accounts/login/')
 def ProfileView(request):
-    employee = models.employee.objects.get(user = request.user)
+    employee = models.employee.objects.get(user=request.user)
     if request.method == 'POST':
         print('POST REQUEST')
         form = forms.EmployeeProfileForm(request.POST, request.FILES, instance=employee)
@@ -52,21 +51,20 @@ def ProfileView(request):
             form.save()
             print('FORM SAVED SUCCESSFULLY')
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         print('REDIRECTING')
         return redirect('employee:profile')
     else:
         form = forms.EmployeeProfileForm(instance=employee)
         formtitle = 'Profile'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
-
 
 def EmployeesView(request):
     employees = models.employee.objects.all()
@@ -82,17 +80,17 @@ def EmployeeAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:employees')
     else:
         form = forms.EmployeeProfileForm()
         formtitle = 'Add Employee Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -106,25 +104,25 @@ def EmployeeEditView(request, id):
             form.save()
             print('FORM SAVED SUCCESSFULLY')
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         print('REDIRECTING')
         return redirect('employee:employees')
     else:
         form = forms.EmployeeProfileForm(instance=employee)
         formtitle = 'Edit Employee Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
 def EmployeeViewView(request, id):
     employee = models.employee.objects.get(id=id)
     context = {
-        'employee':employee,
+        'employee': employee,
     }
     return render(request, 'list_users/single_employee.html', context)
 
@@ -132,8 +130,6 @@ def EmployeeDeleteView(request, id):
     employee = models.employee.objects.get(id=id)
     employee.delete()
     return redirect('employee:employees')
-
-
 
 def SuppliersView(request):
     suppliers = suppliermodels.supplier.objects.all()
@@ -152,18 +148,18 @@ def SuppliersAddView(request):
             form.save()
             print('FORM SAVED SUCCESSFULLY')
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         print('REDIRECTING')
         return redirect('employee:suppliers')
     else:
         form = forms.SupplierProfileForm()
         formtitle = 'Add Supplier Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -178,25 +174,25 @@ def SupplierEditView(request, id):
             form.save()
             print('FORM SAVED SUCCESSFULLY')
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         print('REDIRECTING')
         return redirect('employee:suppliers')
     else:
         form = forms.SupplierProfileForm(instance=supplier)
         formtitle = 'Edit Supplier Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
 def SupplierViewView(request, id):
     supplier = suppliermodels.supplier.objects.get(id=id)
     context = {
-        'supplier':supplier,
+        'supplier': supplier,
     }
     return render(request, 'list_users/single_supplier.html', context)
 
@@ -204,7 +200,6 @@ def SupplierDeleteView(request, id):
     supplier = suppliermodels.supplier.objects.get(id=id)
     supplier.delete()
     return redirect('employee:suppliers')
-
 
 def SubAgentView(request):
     agents = agentmodels.agent.objects.all()
@@ -219,45 +214,45 @@ def SubAgentAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:sub_agents')
     else:
         form = forms.SubAgentProfileForm()
         formtitle = 'Add Sub-Agent Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
 def SubAgentEditView(request, id):
-    agent = agentmodels.agent.objects.get(id = id)
+    agent = agentmodels.agent.objects.get(id=id)
     if request.method == 'POST':
         form = forms.SubAgentProfileForm(request.POST, request.FILES, instance=agent)
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:sub_agents')
     else:
         form = forms.SubAgentProfileForm(instance=agent)
         formtitle = 'Edit Sub-Agent Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
 def SubAgentViewView(request, id):
-    agent = agentmodels.agent.objects.get(id = id)
+    agent = agentmodels.agent.objects.get(id=id)
     context = {
-        'agent':agent,
+        'agent': agent,
     }
     return render(request, 'list_users/single_agent.html', context)
 
@@ -265,7 +260,6 @@ def SubAgentDeleteView(request, id):
     sub_agent = agentmodels.agent.objects.get(id=id)
     sub_agent.delete()
     return redirect('employee:sub_agents')
-
 
 def BuyersView(request):
     buyers = buyermodels.buyer.objects.all()
@@ -280,17 +274,17 @@ def BuyersAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:buyers')
     else:
         form = forms.BuyerProfileForm()
         formtitle = 'Add Buyer Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -301,17 +295,17 @@ def BuyersEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:buyers')
     else:
         form = forms.BuyerProfileForm(instance=buyer)
         formtitle = 'Add Sub-Agent Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -319,7 +313,7 @@ def BuyersViewView(request, id):
     buyer = buyermodels.buyer.objects.get(id=id)
 
     context = {
-        'buyer':buyer,
+        'buyer': buyer,
     }
     return render(request, 'list_users/single_buyer.html', context)
 
@@ -327,7 +321,6 @@ def BuyerDeleteView(request, id):
     buyer = buyermodels.buyer.objects.get(id=id)
     buyer.delete()
     return redirect('employee:buyers')
-
 
 def ProductsView(request):
     products = coremodels.product.objects.all()
@@ -342,17 +335,17 @@ def ProductAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:products')
     else:
         form = forms.ProductForm()
         formtitle = 'Add Product Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -363,17 +356,17 @@ def ProductEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:products')
     else:
         form = forms.ProductForm(instance=product)
         formtitle = 'Edit Product Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -382,14 +375,13 @@ def ProductDeleteView(request, id):
     product.delete()
     return redirect('employee:products')
 
-def ProductView(request,id):
+def ProductView(request, id):
     product = coremodels.product.objects.get(id=id)
     context = {
-        'product' : product,
+        'product': product,
     }
 
     return render(request, 'list_users/single_product.html', context)
-
 
 def EnquiriesView(request):
     enquiries = coremodels.order.objects.all()
@@ -405,17 +397,17 @@ def EnquiryAddView(request):
             print('Adding Enquiry')
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:enquiries')
     else:
         form = forms.EnquiryForm()
         formtitle = 'Add Enquiry Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -426,17 +418,17 @@ def EnquiryEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:enquiries')
     else:
         form = forms.ProductForm(instance=enquiry)
         formtitle = 'Edit Enquiry Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -444,7 +436,6 @@ def EnquiryDeleteView(request, id):
     enquiry = coremodels.order.objects.get(id=id)
     enquiry.delete()
     return redirect('employee:enquiries')
-
 
 def BillsView(request):
     bills = coremodels.bill.objects.all()
@@ -459,17 +450,17 @@ def BillAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:bills')
     else:
         form = forms.BillForm()
         formtitle = 'Add Bill Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -480,17 +471,17 @@ def BillEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:bills')
     else:
         form = forms.BillForm(instance=bill)
         formtitle = 'Edit Bill Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -498,7 +489,6 @@ def BillDeleteView(request, id):
     bill = coremodels.bill.objects.get(id=id)
     bill.delete()
     return redirect('employee:bills')
-
 
 def PaymentsView(request):
     payments = coremodels.payment.objects.all()
@@ -513,17 +503,17 @@ def PaymentAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:payments')
     else:
         form = forms.PaymentForm()
         formtitle = 'Add Payment Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -534,17 +524,17 @@ def PaymentEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:payments')
     else:
         form = forms.PaymentForm(instance=payment)
         formtitle = 'Edit Payment Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -552,7 +542,6 @@ def PaymentDeleteView(request, id):
     payment = coremodels.payment.objects.get(id=id)
     payment.delete()
     return redirect('employee:payments')
-
 
 def ShipmentsView(request):
     shipments = coremodels.shipment.objects.all()
@@ -567,17 +556,17 @@ def ShipmentAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:shipments')
     else:
         form = forms.ShipmentForm()
         formtitle = 'Add Shipment Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -588,17 +577,17 @@ def ShipmentEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:shipments')
     else:
         form = forms.ShipmentForm(instance=shipment)
         formtitle = 'Edit Shipment Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -606,7 +595,6 @@ def ShipmentDeleteView(request, id):
     shipment = coremodels.shipment.objects.get(id=id)
     shipment.delete()
     return redirect('employee:shipments')
-
 
 def InspectionsView(request):
     inspections = models.inspection.objects.all()
@@ -621,17 +609,17 @@ def InspectionsAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:inspections')
     else:
         form = forms.ShipmentForm()
         formtitle = 'Add Inspection Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -642,17 +630,17 @@ def InspectionsEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:inspections')
     else:
         form = forms.InspectionForm(instance=inspection)
         formtitle = 'Edit Inspection Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -660,7 +648,6 @@ def InspectionsDeleteView(request, id):
     inspection = models.inspection.objects.get(id=id)
     inspection.delete()
     return redirect('employee:inspections')
-
 
 def SampleRequestsView(request):
     sample_requests = buyermodels.sample_request.objects.all()
@@ -675,17 +662,17 @@ def SampleRequestAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:sample-requests')
     else:
         form = buyerforms.SampleRequestForm()
         formtitle = 'Add Sample Request Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -696,17 +683,17 @@ def SampleRequestEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:sample-requests')
     else:
         form = buyerforms.SampleRequestForm(instance=sample_request)
         formtitle = 'Edit Sample Request Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -716,7 +703,7 @@ def SampleRequestDeleteView(request, id):
     return redirect('employee:sample-requests')
 
 def VisitNotesView(request):
-    employee = models.employee.objects.get(user = request.user)
+    employee = models.employee.objects.get(user=request.user)
     notes = models.employee_visit.objects.filter(employee=employee)
     context = {
         'notes': notes,
@@ -725,7 +712,7 @@ def VisitNotesView(request):
 
 def VisitNotesAddView(request):
     if request.method == 'POST':
-        employee = models.employee.objects.get(user = request.user)
+        employee = models.employee.objects.get(user=request.user)
         form = forms.VisitNoteForm(request.POST, request.FILES)
         print(employee)
         if form.is_valid():
@@ -733,17 +720,17 @@ def VisitNotesAddView(request):
             new_form.employee = employee
             new_form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:visit-notes')
     else:
         form = forms.VisitNoteForm()
         formtitle = 'Add Visit Notes'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -754,17 +741,17 @@ def VisitNotesEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:visit-notes')
     else:
         form = forms.VisitNoteForm(instance=note)
         formtitle = 'Edit Visit Note'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -772,7 +759,6 @@ def VisitNotesDeleteView(request, id):
     note = models.employee_visit.objects.get(id=id)
     note.delete()
     return redirect('employee:visit-notes')
-
 
 def SuplusProductsView(request):
     suplus_products = coremodels.suplus_product.objects.all()
@@ -787,17 +773,17 @@ def SuplusProductsAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:suplus-products')
     else:
         form = forms.SuplusProductForm()
         formtitle = 'Add Suplus Product Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -808,17 +794,17 @@ def SuplusProductsEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:suplus-products')
     else:
         form = forms.SuplusProductForm(instance=suplus_product)
         formtitle = 'Edit Suplus Product Details'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -826,8 +812,6 @@ def SuplusProductsDeleteView(request, id):
     suplus_product = coremodels.suplus_product.objects.get(id=id)
     suplus_product.delete()
     return redirect('employee:suplus-products')
-
-
 
 def UpdatesView(request):
     updates = coremodels.suplus_product.objects.all()
@@ -842,17 +826,17 @@ def UpdatesAddView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:updates-news')
     else:
         form = forms.UpdateNewsForm()
         formtitle = 'Add Update/News'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -863,17 +847,17 @@ def UpdatesEditView(request, id):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:updates-news')
     else:
         form = forms.UpdateNewsForm(instance=update)
         formtitle = 'Edit Update/News'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
@@ -882,9 +866,8 @@ def UpdatesDeleteView(request, id):
     update.delete()
     return redirect('employee:updates-news')
 
-
 def LeaveApplicationsView(request):
-    employee = models.employee.objects.get(user = request.user)
+    employee = models.employee.objects.get(user=request.user)
     applications = hrmodels.leaveapplication.objects.filter(employee=employee)
 
     context = {
@@ -899,35 +882,34 @@ def SubmitLeaveApplicationView(request):
         if form.is_valid():
             form.save()
             messages.success(
-                                request,
-                                'Details Saved Successfully',
-                                extra_tags='alert alert-success alert-dismissible fade show'
-                            )
+                request,
+                'Details Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
         return redirect('employee:updates-news')
     else:
         form = forms.LeaveApplicationEmployeeForm()
         formtitle = 'Submit A new Leave Application'
         context = {
-            'formtitle':formtitle,
-            'form':form,
+            'formtitle': formtitle,
+            'form': form,
         }
         return render(request, 'form.html', context)
 
-
-#INQUIRY MANAGEMENT VIEWS
+# INQUIRY MANAGEMENT VIEWS
 @login_required(login_url='/accounts/login/')
 def InquiresView(request):
     inquiries = coremodels.inquiry.objects.all()
     context = {
-        'inquiries':inquiries,
+        'inquiries': inquiries,
     }
     return render(request, 'list_inquiry/list_inquiries.html', context)
 
 @login_required(login_url='/accounts/login/')
 def InquiryView(request, id):
-    inquiry = coremodels.inquiry.objects.get(id = id)
+    inquiry = coremodels.inquiry.objects.get(id=id)
     context = {
-        'inquiry':inquiry,
+        'inquiry': inquiry,
     }
     return render(request, 'list_inquiry/inquiry.html', context)
 
@@ -990,11 +972,9 @@ def AddInquiryProductView(request, id):
     #     'heading': heading_message,
     # })
 
-
-
-
     inquiry = coremodels.inquiry.objects.get(id=id)
-    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry', ), can_delete=False, extra=1)
+    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry',),
+                                                  can_delete=False, extra=1)
 
     if request.method == 'POST':
 
@@ -1114,21 +1094,27 @@ def AddSupplierQuotationView(request, id):
     #     return render(request, 'list_inquiry/formset.html', context)
 
     inquiry = coremodels.inquiry.objects.get(id=id)
-    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry',),
-                                                  can_delete=False, extra=1)
+    SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry',),
+                                            can_delete=False, extra=1)
 
     if request.method == 'POST':
-        formset = InquiryProductFormSet(request.POST, instance=inquiry,)
-        if formset.is_valid():
+        try:
+            formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
+        except:
+            formset = None
+        print(
+            "#################################################################################################################")
+        print(request.POST)
+        if formset and formset.is_valid():
             formset.save()
             messages.success(
                 request,
                 'Quotation Details Added Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:inquiry', id)
+            return redirect('employee:inquiry', id)
     else:
-        formset = InquiryProductFormSet(instance=inquiry, prefix='Product')
+        formset = SupplierFormSet(instance=inquiry, prefix='Product')
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
@@ -1136,13 +1122,13 @@ def AddSupplierQuotationView(request, id):
         }
         return render(request, 'list_inquiry/formset.html', context)
 
-
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
 
-    SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry','id'),
-                                                  can_delete=False, extra=6)
-    #queryset=coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
+    SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations,
+                                            exclude=('inquiry', 'id'),
+                                            can_delete=False, extra=6)
+    # queryset=coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
     if request.method == 'POST':
         formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
         if formset.is_valid():
@@ -1247,15 +1233,14 @@ def ConfirmInquiryView(request, id):
     inquiry.save()
     return redirect('employee:inquiry', id)
 
-
-
 ###########################################################################################################################
 def BuyerComplaintsView(request):
     if request.method == 'POST':
         print(request.POST)
         complaint_id = int(request.POST['complaint_id'])
         message = request.POST['message']
-        response = buyermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response = buyermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message,
+                                                                 user=request.user)
         response.save()
         return redirect('core:buyer_complaints')
     else:
@@ -1285,7 +1270,7 @@ def BuyerComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def BuyerComplaintAddResponseView(request,id):
+def BuyerComplaintAddResponseView(request, id):
     if request.method == 'POST':
         message = request.POST['message']
         response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
@@ -1295,13 +1280,12 @@ def BuyerComplaintAddResponseView(request,id):
     else:
         return redirect('employee:buyer_complaints')
 
-
-
 def SupplierComplaintsView(request):
     if request.method == 'POST':
         complaint_id = request.POST['complaint_id']
         message = request.POST['message']
-        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message,
+                                                                    user=request.user)
         response.save()
         return redirect('core:buyer_complaints')
     else:
@@ -1331,7 +1315,7 @@ def SupplierComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SupplierComplaintAddResponseView(request,id):
+def SupplierComplaintAddResponseView(request, id):
     if request.method == 'POST':
         message = request.POST['message']
         response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
@@ -1341,12 +1325,12 @@ def SupplierComplaintAddResponseView(request,id):
     else:
         return redirect('employee:supplier_complaints')
 
-
 def SubAgentComplaintsView(request):
     if request.method == 'POST':
         complaint_id = request.POST['complaint_id']
         message = request.POST['message']
-        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message, user=request.user)
+        response = suppliermodels.complaint_response.objects.create(complaint_id=complaint_id, message=message,
+                                                                    user=request.user)
         response.save()
         return redirect('core:buyer_complaints')
     else:
@@ -1376,7 +1360,7 @@ def SubAgentComplaintAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SubAgentComplaintAddResponseView(request,id):
+def SubAgentComplaintAddResponseView(request, id):
     if request.method == 'POST':
         message = request.POST['message']
         response = buyermodels.complaint_response.objects.create(complaint_id=id, message=message,
@@ -1385,7 +1369,6 @@ def SubAgentComplaintAddResponseView(request,id):
         return redirect('employee:sub_agent_complaints')
     else:
         return redirect('employee:sub_agent_complaints')
-
 
 def BuyerFeedbacksView(request):
     feedbacks = buyermodels.buyer_general_feedback.objects.all()
@@ -1414,13 +1397,12 @@ def BuyerFedbackAddView(request):
         }
         return render(request, 'form.html', context)
 
-def BuyerFeedbackView(request,id):
+def BuyerFeedbackView(request, id):
     feedback = buyermodels.buyer_general_feedback.objects.get(id=id)
     context = {
         'feedback': feedback,
     }
     return render(request, 'single_product.html', context)
-
 
 def SupplierFeedbacksView(request):
     feedbacks = suppliermodels.supplier_feedback.objects.all()
@@ -1449,13 +1431,12 @@ def SupplierFedbackAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SupplierFeedbackView(request,id):
+def SupplierFeedbackView(request, id):
     feedback = suppliermodels.supplier_feedback.objects.get(id=id)
     context = {
         'feedback': feedback,
     }
     return render(request, 'single_product.html', context)
-
 
 def SubAgentFeedbacksView(request):
     feedbacks = agentmodels.agent_general_feedback.objects.all()
@@ -1484,7 +1465,7 @@ def SubAgentFedbackAddView(request):
         }
         return render(request, 'form.html', context)
 
-def SubAgentFeedbackView(request,id):
+def SubAgentFeedbackView(request, id):
     feedback = agentmodels.agent_general_feedback.objects.get(id=id)
     context = {
         'feedback': feedback,
