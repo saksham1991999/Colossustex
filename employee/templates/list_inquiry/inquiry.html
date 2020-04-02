@@ -107,10 +107,12 @@
                                             <button class="btn btn-primary mb-2">Select Quotations</button>
                                         </a>
                                         <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
-                                            <button class="btn btn-primary mb-2">Add Supplier Quotation</button>
+                                            <button class="btn btn-primary mb-2">Update Supplier Quotation</button>
                                         </a>
                                     {% elif inquiry.reply_datetime %}
-
+                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Supplier Quotation</button>
+                                        </a>
                                     {% else %}
                                         <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Product</button>
