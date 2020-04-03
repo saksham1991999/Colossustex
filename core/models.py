@@ -296,11 +296,11 @@ class SampleRequest(models.Model):
     src = models.CharField(max_length=2, choices=sample_request_choices)
     receiving_date = models.DateField(auto_now_add=True)
     cti = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
-    supplier = models.ForeignKey('core.supplier', on_delete=models.DO_NOTHING)
+    supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
 
     sample_received_date = models.DateField(blank=True, null=True)
     sample_sent_date = models.DateField(blank=True, null=True)
-    courier_details = models.CharField(blank=True, null=True)
+    courier_details = models.CharField(max_length=256,blank=True, null=True)
 
 
 
