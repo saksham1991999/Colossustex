@@ -47,17 +47,24 @@
                                                         {{ form.manangement_form }}
                                                         <div class="row">
                                                         {{ form.errors }}
-                                                            {% for field in form %}
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label for="address">{{ field.label }}</label>
-                                                                    {{ field }}
-
-                                                                </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Select Product</label>
+                                                                {{ form.supplier }}
                                                             </div>
-                                                                <br>
-                                                                <hr>
-                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Quantity</label>
+                                                                {{ form.product }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Income Terms</label>
+                                                                {{ form.price_kg }}
+                                                            </div>
+                                                        </div>
                                                         </div>
                                                     {% endfor %}
                                                     </div>
@@ -75,20 +82,26 @@
 
                                                             <div id="empty_form" style="display:none">
                                                                 <table class='no_error'>
-
-                                                                     <div class="row">
+                                                                    <div class="row">
                                                         {{ form.errors }}
-                                                            {% for field in formset.empty_form %}
-                                                            <div class="col-md-1">
-                                                                <div class="form-group">
-                                                                    <label for="address">{{ field.label }}</label>
-                                                                    {{ field }}
-
-                                                                </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Select Product</label>
+                                                                {{ formset.empty_form.supplier }}
                                                             </div>
-                                                                <br>
-                                                                <hr>
-                                                            {% endfor %}
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Quantity</label>
+                                                                {{ formset.empty_form.product }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Income Terms</label>
+                                                                {{ formset.empty_form.price_kg }}
+                                                            </div>
+
                                                         </div>
                                                                 </table>
                                                             </div>
@@ -96,42 +109,7 @@
                                         </div>
                                     </div>
                                 </form>
-{#                                        <div class="info">#}
-{#                                            <h5 class="">{{ formtitle }}</h5>#}
-{##}
-{#                                            {% for form in formset %}#}
-{#                                                <div class="link-formset">#}
-{#                                            <div class="row">#}
-{#                                                <div class="col-md-11 mx-auto">#}
-{#                                                    <div class="row">#}
-{##}
-{#                                                        {% for field in form %}#}
-{#                                                        <div class="col-md-6">#}
-{#                                                            <div class="form-group">#}
-{#                                                                <label for="address">{{ field.label }}</label>#}
-{##}
-{#                                                                {{ field }}#}
-{##}
-{#                                                            </div>#}
-{#                                                        </div>#}
-{#                                                        {% endfor %}#}
-{#                                                    </div>#}
-{##}
-{#                                                    <div class="d-sm-flex justify-content-between">#}
-{#                                                        <div class="field-wrapper">#}
-{#                                                            <button type="submit" class="btn btn-primary" value="">Save</button>#}
-{#                                                        </div>#}
-{#                                                    </div>#}
-{#                                                </div>#}
-{#                                            </div>#}
-{#                                                </div>#}
-{#                                        {% endfor %}#}
-{#                                        </div>#}
-{#                                    </form>#}
-
                                 </div>
-
-
 
                             </div>
                         </div>

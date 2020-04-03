@@ -995,7 +995,7 @@ def AddInquiryProductView(request, id):
             'formtitle': formtitle,
             'formset': formset,
         }
-        return render(request, 'list_inquiry/formset.html', context)
+        return render(request, 'list_inquiry/AddProductInquiry_formset.html', context)
 
 def EditInquiryProductView(request, id):
     inquiry_product = coremodels.inquiry_product.objects.get(id=id)
@@ -1102,9 +1102,6 @@ def AddSupplierQuotationView(request, id):
             formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
         except:
             formset = None
-        print(
-            "#################################################################################################################")
-        print(request.POST)
         if formset and formset.is_valid():
             formset.save()
             messages.success(
@@ -1120,7 +1117,7 @@ def AddSupplierQuotationView(request, id):
             'formtitle': formtitle,
             'formset': formset,
         }
-        return render(request, 'list_inquiry/formset.html', context)
+        return render(request, 'list_inquiry/AddSupplierQuotation_formset.html', context)
 
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
