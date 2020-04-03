@@ -47,7 +47,8 @@
                                                         {{ form.manangement_form }}
                                                         <div class="row">
                                                         {{ form.errors }}
-                                                        <div class="col-md-1.5">
+                                                            {{ form.id }}
+                                                        <div class="col-md-1.5" style="margin-left: 0px;margin-right: 0px;">
                                                             <div class="form-group">
                                                                 <label for="address">Select Product</label>
                                                                 {{ form.product }}
@@ -59,31 +60,31 @@
                                                                 {{ form.qty }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.25">
+                                                        <div class="col-md-1">
                                                             <div class="form-group">
-                                                                <label for="address">Income Terms</label>
+                                                                <label for="address">INCO</label>
                                                                 {{ form.inco_terms }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-1">
                                                             <div class="form-group">
-                                                                <label for="address">Delivery Date</label>
+                                                                <label for="address">Delivery</label>
                                                                 {{ form.delivery_date }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
-                                                                <label for="address">Product Payment</label>
+                                                                <label for="address">Payment Terms</label>
                                                                 {{ form.payment }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-1.25">
                                                             <div class="form-group">
                                                                 <label for="address">Packing Requirement</label>
                                                                 {{ form.packing_requirement }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-1.25">
                                                             <div class="form-group">
                                                                 <label for="address">Destination Port</label>
                                                                 {{ form.destination_port }}
@@ -108,6 +109,7 @@
                                                                 <table class='no_error'>
                                                                     <div class="row">
                                                         {{ form.errors }}
+                                                                        {{ formset.empty_form.id }}
                                                         <div class="col-md-1.5">
                                                             <div class="form-group">
                                                                 <label for="address">Select Product</label>
@@ -184,22 +186,15 @@
     <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
     <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
     <!--  END CUSTOM SCRIPTS FILE  -->
-    <script>
-    $('.link-formset').formset({
-        addText: 'Add Contact',
-        deleteText: 'Remove Contact'
-    });
-</script>
+
 
 <script>
     $('#add_more').click(function() {
-        console.log('button clicked');
-        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        var form_idx = $('#id_Product-TOTAL_FORMS').val();
         console.log(form_idx);
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        $('#id_Product-TOTAL_FORMS').val(parseInt(form_idx) + 1);
 });
-
 </script>
 
 
@@ -215,5 +210,11 @@
             $('input[type="checkbox"]').toggleClass('custom-control-input');
             console.log('hey');
 
+$("#id_Product-0-delivery_date").datepicker({
+    minDate:0
+});
+$( "input[name*='date']" ).datepicker({
+    minDate:0
+});
         </script>
     {% endblock extra_scripts %}

@@ -977,10 +977,15 @@ def AddInquiryProductView(request, id):
                                                   can_delete=False, extra=1)
 
     if request.method == 'POST':
-
+        print("##########################################")
+        print(request.POST)
+        print("33333333333333333333333333333333333333333333333")
         formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
-
+        print(formset.errors)
+        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
         if formset.is_valid():
+            print("333333333333333333333333333333333333333333333333333333")
+            print(formset)
             formset.save()
             messages.success(
                 request,
