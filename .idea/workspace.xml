@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="81c2dfe8-eeb4-4379-bcc1-8a66597f9c34" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/employee/templates/list_inquiry/formset.html" beforeDir="false" afterPath="$PROJECT_DIR$/employee/templates/list_inquiry/formset.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/employee/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/employee/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,11 +62,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="676" />
-    <option name="width" value="697" />
-    <option name="height" value="735" />
   </component>
   <component name="ProjectId" id="1ZXcWK5ZfCkmUGjonaVhCvmlKB4" />
   <component name="ProjectViewState">
@@ -157,6 +154,7 @@
       <workItem from="1585768359363" duration="7694000" />
       <workItem from="1585815088213" duration="1977000" />
       <workItem from="1585835788922" duration="5603000" />
+      <workItem from="1585913192603" duration="4122000" />
     </task>
     <servers />
   </component>
@@ -218,7 +216,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/employee/views.py</url>
-          <line>1385</line>
+          <line>1382</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
