@@ -54,6 +54,24 @@ class User(AbstractUser):
     is_agent = models.BooleanField(default=0)
     is_employee = models.BooleanField(default=0)
 
+class office(models.Model):
+    name = models.CharField(max_length=100)
+    contact_person = models.CharField(max_length=100)
+    addr1 = models.CharField(max_length=100)
+    addr2 = models.CharField(max_length=100)
+    state = models.CharField(max_length=20)
+    pincode = models.CharField(max_length=6)
+    country = models.CharField(max_length=20)
+    mobile = models.CharField(max_length=10)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = 'Responsible Offices'
+
+#Product Models
 class category(models.Model):
     title = models.CharField(max_length=100)
 
@@ -126,23 +144,6 @@ class product(models.Model):
 
     class Meta:
         verbose_name_plural = 'Products'
-
-class office(models.Model):
-    name = models.CharField(max_length=100)
-    contact_person = models.CharField(max_length=100)
-    addr1 = models.CharField(max_length=100)
-    addr2 = models.CharField(max_length=100)
-    state = models.CharField(max_length=20)
-    pincode = models.CharField(max_length=6)
-    country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
-    email = models.EmailField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = 'Responsible Offices'
 
 inquiry_source_choices = (
     ('M', 'Mail'),
@@ -250,7 +251,6 @@ class notified_suppliers(models.Model):
     class Meta:
         verbose_name_plural = 'Inquiry Notified Suppliers'
 
-
 class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
@@ -262,7 +262,6 @@ class supplier_quotations(models.Model):
 
     class Meta:
         verbose_name_plural = 'Inquiry Supplier Quotations'
-
 
 class forwarded_quotation(models.Model):
     inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
@@ -287,6 +286,26 @@ class inquiry_update(models.Model):
 
     class Meta:
         verbose_name_plural = 'Inquiry Customer Feedback'
+
+sample_request_choices = (
+    ('IQ', 'Inquiry'),
+    ('BD', 'Business Development'),
+)
+#Sample Requirement
+class SampleRequest(models.Model):
+    src = models.CharField(max_length=2, choices=sample_request_choices)
+    receiving_date = models.DateField(auto_now_add=True)
+    cti = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
+    supplier = models.ForeignKey('core.supplier', on_delete=models.DO_NOTHING)
+
+    sample_received_date = models.DateField(blank=True, null=True)
+    sample_sent_date = models.DateField(blank=True, null=True)
+    courier_details = models.CharField(blank=True, null=True)
+
+
+
+
+
 
 
 #Indent Details
