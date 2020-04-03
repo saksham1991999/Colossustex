@@ -298,8 +298,8 @@ class SampleRequest(models.Model):
     cti = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
 
-    sample_received_date = models.DateField(blank=True, null=True)
-    sample_sent_date = models.DateField(blank=True, null=True)
+    # sample_received_date = models.DateField(blank=True, null=True)
+    # sample_sent_date = models.DateField(blank=True, null=True)
     courier_details = models.CharField(max_length=256,blank=True, null=True)
 
 
@@ -520,8 +520,8 @@ class suplus_product(models.Model):
     price_unit = models.IntegerField()
     employee = models.ForeignKey('employee.employee', on_delete=models.DO_NOTHING)
     location = models.CharField(max_length=256)
-    document = models.FileField()
-    remarks = models.TextField( blank=True, null=True)
+    document = models.FileField(blank=True, null=True)
+    remarks = models.TextField(blank=True, null=True)
 
     def __str__(self):
         if self.product:
