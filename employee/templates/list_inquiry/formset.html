@@ -19,7 +19,6 @@
         <div class="search-overlay"></div>
 
     {% include 'sidebar.html' %}
-        {{ formset.management_form }}
 
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
@@ -33,6 +32,8 @@
                                 {{ formset.management_form }}
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                     <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
+                                       {{ formset.management_form }}
+
                                         {% csrf_token %}
 
                                         <div class="info">
