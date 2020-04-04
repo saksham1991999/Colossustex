@@ -295,12 +295,43 @@ sample_request_choices = (
 class SampleRequest(models.Model):
     src = models.CharField(max_length=2, choices=sample_request_choices)
     receiving_date = models.DateField(auto_now_add=True)
-    cti = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
-    supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
+    inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
+    # indent = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
+    # bd_activity = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING, blank=True, null=True)
 
-    # sample_received_date = models.DateField(blank=True, null=True)
-    # sample_sent_date = models.DateField(blank=True, null=True)
-    courier_details = models.CharField(max_length=256,blank=True, null=True)
+    supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
+    delivered_date = models.DateField(blank=True, null=True)
+
+class SampleRequestProduct(models.Model):
+    sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
+    quality_detail = models.CharField(max_length=256)
+    quality_instruction = models.CharField(max_length=256)
+    number_of_cones = models.PositiveSmallIntegerField()
+    weight_cone = models.FloatField()
+    packing_detail = models.CharField(max_length=256)
+
+class CustomerSampleRef(models.Model):
+    sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
+    ref = models.CharField(max_length=256)
+    file_1 = models.FileField()
+    file_2 = models.FileField()
+    file_3 = models.FileField()
+    date = models.DateField(auto_now_add=True)
+
+class SampleRequestDispatch(models.Model):
+    sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
+    file_1 = models.FileField()
+    courier_details = models.CharField(max_length=256)
+    date = models.DateField(auto_now_add=True)
+    estimate_delivery = models.DateField(blank=True, null=True)
+
+class SampleRequestFeedback(models.Model):
+    sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
+    date = models.DateField(auto_now_add=True)
+    content = models.TextField()
+    file_1 = models.FileField()
+    file_2 = models.FileField()
+    file_3 = models.FileField()
 
 
 
