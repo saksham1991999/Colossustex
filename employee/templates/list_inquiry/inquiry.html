@@ -324,7 +324,7 @@
                                                     <th>Product</th>
                                                     <th>Quantity</th>
                                                     <th>Inco Terms</th>
-                                                    <th>Delivery Terms</th>
+                                                    <th>Delivery Date</th>
                                                     <th>Payment Terms</th>
                                                     <th>Packing Requirements</th>
                                                     <th>Destination Port</th>
@@ -344,7 +344,7 @@
                                                     </td>
                                                     <td><p class="text-danger">{{ product.qty }}</p></td>
                                                     <td><p class="text-danger">{{ product.inco_terms }}</p></td>
-                                                    <td><p class="text-danger">{{ product.delivery_terms }}</p></td>
+                                                    <td><p class="text-danger">{{ product.delivery_date|date }}</p></td>
                                                     <td><p class="text-danger">{{ product.payment }}</p></td>
                                                     <td><p class="text-danger">{{ product.packing_requirement }}</p></td>
                                                     <td><p class="text-danger">{{ product.destination_port }}</p></td>
