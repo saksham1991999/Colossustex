@@ -55,7 +55,7 @@
                                                                 {{ form.product }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Quantity</label>
                                                                 {{ form.qty }}
@@ -67,25 +67,25 @@
                                                                 {{ form.inco_terms }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Delivery</label>
                                                                 {{ form.delivery_date }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2">
+                                                        <div class="col-md-1">
                                                             <div class="form-group">
                                                                 <label for="address">Payment Terms</label>
                                                                 {{ form.payment }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.25">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Packing Requirement</label>
                                                                 {{ form.packing_requirement }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.25">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Destination Port</label>
                                                                 {{ form.destination_port }}
@@ -117,37 +117,37 @@
                                                                 {{ formset.empty_form.product }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Quantity</label>
                                                                 {{ formset.empty_form.qty }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.25">
+                                                        <div class="col-md-1">
                                                             <div class="form-group">
-                                                                <label for="address">Income Terms</label>
+                                                                <label for="address">INCO</label>
                                                                 {{ formset.empty_form.inco_terms }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Delivery Date</label>
                                                                 {{ formset.empty_form.delivery_date }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-1">
                                                             <div class="form-group">
-                                                                <label for="address">Product Payment</label>
+                                                                <label for="address">Payment Terms</label>
                                                                 {{ formset.empty_form.payment }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Packing Requirement</label>
                                                                 {{ formset.empty_form.packing_requirement }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1.5">
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Destination Port</label>
                                                                 {{ formset.empty_form.destination_port }}
@@ -218,7 +218,8 @@
                 dateFormat: 'yyyy-mm-dd'
             });
             $( "input[name*='date']" ).datepicker({
-                 dateFormat: 'yy-mm-dd'
+                 dateFormat: 'yy-mm-dd',
+                mindate: 0
             });
         });
 
