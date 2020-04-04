@@ -47,6 +47,7 @@
                                                         {{ form.manangement_form }}
                                                         <div class="row">
                                                         {{ form.errors }}
+                                                            {{ form.id }}
                                                         <div class="col-md-1.5">
                                                             <div class="form-group">
                                                                 <label for="address">Select Product</label>
@@ -84,6 +85,7 @@
                                                                 <table class='no_error'>
                                                                     <div class="row">
                                                         {{ form.errors }}
+                                                                        {{ formset.empty_form.id }}
                                                         <div class="col-md-1.5">
                                                             <div class="form-group">
                                                                 <label for="address">Select Product</label>
@@ -103,6 +105,7 @@
                                                             </div>
 
                                                         </div>
+                                                                    </div>
                                                                 </table>
                                                             </div>
                                                 <div class="d-sm-flex justify-content-between">
@@ -136,12 +139,7 @@
     <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
     <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
     <!--  END CUSTOM SCRIPTS FILE  -->
-    <script>
-    $('.link-formset').formset({
-        addText: 'Add Contact',
-        deleteText: 'Remove Contact'
-    });
-</script>
+
 
 <script>
     $('#add_more').click(function() {
