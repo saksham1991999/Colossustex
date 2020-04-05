@@ -649,58 +649,6 @@ def InspectionsDeleteView(request, id):
     inspection.delete()
     return redirect('employee:inspections')
 
-def SampleRequestsView(request):
-    sample_requests = buyermodels.sample_request.objects.all()
-    context = {
-        'sample_requests': sample_requests,
-    }
-    return render(request, 'list_enquiry/list_sample_requests.html', context)
-
-def SampleRequestAddView(request):
-    if request.method == 'POST':
-        form = buyerforms.SampleRequestForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request,
-                'Details Saved Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
-        return redirect('employee:sample-requests')
-    else:
-        form = buyerforms.SampleRequestForm()
-        formtitle = 'Add Sample Request Details'
-        context = {
-            'formtitle': formtitle,
-            'form': form,
-        }
-        return render(request, 'form.html', context)
-
-def SampleRequestEditView(request, id):
-    sample_request = buyermodels.sample_request.objects.get(id=id)
-    if request.method == 'POST':
-        form = buyerforms.SampleRequestForm(request.POST, request.FILES, instance=sample_request)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request,
-                'Details Saved Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
-        return redirect('employee:sample-requests')
-    else:
-        form = buyerforms.SampleRequestForm(instance=sample_request)
-        formtitle = 'Edit Sample Request Details'
-        context = {
-            'formtitle': formtitle,
-            'form': form,
-        }
-        return render(request, 'form.html', context)
-
-def SampleRequestDeleteView(request, id):
-    sample_request = buyermodels.sample_request.objects.get(id=id)
-    sample_request.delete()
-    return redirect('employee:sample-requests')
 
 def VisitNotesView(request):
     employee = models.employee.objects.get(user=request.user)
@@ -1235,6 +1183,157 @@ def ConfirmInquiryView(request, id):
     inquiry.save()
     return redirect('employee:inquiry', id)
 
+#SAMPLE REQUEST MANAGEMENT
+def SampleRequestsView(request):
+    sample_requests = coremodels.SampleRequest.objects.all()
+    context = {
+        'sample_requests': sample_requests,
+    }
+    return render(request, 'list_sample_request/list_sample_requests.html', context)
+
+def SampleRequestView(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id = id)
+    context = {
+        'sample_request': sample_request,
+    }
+    return render(request, 'list_sample_request/sample_request.html', context)
+
+def AddSampleRequest(request):
+    if request.method == 'POST':
+        form = forms.SampleRequestForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Sample Request Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        form = forms.SampleRequestForm()
+        formtitle = 'Add Sample Request'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'list_sample_request/add_sample_request.html', context)
+
+def AddSampleRequestProduct(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    SampleRequestProductFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.SampleRequestProduct, extra=1, exclude=('inquiry', 'id'))
+
+    if request.method == 'POST':
+        formset = SampleRequestProductFormset(request.POST,request.FILES, instance=sample_request, prefix='sample_request')
+        if formset.is_valid():
+            formset.save()
+            messages.success(
+                request,
+                'Product Details Added Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        formset = SampleRequestProductFormset(instance=sample_request, prefix='sample_request')
+        formtitle = 'Add Inquiry Product Details'
+        context = {
+            'formtitle': formtitle,
+            'formset': formset,
+        }
+        return render(request, 'list_sample_request/SampleRequestProduct_formset.html', context)
+
+def AddCustomerSampleRef(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = forms.CustomerSampleRefForm(request.POST, request.FILES,instance=sample_request)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Sample Request Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        form = forms.CustomerSampleRefForm(instance=sample_request)
+        formtitle = 'Add Sample Request'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def AddSampleRequestDispatch(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.SampleRequestDispatchForm(request.POST, request.FILES, instance=sample_request)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Sample Request Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        form = forms.SampleRequestDispatchForm(instance=sample_request)
+        formtitle = 'Add Sample Request Dispatch'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def AddSampleRequestFeedback(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.SampleRequestFeedbackForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(
+                request,
+                'Sample Request Feedback Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        form = forms.SampleRequestFeedbackForm(initial={'sample_request': sample_request})
+        formtitle = 'Add Sample Request Feedback'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
+def SampleRequestUpdateDeliveryDate(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    sample_request.delivered_date = timezone.now()
+    sample_request.save()
+    return redirect('employee:sample_request')
+
+def EditSampleRequestUpdateFeedback(request,id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    if request.method == 'POST':
+        form = forms.SampleRequestFeedbackForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_form = form.save(commit=False)
+            new_form.sample_request = sample_request
+            new_form.save()
+            messages.success(
+                request,
+                'Feedback Saved Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+        return redirect('employee:sample_request')
+    else:
+        form = forms.SampleRequestFeedbackForm()
+        formtitle = 'Edit Feedback Details'
+        context = {
+            'formtitle': formtitle,
+            'form': form,
+        }
+        return render(request, 'form.html', context)
+
 ###########################################################################################################################
 def BuyerComplaintsView(request):
     if request.method == 'POST':
@@ -1473,3 +1572,6 @@ def SubAgentFeedbackView(request, id):
         'feedback': feedback,
     }
     return render(request, 'single_product.html', context)
+
+
+

@@ -304,6 +304,7 @@ class SampleRequest(models.Model):
 
 class SampleRequestProduct(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
+    product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
     quality_detail = models.CharField(max_length=256)
     quality_instruction = models.CharField(max_length=256)
     number_of_cones = models.PositiveSmallIntegerField()
@@ -314,8 +315,8 @@ class CustomerSampleRef(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
     ref = models.CharField(max_length=256)
     file_1 = models.FileField()
-    file_2 = models.FileField()
-    file_3 = models.FileField()
+    file_2 = models.FileField(blank=True, null=True)
+    file_3 = models.FileField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
 
 class SampleRequestDispatch(models.Model):

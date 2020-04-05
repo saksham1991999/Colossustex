@@ -58,11 +58,6 @@ urlpatterns = [
     path('inspections/edit/<int:id>/', views.InspectionsEditView, name='edit_inspection'),
     path('inspections/delete/<int:id>/', views.InspectionsDeleteView, name='delete_inspection'),
 
-    path('sample-requests/', views.SampleRequestsView, name='sample-requests'),
-    path('sample-requests/add/', views.ShipmentAddView, name='add_sample-request'),
-    path('sample-requests/edit/<int:id>/', views.ShipmentEditView, name='edit_sample-request'),
-    path('sample-requests/delete/<int:id>/', views.ShipmentDeleteView, name='delete_sample-request'),
-
     path('visit-notes/', views.InspectionsView, name='visit-notes'),
     path('visit-notes/add/', views.InspectionsAddView, name='add_visit-note'),
     path('visit-notes/edit/<int:id>/', views.InspectionsEditView, name='edit_visit-note'),
@@ -125,6 +120,15 @@ urlpatterns = [
     path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 
     #SAMPLE REQUEST
+    path('sample-requests/', views.SampleRequestsView, name='sample_requests'),
+    path('sample-requests/add/', views.AddSampleRequest, name='add_sample_request'),
+    path('sample-requests/<int:id>/', views.SampleRequestView, name='sample_request'),
+    path('sample-requests/<int:id>/add-product/', views.AddSampleRequestProduct, name='sample_request_add_product'),
+    path('sample-requests/<int:id>/add-customer-sample/', views.AddCustomerSampleRef, name='sample_request_add_customer_sample'),
+    path('sample-requests/<int:id>/add-dispatch-details/', views.AddSampleRequestDispatch, name='sample_request_add_dispatch_details'),
+    path('sample-requests/<int:id>/confirm-delivery/', views.SampleRequestView, name='sample_request_confirm_delivery'),
+    path('sample-requests/<int:id>/update-feedback/', views.EditSampleRequestUpdateFeedback, name='sample_request_update_feedback'),
+
     path('test/', views.TestView, name='test'),
 
 ]

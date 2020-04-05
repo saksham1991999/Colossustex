@@ -7,9 +7,3 @@ from supplier.models import supplier
 from agent.models import agent
 from core import models as coremodels
 from hr import models as hrmodels
-
-
-class SampleRequestForm(forms.ModelForm):
-    class Meta:
-        model = models.sample_request
-        fields = '__all__'

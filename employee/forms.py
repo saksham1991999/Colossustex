@@ -57,7 +57,7 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
 
 
-#ENQUIRY MANAGEMENT FORMS
+#INQUIRY MANAGEMENT FORMS
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = coremodels.inquiry
@@ -172,4 +172,27 @@ class SubAgentFeedbackForm(forms.ModelForm):
     class Meta:
         model = agentmodels.agent_general_feedback
         fields = '__all__'
+
+class SampleRequestForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.SampleRequest
+        # fields = '__all__'
+        fields = ['src', 'inquiry', 'supplier']
+
+class CustomerSampleRefForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.CustomerSampleRef
+        fields = ['ref', 'file_1', 'file_2', 'file_3']
+
+
+class SampleRequestDispatchForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.SampleRequestDispatch
+        fields = ['file_1', 'courier_details', 'estimate_delivery']
+
+
+class SampleRequestFeedbackForm(forms.ModelForm):
+    class Meta:
+        model = coremodels.SampleRequestFeedback
+        fields = ['content', 'file_1', 'file_2','file_3']
 

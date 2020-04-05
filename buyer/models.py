@@ -27,30 +27,6 @@ class buyer(models.Model):
         verbose_name_plural = 'Buyers'
 
 
-class sample_request(models.Model):
-    buyer = models.ForeignKey(buyer, on_delete=models.DO_NOTHING)
-    enquiry = models.ForeignKey('core.order', on_delete=models.DO_NOTHING)
-    sample_qty = models.IntegerField()
-    date = models.DateField(auto_now_add=True)
-    sample_approved = models.BooleanField(default=0)
-
-    def __str__(self):
-        return str(self.buyer)
-
-    class Meta:
-        verbose_name_plural = 'Sample Requests (Enquiry)'
-
-class sample_follow_up(models.Model):
-    sample_request = models.ForeignKey(sample_request, on_delete=models.DO_NOTHING)
-    user = models.ForeignKey('core.User', on_delete=models.DO_NOTHING)
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-
-    def __str__(self):
-        return str(self.sample_request)
-
-    class Meta:
-        verbose_name_plural = 'Sample Requests (Enquiry) Follow-Up'
 
 class buyer_complaint_categories(models.Model):
     title = models.CharField(max_length=100)

@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block extra_stylesheet %}
+    <!--  BEGIN CUSTOM STYLE FILE  -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}">
+    <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+	{% endblock extra_stylesheet %}
+
+
+
+{% block content %}
+
+   <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+
+    {% include 'sidebar.html' %}
+
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="account-settings-container layout-top-spacing">
+
+                    <div class="account-content">
+                        <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                            <div class="row">
+                                {{ formset.management_form }}
+                                <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                    <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
+                                       {{ formset.management_form }}
+
+                                        {% csrf_token %}
+
+                                        <div class="info">
+                                            <h5 class="">{{ formtitle }}</h5>
+
+                                            <div class="row">
+                                                <div class="col-md-11 mx-auto">
+                                                <fieldset>
+                                                    <div id="form_set">
+                                                    {% for form in formset %}
+                                                        {{ form.manangement_form }}
+                                                        <div class="row">
+                                                        {{ form.errors }}
+                                                            {{ form.id }}
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Query Detail</label>
+                                                                {{ form.quality_detail }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Quality Instruction</label>
+                                                                {{ form.quality_instruction }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">No of cones</label>
+                                                                {{ form.number_of_cones }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Weight of Cone</label>
+                                                                {{ form.weight_cone }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Packing Detail</label>
+                                                                {{ form.packing_detail }}
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    {% endfor %}
+                                                    </div>
+
+                                                </fieldset>
+
+                                                    <div class="field-wrapper">
+                                                        <button type="button" class="btn btn-primary" id='add_more' value="">Add</button>
+                                                        <button type="submit" class="btn btn-primary" value="">Save</button>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                                            <div id="empty_form" style="display:none">
+                                                                <table class='no_error'>
+                                                                    <div class="row">
+                                                        {{ form.errors }}
+                                                                        {{ formset.empty_form.id }}
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Query Detail</label>
+                                                                {{ formset.empty_form.quality_detail }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Quality Instruction</label>
+                                                                {{ formset.empty_form.quality_instruction }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">No of cones</label>
+                                                                {{ formset.empty_form.number_of_cones }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Weight of Cone</label>
+                                                                {{ formset.empty_form.weight_cone }}
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1.5">
+                                                            <div class="form-group">
+                                                                <label for="address">Packing Detail</label>
+                                                                {{ formset.empty_form.packing_detail }}
+                                                            </div>
+                                                        </div>
+                                                                    </div>
+                                                                </table>
+                                                            </div>
+                                                <div class="d-sm-flex justify-content-between">
+                                        </div>
+                                    </div>
+                                </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+
+        </div>
+    <!-- END MAIN CONTAINER -->
+
+
+{% endblock content %}
+
+    {% block extra_scripts %}
+
+
+    <!--  BEGIN CUSTOM SCRIPTS FILE  -->
+
+    <script src="{% static 'plugins/dropify/dropify.min.js' %}"></script>
+    <script src="{% static 'plugins/blockui/jquery.blockUI.min.js' %}"></script>
+    <!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+    <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
+    <!--  END CUSTOM SCRIPTS FILE  -->
+
+
+<script>
+    $('#add_more').click(function() {
+        console.log('button clicked');
+        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        console.log(form_idx);
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+});
+
+</script>
+
+
+        <script>
+
+            $('input').toggleClass('form-control');
+            $('select').toggleClass('form-control');
+            $('textarea').toggleClass('form-control');
+            $('input[type="checkbox"]').toggleClass('form-control');
+            $('input[type="file"]').toggleClass('form-control');
+            $('input[type="file"]').toggleClass('form-control-file');
+            $('input[type="checkbox"]').toggleClass('form-control');
+            $('input[type="checkbox"]').toggleClass('custom-control-input');
+            console.log('hey');
+
+        </script>
+    {% endblock extra_scripts %}
