@@ -69,6 +69,59 @@
                             </div>
                         </div>
 
+                        <div id="buttonsSolid" class="col-lg-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>Update Inquiry</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                    {% if inquiry.customer_feedback_datetime %}
+
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Customer Feedback</button>
+                                        </a>
+                                    {% elif inquiry.reply_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Update Dispatch Details</button>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Sample Producta</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Customer Reference</button>
+                                        </a>
+
+                                    {% endif %}
+
+
+                                    {% comment %}
+                                    <button class="btn btn-primary mb-2">Primary</button>
+                                    <button class="btn btn-info mb-2">Info</button>
+                                    <button class="btn btn-success mb-2">Success</button>
+                                    <button class="btn btn-warning mb-2">Warning</button>
+                                    <button class="btn btn-danger mb-2">Danger</button>
+                                    <button class="btn btn-secondary mb-2">Secondary</button>
+                                    <button class="btn btn-dark mb-2">Dark</button>
+                                <div class="widget-content widget-content-area text-center split-buttons">
+                                    <p class="mb-4">Apply <code>.btn-*</code> class followed by <code>.btn </code> class to create <b>default</b> buttons.</p>
+                                    <button class="btn btn-primary mb-2">Primary</button>
+                                    <button class="btn btn-info mb-2">Info</button>
+                                    <button class="btn btn-success mb-2">Success</button>
+                                    <button class="btn btn-warning mb-2">Warning</button>
+                                    <button class="btn btn-danger mb-2">Danger</button>
+                                    <button class="btn btn-secondary mb-2">Secondary</button>
+                                    <button class="btn btn-dark mb-2">Dark</button>
+                                    </div>
+                                    {% endcomment %}
+
+                            </div>
+                        </div>
+
                         <div class="user-profile layout-spacing">
                             <div class="widget-content widget-content-area">
                                 <div class="d-flex justify-content-between">
@@ -280,7 +333,6 @@
                                 </div>
                             </div>
                         </div>
-
 
                         <div class="bio layout-spacing ">
                             <div class="widget-content widget-content-area">
