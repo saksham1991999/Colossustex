@@ -127,7 +127,7 @@ urlpatterns = [
     path('sample-requests/<int:id>/add-customer-sample/', views.AddCustomerSampleRef, name='sample_request_add_customer_sample'),
     path('sample-requests/<int:id>/add-dispatch-details/', views.AddSampleRequestDispatch, name='sample_request_add_dispatch_details'),
     path('sample-requests/<int:id>/confirm-delivery/', views.SampleRequestView, name='sample_request_confirm_delivery'),
-    path('sample-requests/<int:id>/update-feedback/', views.EditSampleRequestUpdateFeedback, name='sample_request_update_feedback'),
+    path('sample-requests/<int:id>/update-feedback/', views.SampleRequestUpdateFeedback, name='sample_request_update_feedback'),
 
     path('test/', views.TestView, name='test'),
 

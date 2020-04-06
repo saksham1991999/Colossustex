@@ -1311,7 +1311,7 @@ def SampleRequestUpdateDeliveryDate(request, id):
     sample_request.save()
     return redirect('employee:sample_request')
 
-def EditSampleRequestUpdateFeedback(request,id):
+def SampleRequestUpdateFeedback(request,id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
     if request.method == 'POST':
         form = forms.SampleRequestFeedbackForm(request.POST, request.FILES)

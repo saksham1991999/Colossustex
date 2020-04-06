@@ -49,36 +49,46 @@
                                                         <div class="row">
                                                         {{ form.errors }}
                                                             {{ form.id }}
-                                                        <div class="col-md-1.5" style="margin-left: 0px;margin-right: 0px;">
+                                                        <div class="col-md-2" style="margin-left: 0px;margin-right: 0px;">
                                                             <div class="form-group">
                                                                 <label for="address">Select Product</label>
                                                                 {{ form.product }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <label for="address">Quantity</label>
-                                                                {{ form.qty }}
+                                                         <div class="col-md-3">
+                                                             <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">Quantity</label>
+                                                                    {{ form.qty }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">INCO</label>
+                                                                    {{ form.inco_terms }}
+                                                                </div>
+                                                            </div>
+                                                             </div>
+                                                         </div>
+
+                                                        <div class="col-md-3">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Delivery</label>
+                                                                        {{ form.delivery_date }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Payment Terms</label>
+                                                                        {{ form.payment }}
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">INCO</label>
-                                                                {{ form.inco_terms }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <label for="address">Delivery</label>
-                                                                {{ form.delivery_date }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">Payment Terms</label>
-                                                                {{ form.payment }}
-                                                            </div>
-                                                        </div>
+
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Packing Requirement</label>
@@ -117,28 +127,36 @@
                                                                 {{ formset.empty_form.product }}
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <label for="address">Quantity</label>
-                                                                {{ formset.empty_form.qty }}
+                                                        <div class="col-md-3">
+                                                            <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">Quantity</label>
+                                                                    {{ formset.empty_form.qty }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">INCO</label>
+                                                                    {{ formset.empty_form.inco_terms }}
+                                                                </div>
+                                                            </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">INCO</label>
-                                                                {{ formset.empty_form.inco_terms }}
+                                                        <div class="col-md-3">
+                                                            <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">Delivery Date</label>
+                                                                    {{ formset.empty_form.delivery_date }}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <label for="address">Delivery Date</label>
-                                                                {{ formset.empty_form.delivery_date }}
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="address">Payment Terms</label>
+                                                                    {{ formset.empty_form.payment }}
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">Payment Terms</label>
-                                                                {{ formset.empty_form.payment }}
                                                             </div>
                                                         </div>
                                                         <div class="col-md-2">
@@ -216,7 +234,7 @@
         $( document ).ready(function() {
             $( "input[name*='date']" ).datepicker({
                  dateFormat: 'yy-mm-dd',
-                mindate: 0
+                minDate:0
             });
         });
 
