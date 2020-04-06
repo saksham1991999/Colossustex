@@ -48,6 +48,12 @@
                                                         <div class="row">
                                                         {{ form.errors }}
                                                             {{ form.id }}
+                                                            <div class="col-md-1">
+                                                            <div class="form-group">
+                                                                <label for="address">Product</label>
+                                                                {{ form.product }}
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-1.5">
                                                             <div class="form-group">
                                                                 <label for="address">Query Detail</label>
@@ -98,6 +104,12 @@
                                                                     <div class="row">
                                                         {{ form.errors }}
                                                                         {{ formset.empty_form.id }}
+                                                        <div class="col-md-1">
+                                                            <div class="form-group">
+                                                                <label for="address">Product</label>
+                                                                {{ formset.empty_form.product }}
+                                                            </div>
+                                                        </div>
                                                         <div class="col-md-1.5">
                                                             <div class="form-group">
                                                                 <label for="address">Query Detail</label>

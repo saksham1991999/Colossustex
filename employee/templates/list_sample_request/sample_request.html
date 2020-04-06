@@ -81,18 +81,18 @@
 
                                     {% if inquiry.customer_feedback_datetime %}
 
-                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                        <a href="{% url 'employee:sample_request_update_feedback' sample_request.id %}">
                                             <button class="btn btn-primary mb-2">Customer Feedback</button>
                                         </a>
                                     {% elif inquiry.reply_datetime %}
-                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                        <a href="{% url 'employee:sample_request_add_dispatch_details' sample_request.id %}">
                                             <button class="btn btn-primary mb-2">Update Dispatch Details</button>
                                         </a>
                                     {% else %}
-                                        <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
-                                            <button class="btn btn-primary mb-2">Add Sample Producta</button>
+                                        <a href="{% url 'employee:sample_request_add_product' sample_request.id %}">
+                                            <button class="btn btn-primary mb-2">Add Sample Products</button>
                                         </a>
-                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
+                                        <a href="{% url 'employee:sample_request_add_customer_sample' sample_request.id %}">
                                             <button class="btn btn-primary mb-2">Add Customer Reference</button>
                                         </a>
 
@@ -257,22 +257,29 @@
                                             </thead>
                                             <tbody>
 
-
+                                            {% for product in sample_request.SampleRequestProduct.all %}
                                                 <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>Product Code</td>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
                                                     <td>
-                                                       Product Name
+                                                        <a href="{% url 'employee:single_product' product.product.id %}">{{ product.product.name }}</a>
                                                     </td>
-                                                    <td><p class="text-danger">296</p></td>
-                                                    <td class="text-center">
-                                                        <ul class="table-controls">
-                                                            <li><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
-                                                            <li><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
-                                                        </ul>
-                                                    </td>
+                                                    <td><p class="text-danger">{{ product.quality_detail }}</p></td>
+                                                    <td><p class="text-danger">{{ product.quality_instruction }}</p></td>
+                                                    <td><p class="text-danger">{{ product.number_of_cones }}</p></td>
+                                                    <td><p class="text-danger">{{ product.weight_cone }}</p></td>
+                                                    <td><p class="text-danger">{{ product.packing_detail }}</p></td>
+{#                                                    <td><p class="text-danger">{{ product.destination_port }}</p></td>#}
+{#                                                    {% if inquiry.reply_datetime %}#}
+{#                                                        {% else %}#}
+{#                                                    <td class="text-center">#}
+{#                                                        <ul class="table-controls">#}
+{#                                                            <li><a href="{% url 'employee:inquiry_edit_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>#}
+{#                                                            <li><a href="{% url 'employee:inquiry_delete_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>#}
+{#                                                        </ul>#}
+{#                                                    </td>#}
+{#                                                {% endif %}#}
                                                 </tr>
-
+                                            {% endfor %}
 
                                             </tbody>
                                         </table>

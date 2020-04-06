@@ -1220,10 +1220,10 @@ def AddSampleRequest(request):
 
 def AddSampleRequestProduct(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
-    SampleRequestProductFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.SampleRequestProduct, extra=1, exclude=('inquiry', 'id'))
+    SampleRequestProductFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.SampleRequestProduct, extra=1, exclude=('id',))
 
     if request.method == 'POST':
-        formset = SampleRequestProductFormset(request.POST,request.FILES, instance=sample_request, prefix='sample_request')
+        formset = SampleRequestProductFormset(request.POST, request.FILES, instance=sample_request, prefix= 'sample_request')
         if formset.is_valid():
             formset.save()
             messages.success(
@@ -1231,7 +1231,7 @@ def AddSampleRequestProduct(request, id):
                 'Product Details Added Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+        return redirect('employee:sample_request', id)
     else:
         formset = SampleRequestProductFormset(instance=sample_request, prefix='sample_request')
         formtitle = 'Add Inquiry Product Details'
@@ -1253,7 +1253,7 @@ def AddCustomerSampleRef(request, id):
                 'Sample Request Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+        return redirect('employee:sample_request', id)
     else:
         form = forms.CustomerSampleRefForm(instance=sample_request)
         formtitle = 'Add Sample Request'
@@ -1274,7 +1274,7 @@ def AddSampleRequestDispatch(request, id):
                 'Sample Request Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+        return redirect('employee:sample_request', id)
     else:
         form = forms.SampleRequestDispatchForm(instance=sample_request)
         formtitle = 'Add Sample Request Dispatch'
@@ -1295,7 +1295,7 @@ def AddSampleRequestFeedback(request, id):
                 'Sample Request Feedback Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+        return redirect('employee:sample_request', id)
     else:
         form = forms.SampleRequestFeedbackForm(initial={'sample_request': sample_request})
         formtitle = 'Add Sample Request Feedback'
@@ -1309,7 +1309,7 @@ def SampleRequestUpdateDeliveryDate(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
     sample_request.delivered_date = timezone.now()
     sample_request.save()
-    return redirect('employee:sample_request')
+    return redirect('employee:sample_request', id)
 
 def SampleRequestUpdateFeedback(request,id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
@@ -1324,7 +1324,7 @@ def SampleRequestUpdateFeedback(request,id):
                 'Feedback Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+        return redirect('employee:sample_request', id)
     else:
         form = forms.SampleRequestFeedbackForm()
         formtitle = 'Edit Feedback Details'
