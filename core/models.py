@@ -289,6 +289,7 @@ class inquiry_update(models.Model):
 
 sample_request_choices = (
     ('IQ', 'Inquiry'),
+    ('IN', 'Indent'),
     ('BD', 'Business Development'),
 )
 #Sample Requirement
@@ -302,6 +303,45 @@ class SampleRequest(models.Model):
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
     delivered_date = models.DateField(blank=True, null=True)
 
+    def get_products(self):
+        products = SampleRequestProduct.objects.filter(sample_request=self)
+        return products
+
+    def get_customer_sample_ref(self):
+        sample_refs = CustomerSampleRef.objects.filter(sample_request=self)
+        return sample_refs
+
+    def get_dispatch_details(self):
+        dispatch_details = SampleRequestDispatch.objects.filter(sample_request=self)
+        return dispatch_details
+
+    def get_feedbacks(self):
+        feedbacks = SampleRequestFeedback.objects.filter(sample_request = self)
+        return feedbacks
+
+    def get_customer_sample_ref_date(self):
+        try:
+            sample_refs = CustomerSampleRef.objects.filter(sample_request=self).last()
+            date = sample_refs.date
+            return date
+        except:
+            return None
+
+    def get_dispatch_detail_date(self):
+        try:
+            dispatch_details = SampleRequestDispatch.objects.filter(sample_request=self)[0]
+            return dispatch_details.date
+        except:
+            return None
+
+    def get_feedback_date(self):
+        try:
+            feedbacks = SampleRequestFeedback.objects.filter(sample_request = self)[0]
+            return feedbacks.date
+        except:
+            return None
+
+
 class SampleRequestProduct(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
@@ -310,6 +350,7 @@ class SampleRequestProduct(models.Model):
     number_of_cones = models.PositiveSmallIntegerField()
     weight_cone = models.FloatField()
     packing_detail = models.CharField(max_length=256)
+    date = models.DateField(auto_now_add=True)
 
 class CustomerSampleRef(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
@@ -324,15 +365,15 @@ class SampleRequestDispatch(models.Model):
     file_1 = models.FileField()
     courier_details = models.CharField(max_length=256)
     date = models.DateField(auto_now_add=True)
-    estimate_delivery = models.DateField(blank=True, null=True)
+    estimate_delivery = models.DateField()
 
 class SampleRequestFeedback(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)
     date = models.DateField(auto_now_add=True)
     content = models.TextField()
-    file_1 = models.FileField()
-    file_2 = models.FileField()
-    file_3 = models.FileField()
+    file_1 = models.FileField(blank=True, null=True)
+    file_2 = models.FileField(blank=True, null=True)
+    file_3 = models.FileField(blank=True, null=True)
 
 
 

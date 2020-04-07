@@ -41,7 +41,7 @@
 
                                 <div class="text-center user-info">
 
-                                    <p class="">CTSR-323</p>
+                                    <p class="">CTSR-{{ sample_request.id }}</p>
                                 </div>
                                 <div class="user-info-list">
 
@@ -71,20 +71,15 @@
 
                         <div id="buttonsSolid" class="col-lg-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
-                                <div class="widget-header">
-                                    <div class="row">
-                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                                            <h4>Update Inquiry</h4>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                    {% if inquiry.customer_feedback_datetime %}
-
+                                    {% if sample_request.delivered_date %}
                                         <a href="{% url 'employee:sample_request_update_feedback' sample_request.id %}">
                                             <button class="btn btn-primary mb-2">Customer Feedback</button>
                                         </a>
-                                    {% elif inquiry.reply_datetime %}
+                                    {% elif sample_request.get_dispatch_detail_date %}
+                                        <a href="{% url 'employee:sample_request_confirm_delivery' sample_request.id %}">
+                                            <button class="btn btn-primary mb-2">Confirm Delivered</button>
+                                        </a>
+                                    {% elif sample_request.get_customer_sample_ref_date %}
                                         <a href="{% url 'employee:sample_request_add_dispatch_details' sample_request.id %}">
                                             <button class="btn btn-primary mb-2">Update Dispatch Details</button>
                                         </a>
@@ -130,26 +125,27 @@
 
                                 <div class="text-center user-info">
 
-                                    <p class="">CTS-323</p>
+                                    <p class="">CTS-{{ sample_request.supplier.id }}</p>
                                 </div>
                                 <div class="user-info-list">
 
                                     <div class="">
                                         <ul class="contacts-block list-unstyled">
                                             <li class="contacts-block__item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg> Buyer Name
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                                {{ sample_request.supplier.name }}
                                             </li>
                                             <li class="contacts-block__item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Jan 20, 1989
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                                                {{ sample_request.supplier.state }}, {{ sample_request.supplier.country }}
                                             </li>
                                             <li class="contacts-block__item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-map-pin"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Buyer State, Country
+                                                <a href="{{ sample_request.supplier.email }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                                    {{ sample_request.supplier.email }}</a>
                                             </li>
                                             <li class="contacts-block__item">
-                                                <a href="mailto:example@mail.com"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>Jimmy@gmail.com</a>
-                                            </li>
-                                            <li class="contacts-block__item">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> +1 (530) 555-12121
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                                {{ sample_request.supplier.mobile }}
                                             </li>
 
                                         </ul>
@@ -165,7 +161,7 @@
                                 <div class="timeline-alter">
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
-                                            <p class="">04 Mar 2009</p>
+                                            <p class="">{{ sample_request.receiving_date }}</p>
                                         </div>
                                         <div class="t-dot">
                                         </div>
@@ -175,9 +171,10 @@
                                         </div>
                                     </div>
 
+                                    {% if sample_request.get_customer_sample_ref_date %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
-                                            <p class="">05 Mar 2009 05:20 PM</p>
+                                            <p class="">{{ sample_request.get_customer_sample_ref_date }}</p>
                                         </div>
                                         <div class="t-dot">
                                         </div>
@@ -186,10 +183,12 @@
                                             <p>Latest</p>
                                         </div>
                                     </div>
+                                    {% endif %}
 
+                                    {% if sample_request.get_dispatch_detail_date %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
-                                            <p class="">05 Apr 2018</p>
+                                            <p class="">{{ sample_request.get_dispatch_detail_date|date }}</p>
                                         </div>
                                         <div class="t-dot">
                                         </div>
@@ -198,10 +197,12 @@
                                             <p>On Time</p>
                                         </div>
                                     </div>
+                                    {% endif %}
 
+                                    {% if sample_request.delivered_date %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
-                                            <p class="">05 Apr 2018</p>
+                                            <p class="">{{ sample_request.delivered_date|date }}</p>
                                         </div>
                                         <div class="t-dot">
                                         </div>
@@ -210,19 +211,20 @@
                                             <p>On Time</p>
                                         </div>
                                     </div>
-
+                                    {% endif %}
+                                    {% if sample_request.get_feedback_date != None %}
                                     <div class="item-timeline">
                                         <div class="t-meta-date">
-                                            <p class="">05 Apr 2018</p>
+                                            <p class="">{{ sample_request.get_feedback_date|date }}</p>
                                         </div>
                                         <div class="t-dot">
                                         </div>
                                         <div class="t-text">
                                             <p>Sample Customer Feedback</p>
-                                            <p>On Time</p>
+                                            <p></p>
                                         </div>
                                     </div>
-
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -252,12 +254,11 @@
                                                     <th>No. of Cones</th>
                                                     <th>Weight/Cone</th>
                                                     <th>Packaging Detail</th>
-                                                    <th class="text-center">Action</th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                            {% for product in sample_request.SampleRequestProduct.all %}
+                                            {% for product in sample_request.get_products %}
                                                 <tr>
                                                     <td class="text-center">{{ forloop.counter }}</td>
                                                     <td>
@@ -268,16 +269,6 @@
                                                     <td><p class="text-danger">{{ product.number_of_cones }}</p></td>
                                                     <td><p class="text-danger">{{ product.weight_cone }}</p></td>
                                                     <td><p class="text-danger">{{ product.packing_detail }}</p></td>
-{#                                                    <td><p class="text-danger">{{ product.destination_port }}</p></td>#}
-{#                                                    {% if inquiry.reply_datetime %}#}
-{#                                                        {% else %}#}
-{#                                                    <td class="text-center">#}
-{#                                                        <ul class="table-controls">#}
-{#                                                            <li><a href="{% url 'employee:inquiry_edit_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>#}
-{#                                                            <li><a href="{% url 'employee:inquiry_delete_product' product.id %}" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>#}
-{#                                                        </ul>#}
-{#                                                    </td>#}
-{#                                                {% endif %}#}
                                                 </tr>
                                             {% endfor %}
 
@@ -290,6 +281,7 @@
                             </div>
                         </div>
 
+                        {% if sample_request.get_customer_sample_ref %}
                         <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
@@ -307,111 +299,95 @@
                                                     <th class="text-center">#</th>
                                                     <th>Reference No.</th>
                                                     <th>Date</th>
-                                                    <th>File 1<th>
+                                                    <th>File 1</th>
                                                     <th>File 2</th>
                                                     <th>File 3</th>
-                                                    <th class="text-center">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-
+                                            {% for customer_ref in sample_request.get_customer_sample_ref %}
                                                 <tr>
-                                                    <td class="text-center">1</td>
-                                                    <td>Product Code</td>
+                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                    <td>{{ customer_ref.ref }}</td>
                                                     <td>
-                                                       Product Name
+                                                       {{ customer_ref.date }}
                                                     </td>
-                                                    <td><p class="text-danger">296</p></td>
-                                                    <td class="text-center">
-                                                        <ul class="table-controls">
-                                                            <li><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
-                                                            <li><a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
+                                                    {% if customer_ref.file_1 %}
+                                                    <td><p class="text-danger"><a href="{{ customer_ref.file_1.url }}">Download</a> </p></td>
+                                                    {% else %}
+                                                        <td>-</td>
+                                                    {% endif %}
+                                                    {% if customer_ref.file_2 %}
+                                                    <td><p class="text-danger"><a href="{{ customer_ref.file_2.url }}">Download</a> </p></td>
+                                                    {% else %}
+                                                        <td>-</td>
+                                                    {% endif %}
+                                                    {% if customer_ref.file_3 %}
+                                                    <td><p class="text-danger"><a href="{{ customer_ref.file_3.url }}">Download</a> </p></td>
+                                                    {% else %}
+                                                        <td>-</td>
+                                                    {% endif %}
 
+                                                </tr>
+                                            {% endfor %}
 
                                             </tbody>
                                         </table>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
 
+                    {% if sample_request.get_dispatch_details %}
+                            <div class="user-profile layout-spacing">
+                            <div class="widget-content widget-content-area">
+                                <div class="d-flex justify-content-between">
+                                    <h3 class="">Dispatch Details</h3>
+                                </div>
+                                {% for dispatch_detail in sample_request.get_dispatch_details %}
+                                    <div class="row" style="margin-left: 12%; margin-right: 12%; margin-top: 4%">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-coffee"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>&ensp;{{ dispatch_detail.courier_details|linebreaks|escape }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left: 10%; margin-right: 10%">
+                                        <div class="col-md-6">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                                {{ dispatch_detail.estimate_delivery }}
+                                        </div>
+                                        <div class="col-md-6">
+                                            <a href="{{ dispatch_detail.file_1.url }}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>&ensp;Dispatch File</a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if sample_request.get_feedbacks %}
                         <div class="bio layout-spacing ">
                             <div class="widget-content widget-content-area">
                                 <h3 class="">Customer Feedback</h3>
-                                <p>I'm Web Developer from California. I code and design websites worldwide. Mauris varius tellus vitae tristique sagittis. Sed aliquet, est nec auctor aliquet, orci ex vestibulum ex, non pharetra lacus erat ac nulla.</p>
 
-                                <p>Sed vulputate, ligula eget mollis auctor, lectus elit feugiat urna, eget euismod turpis lectus sed ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nunc ut velit finibus, scelerisque sapien vitae, pharetra est. Nunc accumsan ligula vehicula scelerisque vulputate.</p>
+                                {% for feedback in sample_request.get_feedbacks %}
+                                    <p>{{ feedback.date }}</p>
+                                    <p>{{ feedback.content|linebreaks|escape }}</p>
 
-                                <div class="bio-skill-box">
-
-                                    <div class="row">
-
-                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-5 mb-5 ">
-
-                                            <div class="d-flex b-skills">
-                                                <div>
-                                                </div>
-                                                <div class="">
-                                                    <h5>Category 1</h5>
-                                                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse eu fugiat nulla pariatur.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-5 mb-5 ">
-
-                                            <div class="d-flex b-skills">
-                                                <div>
-                                                </div>
-                                                <div class="">
-                                                    <h5>Category 2</h5>
-                                                    <p>Ut enim ad minim veniam, quis nostrud exercitation aliquip ex ea commodo consequat.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-5 ">
-
-                                            <div class="d-flex b-skills">
-                                                <div>
-                                                </div>
-                                                <div class="">
-                                                    <h5>Category 3</h5>
-                                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia anim id est laborum.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-12 col-xl-6 col-lg-12 mb-xl-0 mb-0 ">
-
-                                            <div class="d-flex b-skills">
-                                                <div>
-                                                </div>
-                                                <div class="">
-                                                    <h5>Category 4</h5>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do et dolore magna aliqua.</p>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
+                                    <p><a href="{{ feedback.file_1.url }}">File 1:  {{ feedback.file_1 }}</a></p>
+                                    {% if feedback.file_2 %}
+                                    <p><a href="{{ feedback.file_2.url }}">File 2:  {{ feedback.file_2 }}</a></p>
+                                    {% endif %}
+                                    {% if feedback.file_3 %}
+                                    <p><a href="{{ feedback.file_3.url }}">File 3:  {{ feedback.file_3 }}</a></p>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
-
+                    {% endif %}
                 </div>
                 </div>
         </div>

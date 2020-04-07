@@ -925,15 +925,10 @@ def AddInquiryProductView(request, id):
                                                   can_delete=False, extra=1)
 
     if request.method == 'POST':
-        print("##########################################")
-        print(request.POST)
-        print("33333333333333333333333333333333333333333333333")
         formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
-        print(formset.errors)
-        print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55")
         if formset.is_valid():
             print("333333333333333333333333333333333333333333333333333333")
-            print(formset)
+            print(request.POST)
             formset.save()
             messages.success(
                 request,
@@ -1202,13 +1197,14 @@ def AddSampleRequest(request):
     if request.method == 'POST':
         form = forms.SampleRequestForm(request.POST,request.FILES)
         if form.is_valid():
+            new_form = form.save(commit=False)
             form.save()
             messages.success(
                 request,
                 'Sample Request Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request')
+            return redirect('employee:sample_request_add_product', new_form.id)
     else:
         form = forms.SampleRequestForm()
         formtitle = 'Add Sample Request'
@@ -1224,7 +1220,12 @@ def AddSampleRequestProduct(request, id):
 
     if request.method == 'POST':
         formset = SampleRequestProductFormset(request.POST, request.FILES, instance=sample_request, prefix= 'sample_request')
+        print(formset.errors)
         if formset.is_valid():
+            for form in formset:
+                print(form)
+            print("#################################################################")
+            print(request.POST)
             formset.save()
             messages.success(
                 request,
@@ -1245,17 +1246,20 @@ def AddCustomerSampleRef(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
 
     if request.method == 'POST':
-        form = forms.CustomerSampleRefForm(request.POST, request.FILES,instance=sample_request)
+        form = forms.CustomerSampleRefForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            new_form = form.save(commit=False)
+            new_form.sample_request = sample_request
+            try: new_form.save()
+            except: print("######################################33")
             messages.success(
                 request,
                 'Sample Request Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request', id)
+            return redirect('employee:sample_request', id)
     else:
-        form = forms.CustomerSampleRefForm(instance=sample_request)
+        form = forms.CustomerSampleRefForm()
         formtitle = 'Add Sample Request'
         context = {
             'formtitle': formtitle,
@@ -1266,18 +1270,20 @@ def AddCustomerSampleRef(request, id):
 def AddSampleRequestDispatch(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
     if request.method == 'POST':
-        form = forms.SampleRequestDispatchForm(request.POST, request.FILES, instance=sample_request)
+        form = forms.SampleRequestDispatchForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            new_form = form.save(commit=False)
+            new_form.sample_request = sample_request
+            new_form.save()
             messages.success(
                 request,
-                'Sample Request Saved Successfully',
+                'Sample Request Dispacth Details Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
         return redirect('employee:sample_request', id)
     else:
-        form = forms.SampleRequestDispatchForm(instance=sample_request)
-        formtitle = 'Add Sample Request Dispatch'
+        form = forms.SampleRequestDispatchForm()
+        formtitle = 'Add Sample Request Dispatch Details'
         context = {
             'formtitle': formtitle,
             'form': form,
@@ -1289,7 +1295,9 @@ def AddSampleRequestFeedback(request, id):
     if request.method == 'POST':
         form = forms.SampleRequestFeedbackForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()
+            new_form = form.save(commit=False)
+            new_form.sample_request = sample_request
+            new_form.save()
             messages.success(
                 request,
                 'Sample Request Feedback Saved Successfully',
@@ -1297,7 +1305,7 @@ def AddSampleRequestFeedback(request, id):
             )
         return redirect('employee:sample_request', id)
     else:
-        form = forms.SampleRequestFeedbackForm(initial={'sample_request': sample_request})
+        form = forms.SampleRequestFeedbackForm()
         formtitle = 'Add Sample Request Feedback'
         context = {
             'formtitle': formtitle,
@@ -1307,7 +1315,7 @@ def AddSampleRequestFeedback(request, id):
 
 def SampleRequestUpdateDeliveryDate(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
-    sample_request.delivered_date = timezone.now()
+    sample_request.delivered_date = datetime.date.today()
     sample_request.save()
     return redirect('employee:sample_request', id)
 
@@ -1333,6 +1341,35 @@ def SampleRequestUpdateFeedback(request,id):
             'form': form,
         }
         return render(request, 'form.html', context)
+
+def AddCustomerSampleRef(request, id):
+    sample_request = coremodels.SampleRequest.objects.get(id=id)
+    CustomerSampleRefFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.CustomerSampleRef,
+                                                        extra=1, exclude=('id',))
+
+    if request.method == 'POST':
+        formset = CustomerSampleRefFormset(request.POST, request.FILES, instance=sample_request,
+                                              prefix='customer_ref')
+        if formset.is_valid():
+
+            formset.save()
+            messages.success(
+                request,
+                'Product Details Added Successfully',
+                extra_tags='alert alert-success alert-dismissible fade show'
+            )
+            return redirect('employee:sample_request', id)
+    else:
+        formset = CustomerSampleRefFormset(instance=sample_request, prefix='customer_ref')
+        formtitle = 'Add Inquiry Product Details'
+        context = {
+            'formtitle': formtitle,
+            'formset': formset,
+        }
+        return render(request, 'list_sample_request/SampleRequestProduct_formset.html', context)
+
+
+
 
 ###########################################################################################################################
 def BuyerComplaintsView(request):

@@ -42,7 +42,7 @@
                                         <div class="col-xl-4 col-md-4 col-sm-4 col-4">
                                             <div class="dt-buttons" style="float: right;">
                                                 <a href="{% url 'employee:add_sample_request' %}">
-                                                <button class="dt-button buttons-copy buttons-html5 btn" href="{% url 'employee:add_payment' %}">
+                                                <button class="dt-button buttons-copy buttons-html5 btn">
                                                     <span>New Sample Request</span>
                                                 </button>
                                                 </a>
@@ -66,16 +66,17 @@
 
                                     {% for request in sample_requests %}
                                         <tr>
-                                            <td>{{ request.sou }}</td>
-                                            <td>{{ request.enquiry }}</td>
-                                            <td>{{ request.sample_qty }}</td>
-                                            <td>{{ request.date }}</td>
-                                            <td>{% if request.sample_approved %} Approved {% endif %}</td>
+                                            <td>{{ request.get_src_display }}</td>
+                                            <td>{{ request.inquiry.buyer.name }}</td>
+                                            <td>{{ request.supplier.name }}</td>
+                                            <td>{{ request.receiving_date }}</td>
+                                            <td>{% if request.delivered_date %} Delivered {% else %}In-Process{% endif %}</td>
 
 
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-dark btn-sm">Open</button>
+                                                    <a  href="{% url 'employee:sample_request' request.id %}">
+                                                    <button type="button" class="btn btn-dark btn-sm">Open</button></a>
                                                     <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                     </button>

@@ -40,45 +40,53 @@
                                             <h5 class="">{{ formtitle }}</h5>
 
                                             <div class="row">
-                                                <div class="col-md-11 mx-auto">
+                                                <div class="col-md-12 mx-auto">
                                                 <fieldset>
                                                     <div id="form_set">
                                                     {% for form in formset %}
                                                         {{ form.manangement_form }}
                                                         <div class="row">
-                                                        {{ form.errors }}
+                                                            {{ form.errors }}
                                                             {{ form.id }}
-                                                            <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">Product</label>
-                                                                {{ form.product }}
+
+                                                            <div class="col-6">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="address">Product</label>
+                                                                            {{ form.product }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="address">Quality Detail</label>
+                                                                            {{ form.quality_detail }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <label for="address">Quality Instruction</label>
+                                                                            {{ form.quality_instruction }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Query Detail</label>
-                                                                {{ form.quality_detail }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Quality Instruction</label>
-                                                                {{ form.quality_instruction }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">No of cones</label>
-                                                                {{ form.number_of_cones }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Weight of Cone</label>
-                                                                {{ form.weight_cone }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
+
+
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="address">No of cones</label>
+                                                                            {{ form.number_of_cones }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-2">
+                                                                        <div class="form-group">
+                                                                            <label for="address">Weight of Cone</label>
+                                                                            {{ form.weight_cone }}
+                                                                        </div>
+                                                                    </div>
+
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label for="address">Packing Detail</label>
                                                                 {{ form.packing_detail }}
@@ -102,44 +110,43 @@
                                                             <div id="empty_form" style="display:none">
                                                                 <table class='no_error'>
                                                                     <div class="row">
-                                                        {{ form.errors }}
-                                                                        {{ formset.empty_form.id }}
-                                                        <div class="col-md-1">
-                                                            <div class="form-group">
-                                                                <label for="address">Product</label>
-                                                                {{ formset.empty_form.product }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Query Detail</label>
-                                                                {{ formset.empty_form.quality_detail }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Quality Instruction</label>
-                                                                {{ formset.empty_form.quality_instruction }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">No of cones</label>
-                                                                {{ formset.empty_form.number_of_cones }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Weight of Cone</label>
-                                                                {{ formset.empty_form.weight_cone }}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-1.5">
-                                                            <div class="form-group">
-                                                                <label for="address">Packing Detail</label>
-                                                                {{ formset.empty_form.packing_detail }}
-                                                            </div>
-                                                        </div>
+                                                                                {{ formset.empty_form.id }}
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">Product</label>
+                                                                                {{ formset.empty_form.product }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">Quality Detail</label>
+                                                                                {{ formset.empty_form.quality_detail }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">Quality Instruction</label>
+                                                                                {{ formset.empty_form.quality_instruction }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">No of cones</label>
+                                                                                {{ formset.empty_form.number_of_cones }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">Weight of Cone</label>
+                                                                                {{ formset.empty_form.weight_cone }}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <div class="form-group">
+                                                                                <label for="address">Packing Detail</label>
+                                                                                {{ formset.empty_form.packing_detail }}
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </table>
                                                             </div>
@@ -179,10 +186,10 @@
 <script>
     $('#add_more').click(function() {
         console.log('button clicked');
-        var form_idx = $('#id_form-TOTAL_FORMS').val();
+        var form_idx = $('#id_sample_request-TOTAL_FORMS').val();
         console.log(form_idx);
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-        $('#id_form-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        $('#id_sample_request-TOTAL_FORMS').val(parseInt(form_idx) + 1);
 });
 
 </script>

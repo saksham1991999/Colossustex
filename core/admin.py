@@ -31,7 +31,12 @@ admin.site.register(models.supplier_quotations)
 admin.site.register(models.forwarded_quotation)
 admin.site.register(models.inquiry_update)
 
-
+#SAMPLE REQUESTS
+admin.site.register(models.SampleRequest)
+admin.site.register(models.SampleRequestProduct)
+admin.site.register(models.CustomerSampleRef)
+admin.site.register(models.SampleRequestDispatch)
+admin.site.register(models.SampleRequestFeedback)
 
 admin.site.register(models.order)
 admin.site.register(models.payment)

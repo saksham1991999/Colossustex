@@ -1,0 +1,50 @@
+Supplier
+Head of Department
+Contact Person
+Contact Person Details
+
+
+Enquiry
+Optional PO No
+Optional - Quantity Discount
+Currency
+Insurance Terms (FOB, CFR, CIF, ExMill)
+Remark - Packing
+Automate Financial Year
+Agent Direct/Indirect
+Remove - Contract value
+
+Performa - Same()
+
+Payment __str__
+Due Date Generation
+Countries Automatic Field Generation
+
+Shipment 
+SUpplier PI 
+Indent No.
+Shipment By -  AIr, ROad, WaterWays
+
+Business Development
+Customer 
+Products - 
+Applications - 
+Monthly Capacity - 
+Subject - 
+Content - 
+
+PI Cancellation Reasons - 
+Delay Payment 
+Delay Shipment 
+Due to Market
+
+Leave Application Categories
+Half Date Leave
+
+Shipment Details
+Transit Details
+
+PO No
+Contract No 
+Dispatch
+and all
