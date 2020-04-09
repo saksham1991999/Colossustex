@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ formset.errors }}
+    {{ formset.management_form }}
+    {% for form in formset.forms %}
+        {{ form.sample_request }}
+        {{ form.product }}
+        {{ form.quality_detail }}
+        {{ form.quality_instruction }}
+        {{ form.number_of_cones }}
+        {{ form.weight_cone }}
+        {{ form.packing_detail }}
+        {{ form.date }}
+        {{ form.DELETE }}
+        {% for field in form.hidden_fields %}
+            {{ field }}
+        {% endfor %}
+        <br>
+        <br>
+    {% endfor %}
+
+    {% for field in formset.empty_form %}
+    {% endfor %}
+    <input type="submit">
+</form>
+
+</body>
+</html>

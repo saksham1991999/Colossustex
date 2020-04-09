@@ -27,7 +27,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
                             </div>
                         </a>
-                        <ul class="collapse submenu recent-submenu mini-recent-submenu list-unstyled show" id="dashboard" data-parent="#accordionExample">
+                        <ul class="collapse submenu recent-submenu mini-recent-submenu list-unstyled" id="dashboard" data-parent="#accordionExample">
                             <li class="active">
                                 <a href="{% url 'employee:home' %}"> DashBoard </a>
                             </li>
@@ -156,18 +156,7 @@
                             <li>
                                 <a href="{% url 'employee:inquiries' %}"> Inquiries </a>
                             </li>
-                            <li>
-                                <a href="{% url 'employee:shipments' %}"> Shipment Details </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'employee:bills' %}"> Bill/Invoice </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'employee:payments' %}"> Payment Details </a>
-                            </li>
-                            <li>
-                                <a href="{% url 'employee:inspections' %}">Inspection Details </a>
-                            </li>
+
                             <li>
                                 <a href="{% url 'employee:sample_requests' %}">Sample Requests Details </a>
                             </li>

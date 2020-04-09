@@ -1,4 +1,4 @@
-from django.forms import inlineformset_factory
+from django.forms import inlineformset_factory, modelformset_factory
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
@@ -888,38 +888,6 @@ def AddInquiryView(request):
         return render(request, 'list_inquiry/add_inquiry.html', context)
 
 def AddInquiryProductView(request, id):
-    # heading_message = 'Formset Demo'
-    # if request.method == 'GET':
-    #     formset = forms.InquiryProductFormset(request.GET or None)
-    # elif request.method == 'POST':
-    #     print("#############################################################")
-    #     print(request)
-    #     formset = forms.InquiryProductFormset(request.POST)
-    #     print(formset.errors)
-    #     if formset.is_valid():
-    #         for form in formset:
-    #             inquiry = coremodels.inquiry.objects.get(id=id)
-    #             product = form.cleaned_data.get('product')
-    #             qty = form.cleaned_data.get('qty') or 1
-    #             inco_terms = form.cleaned_data.get('inco_terms')
-    #             delivery_date = form.cleaned_data.get('delivery_date')
-    #             payment = form.cleaned_data.get('payment')
-    #             packing_requirement = form.cleaned_data.get('packing_requirement')
-    #             destination_port = form.cleaned_data.get('destination_port')
-    #             inquiry_product = coremodels.inquiry_product(
-    #                 inquiry=inquiry,product=product,qty=qty,inco_terms=inco_terms,delivery_date=delivery_date,payment=payment,packing_requirement=packing_requirement,destination_port=destination_port
-    #             )
-    #             inquiry_product.save()
-    #             print(inquiry_product)
-    #
-    #         # once all books are saved, redirect to book list view
-    #         return redirect('employee:inquiry', id)
-    #     return redirect('employee:inquiry_add_product', id)
-    # return render(request, 'list_inquiry/formset.html', {
-    #     'formset': formset,
-    #     'heading': heading_message,
-    # })
-
     inquiry = coremodels.inquiry.objects.get(id=id)
     InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry',),
                                                   can_delete=False, extra=1)
@@ -927,8 +895,6 @@ def AddInquiryProductView(request, id):
     if request.method == 'POST':
         formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
         if formset.is_valid():
-            print("333333333333333333333333333333333333333333333333333333")
-            print(request.POST)
             formset.save()
             messages.success(
                 request,
@@ -937,7 +903,7 @@ def AddInquiryProductView(request, id):
             )
         return redirect('employee:inquiry', id)
     else:
-        formset = InquiryProductFormSet(instance=inquiry, prefix='Product')
+        formset = InquiryProductFormSet(prefix='Product', instance=inquiry)
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
@@ -1002,54 +968,12 @@ def InquiryNotifySuppliersView(request, id):
         return render(request, 'form.html', context)
 
 def AddSupplierQuotationView(request, id):
-    # if request.method == 'POST':
-    #     print("#############################################################")
-    #     print(request)
-    #     formset = forms.SupplierQuotationsFormset(request.POST)
-    #     print(formset.errors)
-    #     if formset.is_valid():
-    #         for form in formset:
-    #             inquiry = coremodels.inquiry.objects.get(id=id)
-    #             product = form.cleaned_data.get('product')
-    #             supplier = form.cleaned_data.get('supplier')
-    #             price_kg = form.cleaned_data.get('price_kg')
-    #             quotation = coremodels.supplier_quotations.objects.create(inquiry=inquiry, product=product, supplier=supplier, price_kg=price_kg)
-    #             inquiry.received_quotation_datetime = datetime.datetime.now()
-    #             quotation.save()
-    #             # qty = form.cleaned_data.get('qty') or 1
-    #             # inco_terms = form.cleaned_data.get('inco_terms')
-    #             # delivery_date = form.cleaned_data.get('delivery_date')
-    #             # payment = form.cleaned_data.get('payment')
-    #             # packing_requirement = form.cleaned_data.get('packing_requirement')
-    #             # destination_port = form.cleaned_data.get('destination_port')
-    #
-    #
-    #         # once all books are saved, redirect to book list view
-    #         return redirect('employee:inquiry', id)
-    #     return redirect('employee:inquiry_add_quotation', id)
-    # else:
-    #     formset = forms.SupplierQuotationsFormset(request.GET or None)
-    #     inquiry = coremodels.inquiry.objects.get(id=id)
-    #     for form in formset:
-    #         form.fields['product'].queryset = inquiry.inquiry_product_set.all()
-    #         form.fields['supplier'].queryset = inquiry.notified_suppliers.suppliers.all()
-    #     print(formset.empty_form)
-    #     formset.empty_form.fields['product'].queryset = inquiry.inquiry_product_set.all()
-    #     formset.empty_form.fields['supplier'].queryset = inquiry.notified_suppliers.suppliers.all()
-    #     context = {
-    #         'formset': formset,
-    #     }
-    #     return render(request, 'list_inquiry/formset.html', context)
-
     inquiry = coremodels.inquiry.objects.get(id=id)
     SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry',),
                                             can_delete=False, extra=1)
 
     if request.method == 'POST':
-        try:
-            formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
-        except:
-            formset = None
+        formset = SupplierFormSet(request.POST, instance=inquiry, prefix='quotation')
         if formset and formset.is_valid():
             formset.save()
             messages.success(
@@ -1059,7 +983,7 @@ def AddSupplierQuotationView(request, id):
             )
             return redirect('employee:inquiry', id)
     else:
-        formset = SupplierFormSet(instance=inquiry, prefix='Product')
+        formset = SupplierFormSet(instance=inquiry, prefix='quotation')
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
@@ -1216,25 +1140,21 @@ def AddSampleRequest(request):
 
 def AddSampleRequestProduct(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
-    SampleRequestProductFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.SampleRequestProduct, extra=1, exclude=('id',))
+    SampleRequestProductFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.SampleRequestProduct,can_delete=False, extra=1, fields='__all__')
+    # SampleRequestProductFormset = modelformset_factory(coremodels.SampleRequestProduct, extra=4, exclude=('sample_request',))
 
     if request.method == 'POST':
-        formset = SampleRequestProductFormset(request.POST, request.FILES, instance=sample_request, prefix= 'sample_request')
-        print(formset.errors)
+        formset = SampleRequestProductFormset(request.POST, instance=sample_request , prefix= 'sample_request')
         if formset.is_valid():
-            for form in formset:
-                print(form)
-            print("#################################################################")
-            print(request.POST)
             formset.save()
             messages.success(
                 request,
                 'Product Details Added Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
-        return redirect('employee:sample_request', id)
+            return redirect('employee:sample_request', id)
     else:
-        formset = SampleRequestProductFormset(instance=sample_request, prefix='sample_request')
+        formset = SampleRequestProductFormset(prefix='sample_request', instance=sample_request)
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
@@ -1244,28 +1164,27 @@ def AddSampleRequestProduct(request, id):
 
 def AddCustomerSampleRef(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
+    CustomerSampleRefFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.CustomerSampleRef,
+                                                        extra=1, exclude=('id',))
 
     if request.method == 'POST':
-        form = forms.CustomerSampleRefForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            new_form.sample_request = sample_request
-            try: new_form.save()
-            except: print("######################################33")
+        formset = CustomerSampleRefFormset(request.POST, request.FILES, instance = sample_request, prefix = 'customer_sample')
+        if formset.is_valid():
+            formset.save()
             messages.success(
                 request,
-                'Sample Request Saved Successfully',
+                'Customer Sample Referencce Details Saved Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
             return redirect('employee:sample_request', id)
     else:
-        form = forms.CustomerSampleRefForm()
-        formtitle = 'Add Sample Request'
+        formset = CustomerSampleRefFormset(instance = sample_request, prefix = 'customer_sample')
+        formtitle = 'Add Customer Sample Reference Details'
         context = {
             'formtitle': formtitle,
-            'form': form,
+            'formset': formset,
         }
-        return render(request, 'form.html', context)
+        return render(request, 'list_sample_request/SampleRequestCustomerSampleReference_formset.html', context)
 
 def AddSampleRequestDispatch(request, id):
     sample_request = coremodels.SampleRequest.objects.get(id=id)
@@ -1341,35 +1260,6 @@ def SampleRequestUpdateFeedback(request,id):
             'form': form,
         }
         return render(request, 'form.html', context)
-
-def AddCustomerSampleRef(request, id):
-    sample_request = coremodels.SampleRequest.objects.get(id=id)
-    CustomerSampleRefFormset = inlineformset_factory(coremodels.SampleRequest, coremodels.CustomerSampleRef,
-                                                        extra=1, exclude=('id',))
-
-    if request.method == 'POST':
-        formset = CustomerSampleRefFormset(request.POST, request.FILES, instance=sample_request,
-                                              prefix='customer_ref')
-        if formset.is_valid():
-
-            formset.save()
-            messages.success(
-                request,
-                'Product Details Added Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
-            return redirect('employee:sample_request', id)
-    else:
-        formset = CustomerSampleRefFormset(instance=sample_request, prefix='customer_ref')
-        formtitle = 'Add Inquiry Product Details'
-        context = {
-            'formtitle': formtitle,
-            'formset': formset,
-        }
-        return render(request, 'list_sample_request/SampleRequestProduct_formset.html', context)
-
-
-
 
 ###########################################################################################################################
 def BuyerComplaintsView(request):

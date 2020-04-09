@@ -4,7 +4,6 @@
 <!--  BEGIN CUSTOM STYLE FILE  -->
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}">
 <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css">
-<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
 <!--  END CUSTOM STYLE FILE  -->
 {% endblock extra_stylesheet %}
 
@@ -16,7 +15,6 @@
         <div class="cs-overlay"></div>
         <div class="search-overlay"></div>
     {% include 'sidebar.html' %}
-
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
@@ -30,6 +28,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                         <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
+                                        {{ formset.errors }}
                                         {{ formset.management_form }}
                                         <div class="info">
                                             <h5 class="">{{ formtitle }}</h5>
@@ -40,34 +39,15 @@
                                                         {% for form in formset.forms %}
                                                             <div class="row">
 
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <label for="address">Supplier</label>
-                                                                    {{ form.supplier }}
-                                                                    {{ form.supplier.errors }}
+                                                            {% for field in form.visible_fields %}
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label for="address">{{ field.label }}</label>
+                                                                        {{ field }}
+                                                                        {{ field.errors }}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <div class="form-group">
-                                                                    <label for="address">Product</label>
-                                                                    {{ form.product }}
-                                                                    {{ form.product.errors }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <label for="address">Price/Kg</label>
-                                                                    {{ form.price_kg }}
-                                                                    {{ form.price_kg.errors }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <label for="address">Payment Terms</label>
-                                                                    {{ form.payment_terms }}
-                                                                    {{ form.payment_terms.errors }}
-                                                                </div>
-                                                            </div>
+                                                            {% endfor %}
 
                                                             {% for field in form.hidden_fields %}
                                                                 {{ field }}
@@ -89,38 +69,17 @@
                                 </div>
                             </div>
 
-
                         <div id="empty_form" style="display:none">
                             <div class="row">
-
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Supplier</label>
-                                        {{ formset.empty_form.supplier }}
-                                        {{ formset.empty_form.supplier.errors }}
+                                {% for field in formset.empty_form.visible_fields %}
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="address">{{ field.label }}</label>
+                                            {{ field }}
+                                            {{ field.errors }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="address">Product</label>
-                                        {{ formset.empty_form.product }}
-                                        {{ formset.empty_form.product.errors }}
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Price/Kg</label>
-                                        {{ formset.empty_form.price_kg }}
-                                        {{ formset.empty_form.price_kg.errors }}
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Payment Terms</label>
-                                        {{ formset.empty_form.payment_terms }}
-                                        {{ formset.empty_form.payment_terms.errors }}
-                                    </div>
-                                </div>
+                                {% endfor %}
 
                                 {% for field in formset.empty_form.hidden_fields %}
                                     {{ field }}
@@ -143,23 +102,14 @@
 {% endblock content %}
 
 {% block extra_scripts %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <script>
     $('#add_more').click(function() {
         console.log('button clicked');
-        var form_idx = $('#id_quotation-TOTAL_FORMS').val();
+        var form_idx = $('#id_sample_request-TOTAL_FORMS').val();
         console.log(form_idx);
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
-        $('#id_quotation-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-    });
-
-    $( document ).ready(function() {
-        $( "input[name*='date']" ).datepicker({
-              dateFormat: 'yy-mm-dd',
-              minDate: 0,
-        });
+        $('#id_sample_request-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     });
 </script>
 
@@ -181,10 +131,3 @@
     $('input[type="checkbox"]').toggleClass('custom-control-input');
 </script>
 {% endblock extra_scripts %}
-
-
-
-
-
-
-

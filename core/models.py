@@ -256,6 +256,7 @@ class supplier_quotations(models.Model):
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.inquiry_product', on_delete=models.DO_NOTHING)
     price_kg = models.PositiveIntegerField()
+    payment_terms = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.product) + ': ' + str(self.supplier) + ' - ' + str(self.price_kg)
