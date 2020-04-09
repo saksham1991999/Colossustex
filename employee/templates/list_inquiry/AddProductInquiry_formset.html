@@ -200,11 +200,25 @@
 
 <script>
     $('#add_more').click(function() {
-        console.log('button clicked');
         var form_idx = $('#id_Product-TOTAL_FORMS').val();
-        console.log(form_idx);
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
         $('#id_Product-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+
+
+        var datefieldid = "#id_Product-" + form_idx + "-delivery_date";
+        console.log(datefieldid);
+
+        $(datefieldid).removeClass("hasDatepicker");
+        $(".datepicker").datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+        });
+
+        $( datefieldid ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+        });
+        console.log('added datetimepicker');
     });
 
     $( document ).ready(function() {
