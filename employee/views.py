@@ -889,7 +889,7 @@ def AddInquiryView(request):
 
 def AddInquiryProductView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
-    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry',),
+    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry', 'suppliers'),
                                                   can_delete=False, extra=1)
 
     if request.method == 'POST':
@@ -939,33 +939,28 @@ def DeleteInquiryProductView(request, id):
     return redirect('employee:inquiry', inquiry_id)
 
 def InquiryNotifySuppliersView(request, id):
+    inquiry = coremodels.inquiry.objects.get(id=id)
+    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry',),
+                                                  can_delete=False, extra=0)
+
     if request.method == 'POST':
-        print('333333333333333333333333333333333333333333333333333333333333333333333333333333333333')
-        print(request.POST)
-        form = forms.NotifySuppliersForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            inquiry = coremodels.inquiry.objects.get(id=id)
-            inquiry.reply_datetime = datetime.datetime.now()
-            new_form.inquiry = inquiry
-            inquiry.save()
-            new_form.save()
-            form.save_m2m()
-            print(new_form.suppliers)
+        formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
+        if formset.is_valid():
+            formset.save()
             messages.success(
                 request,
-                'Suppliers Selected Successfully',
+                'Product Details Added Successfully',
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
         return redirect('employee:inquiry', id)
     else:
-        form = forms.NotifySuppliersForm()
-        formtitle = 'Select Suppliers to Notify'
+        formset = InquiryProductFormSet(prefix='Product', instance=inquiry)
+        formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
-            'form': form,
+            'formset': formset,
         }
-        return render(request, 'form.html', context)
+        return render(request, 'list_inquiry/SelectProductSuppliers_formset.html', context)
 
 def AddSupplierQuotationView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)

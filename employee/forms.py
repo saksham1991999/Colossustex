@@ -64,17 +64,6 @@ class InquiryForm(forms.ModelForm):
         fields = ['buyer', 'source', 'agent', 'remarks']
 
 
-class InquiryProductForm(forms.ModelForm):
-    class Meta:
-        model = coremodels.inquiry_product
-        exclude = ['inquiry']
-
-
-class NotifySuppliersForm(forms.ModelForm):
-    class Meta:
-        model = coremodels.notified_suppliers
-        fields = ['suppliers']
-
 class SupplierQuotationsForm(forms.ModelForm):
     class Meta:
         model = coremodels.supplier_quotations

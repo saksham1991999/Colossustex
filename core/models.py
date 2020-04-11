@@ -234,6 +234,7 @@ class inquiry_product(models.Model):
     payment = models.CharField(max_length=100)
     packing_requirement = models.CharField(max_length=56)
     destination_port = models.CharField(max_length=100)
+    suppliers = models.ManyToManyField('supplier.supplier')
 
     def __str__(self):
         return str(self.inquiry) + ' ' + str(self.product)
@@ -352,6 +353,7 @@ class SampleRequestProduct(models.Model):
     weight_cone = models.FloatField()
     packing_detail = models.CharField(max_length=256)
     date = models.DateField(auto_now_add=True)
+
 
 class CustomerSampleRef(models.Model):
     sample_request = models.ForeignKey('core.SampleRequest', on_delete=models.DO_NOTHING)

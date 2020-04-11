@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'storages',
+    'widget_tweaks',
 
     'core',
     'employee',
