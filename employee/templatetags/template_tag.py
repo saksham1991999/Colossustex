@@ -16,8 +16,8 @@ def profileimage(user):
     return ' '
 
 @register.filter
-def quotation_inquiry_product(inquiry, product):
-    quotations = coremodels.supplier_quotations.objects.filter(product=product, inquiry=inquiry)
+def inquiry_product_quotation(product, supplier):
+    quotations = coremodels.supplier_quotations.objects.filter(product=product, supplier = supplier)
     return quotations
 
 @register.filter

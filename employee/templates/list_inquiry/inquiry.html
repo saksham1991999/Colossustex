@@ -459,19 +459,19 @@
                                                                             </thead>
                                                                             <tbody>
 
-
+                                                                                {% for quotation in product|inquiry_product_quotation:supplier %}
                                                                                 <tr>
-                                                                                    <td class="text-center">1</td>
-                                                                                    <td>02-02-2020</td>
+                                                                                    <td class="text-center">{{ forloop.counter }}</td>
+                                                                                    <td>{{ quotation.date|date }}</td>
                                                                                     <td>
-                                                                                       3
+                                                                                       {{ quotation.price_kg }}
                                                                                     </td>
-                                                                                    <td><p class="text-danger">Term</p></td>
+                                                                                    <td><p class="text-danger">{{ quotation.payment_terms }}</p></td>
                                                                                     <td>
-                                                                                       File
+                                                                                        {% if quotation.file %} <a href="{{ quotation.file.url }}"> File </a>{% endif %}
                                                                                     </td>
                                                                                 </tr>
-
+                                                                                {% endfor %}
 
                                                                             </tbody>
                                                                         </table>
