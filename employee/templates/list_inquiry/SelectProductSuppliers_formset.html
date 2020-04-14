@@ -31,7 +31,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                         <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        {{ formset.management_form }}
+                                        <input name="total-forms" value="{{ InquiryProducts.count }}" type="hidden">
                                         <div class="info">
                                             <h5 class="">{{ formtitle }}</h5>
 
@@ -39,33 +39,26 @@
                                                 <div class="col-md-11 mx-auto">
                                                     <div class="row" id="form_set">
 
-                                                        {% for form in formset.forms %}
+                                                        {% for product in InquiryProducts %}
                                                             <div class="col-md-6">
-
                                                                 <div class="row">
                                                                     <div class="col-md-12">
                                                                         <div class="form-group">
-                                                                            <label for="address">Select Suppliers</label>
-                                                                            {{ form.product|attr:"readonly" }}
+                                                                            <label for="address">{{ product.product }}</label>
+
+                                                                            <input name="inquiry-product-id-{{ forloop.counter0 }}" value="{{ product.id }}" type="hidden">
+
+                                                                            <select name="inquiry-product-suppliers-{{ forloop.counter0 }}" multiple="" class="form-control" size="10">
+                                                                                {% for supplier in product.get_product_suppliers %}
+                                                                                    <option value="{{ supplier.id }}" {% if supplier in product.suppliers.all %}selected{% endif %}>{{ supplier }}</option>
+                                                                                {% endfor %}
+                                                                            </select>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <div class="form-group">
-                                                                            {{ form.suppliers }}
-                                                                            {{ form.suppliers.errors }}
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                            {% for field in form.hidden_fields %}
-                                                                {{ field }}
-                                                            {% endfor %}
-
                                                             </div>
                                                         {% endfor %}
+
                                                     </div>
                                                     <div class="d-sm-flex justify-content-between">
                                                         <div class="field-wrapper">
@@ -135,16 +128,6 @@
 <script src="{% static 'assets/js/users/account-settings.js' %}"></script>
 <!--  END CUSTOM SCRIPTS FILE  -->
 
-<script>
-    $('input').toggleClass('form-control');
-    $('select').toggleClass('form-control');
-    $('textarea').toggleClass('form-control');
-    $('input[type="checkbox"]').toggleClass('form-control');
-    $('input[type="file"]').toggleClass('form-control');
-    $('input[type="file"]').toggleClass('form-control-file');
-    $('input[type="checkbox"]').toggleClass('form-control');
-    $('input[type="checkbox"]').toggleClass('custom-control-input');
-</script>
 {% endblock extra_scripts %}
 
 

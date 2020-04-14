@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block extra_stylesheet %}
+<!--  BEGIN CUSTOM STYLE FILE  -->
+<link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}">
+<link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css">
+<link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<!--  END CUSTOM STYLE FILE  -->
+{% endblock extra_stylesheet %}
+
+{% block content %}
+
+   <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+    {% include 'sidebar.html' %}
+
+        <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="account-settings-container layout-top-spacing">
+
+                    <div class="account-content">
+                        <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                            <div class="row">
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        {{ formset.management_form }}
+                                        <input type="hidden" name="total_products" value="{{ inquiry_products.count }}">
+                                        <div class="info">
+                                            <h5 class="">{{ formtitle }}</h5>
+
+                                            {% for product in inquiry_products %}
+                                            <div class="row" style="margin-bottom: 50px">
+                                                <h5 style="margin-left: 2%"> {{ product.product }} </h5>
+                                                <input type="hidden" name="total_forms_product_{{ forloop.counter }}" id="total_forms_product_{{ forloop.counter }}" value="1">
+                                                <input type="hidden" name="inquiry_product_id_{{ forloop.counter }}" value="{{ product.id }}">
+                                                <div class="col-md-11 mx-auto">
+
+                                                    <div id="form_set_product_{{ forloop.counter }}">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="address">Supplier</label>
+                                                                    <select name="supplier_{{ forloop.counter }}_form_0">
+                                                                          <option value="">---------</option>
+                                                                        {% for supplier in product.suppliers.all %}
+                                                                              <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="address">Price/Kg</label>
+                                                                    <input type="number" name="price_kg_{{ forloop.counter }}_form_0" min="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="address">Payment Terms</label>
+                                                                    <select name="payment_term_{{ forloop.counter }}_form_0">
+                                                                          <option value="">---------</option>
+                                                                        {% for term in paymentterms %}
+                                                                              <option value="{{ term.id }}">{{ term.term }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div id="empty_form_product_{{ forloop.counter }}" style="display:none">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="address">Supplier</label>
+                                                                    <select name="supplier_{{ forloop.counter }}_form___prefix__">
+                                                                          <option value="">---------</option>
+                                                                        {% for supplier in product.suppliers.all %}
+                                                                              <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="address">Price/Kg</label>
+                                                                    <input type="number" name="price_kg_{{ forloop.counter }}_form___prefix__" min="0">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="address">Payment Terms</label>
+                                                                    <select name="payment_term_{{ forloop.counter }}_form___prefix__">
+                                                                          <option value="">---------</option>
+                                                                        {% for term in paymentterms %}
+                                                                              <option value="{{ term.id }}">{{ term.term }}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="d-sm-flex justify-content-between">
+                                                        <div class="field-wrapper">
+                                                            <button type="button" class="btn btn-primary" id='add_more_product_{{ forloop.counter }}' value="">Add</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            <div class="d-sm-flex justify-content-between">
+                                                <div class="field-wrapper">
+                                                    <button type="submit" class="btn btn-primary" id='Save' value="">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+                        <div id="empty_form" style="display:none">
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Supplier</label>
+                                        {{ formset.empty_form.supplier }}
+                                        {{ formset.empty_form.supplier.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="address">Product</label>
+                                        {{ formset.empty_form.product }}
+                                        {{ formset.empty_form.product.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Price/Kg</label>
+                                        {{ formset.empty_form.price_kg }}
+                                        {{ formset.empty_form.price_kg.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Payment Terms</label>
+                                        {{ formset.empty_form.payment_terms }}
+                                        {{ formset.empty_form.payment_terms.errors }}
+                                    </div>
+                                </div>
+
+                                {% for field in formset.empty_form.hidden_fields %}
+                                    {{ field }}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+        <!--  END CONTENT AREA  -->
+
+        </div>
+    <!-- END MAIN CONTAINER -->
+
+
+{% endblock content %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+
+    {% for product in inquiry_products %}
+    $('#add_more_product_{{ forloop.counter }}').click(function() {
+        console.log('button clicked');
+        var form_idx = $('#total_forms_product_{{ forloop.counter }}').val();
+        console.log(form_idx);
+        $('#form_set_product_{{ forloop.counter }}').append($('#empty_form_product_{{ forloop.counter }}').html().replace(/__prefix__/g, form_idx));
+        $('#total_forms_product_{{ forloop.counter }}').val(parseInt(form_idx) + 1);
+    });
+    {% endfor %}
+
+
+    $( document ).ready(function() {
+        $( "input[name*='date']" ).datepicker({
+              dateFormat: 'yy-mm-dd',
+              minDate: 0,
+        });
+    });
+</script>
+
+<!--  BEGIN CUSTOM SCRIPTS FILE  -->
+<script src="{% static 'plugins/dropify/dropify.min.js' %}"></script>
+<script src="{% static 'plugins/blockui/jquery.blockUI.min.js' %}"></script>
+<!-- <script src="plugins/tagInput/tags-input.js"></script> -->
+<script src="{% static 'assets/js/users/account-settings.js' %}"></script>
+<!--  END CUSTOM SCRIPTS FILE  -->
+
+<script>
+    $('input').toggleClass('form-control');
+    $('select').toggleClass('form-control');
+    $('textarea').toggleClass('form-control');
+    $('input[type="checkbox"]').toggleClass('form-control');
+    $('input[type="file"]').toggleClass('form-control');
+    $('input[type="file"]').toggleClass('form-control-file');
+    $('input[type="checkbox"]').toggleClass('form-control');
+    $('input[type="checkbox"]').toggleClass('custom-control-input');
+</script>
+{% endblock extra_scripts %}
+
+
+
+
+
+
+

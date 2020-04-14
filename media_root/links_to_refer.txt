@@ -1,0 +1,5 @@
+https://simpleit.rocks/python/django/dynamic-add-form-with-add-button-in-django-modelformset-template/
+https://stackoverflow.com/questions/501719/dynamically-adding-a-form-to-a-django-formset-with-ajax
+
+
+https://stackoverflow.com/questions/36130781/filter-foreign-key-queryset-model-in-inlineformset

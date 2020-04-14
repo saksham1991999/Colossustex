@@ -61,8 +61,7 @@ class ProductForm(forms.ModelForm):
 class InquiryForm(forms.ModelForm):
     class Meta:
         model = coremodels.inquiry
-        fields = ['buyer', 'source', 'agent', 'remarks']
-
+        fields = ['buyer', 'source', 'agent', 'remarks', 'inquiry_user']
 
 class SupplierQuotationsForm(forms.ModelForm):
     class Meta:

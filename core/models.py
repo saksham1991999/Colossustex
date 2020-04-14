@@ -71,6 +71,13 @@ class office(models.Model):
     class Meta:
         verbose_name_plural = 'Responsible Offices'
 
+class PaymentTerms(models.Model):
+    term = models.CharField(max_length=50)
+    days = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return str(self.term)
+
 #Product Models
 class category(models.Model):
     title = models.CharField(max_length=100)
@@ -190,13 +197,6 @@ class inquiry(models.Model):
     def inquiry_id(self):
         return 'CTI-'+ str(self.id)
 
-    def suppliers_notified(self):
-        print('--------------------------------------NOTIFIED SUPPLIERS--------------')
-        notified_suppliers_qs = notified_suppliers.objects.get(inquiry=self)
-        suppliers = notified_suppliers_qs.suppliers.all()
-        print(suppliers)
-        return suppliers
-
     # def suppliers_notified_otif(self):
     #     timedelta = self.reply_datetime - self.received_datetime
     #     if timedelta.hour > 48:
@@ -231,7 +231,7 @@ class inquiry_product(models.Model):
     qty = models.PositiveSmallIntegerField()
     inco_terms = models.CharField(max_length=56)
     delivery_date = models.DateField()
-    payment = models.CharField(max_length=100)
+    payment_terms = models.ForeignKey('core.PaymentTerms', on_delete=models.DO_NOTHING, blank=True, null=True)
     packing_requirement = models.CharField(max_length=56)
     destination_port = models.CharField(max_length=100)
     suppliers = models.ManyToManyField('supplier.supplier')
@@ -242,22 +242,17 @@ class inquiry_product(models.Model):
     class Meta:
         verbose_name_plural = 'Inquiry Products'
 
-class notified_suppliers(models.Model):
-    inquiry = models.OneToOneField('core.inquiry', on_delete=models.DO_NOTHING)
-    suppliers = models.ManyToManyField('supplier.supplier')
+    def get_product_suppliers(self):
+        suppliers = supplier.objects.filter(products__in=[self.product]).order_by('name')
+        return suppliers
 
-    def __str__(self):
-        return str(self.inquiry)
-
-    class Meta:
-        verbose_name_plural = 'Inquiry Notified Suppliers'
 
 class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.inquiry_product', on_delete=models.DO_NOTHING)
     price_kg = models.PositiveIntegerField()
-    payment_terms = models.CharField(max_length=100)
+    payment_terms = models.ForeignKey('core.PaymentTerms', on_delete=models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
         return str(self.product) + ': ' + str(self.supplier) + ' - ' + str(self.price_kg)

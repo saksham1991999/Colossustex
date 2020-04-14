@@ -9,6 +9,9 @@
     <link href="{% static 'assets/css/tables/table-basic.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'assets/css/components/timeline/custom-timeline.css' %}" rel="stylesheet" type="text/css">
+
+    <link href="{% static 'assets/css/components/tabs-accordian/custom-accordions.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/components/tabs-accordian/custom-tabs.css' %}" rel="stylesheet" type="text/css">
     <!--  END CUSTOM STYLE FILE  -->
 {% endblock extra_stylesheet %}
 
@@ -368,6 +371,162 @@
                         </div>
                         {% endif %}
 
+                        {% if inquiry.inquiry_product_set.all %}
+							<div class="statbox widget box box-shadow">
+								<div id="accordionBasic" class="widget-header">
+									<div class="row">
+										<div class="col-xl-12 col-md-12 col-sm-12 col-12">
+											<h4>Supplier and Quotations</h4>
+										</div>
+									</div>
+								</div>
+
+                                <div id="toggleAccordion">
+
+                                {% for product in inquiry.inquiry_product_set.all %}
+                                  <div class="card">
+                                    <div class="card-header" id="headingOne1">
+                                      <section class="mb-0 mt-0">
+                                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionOne" aria-expanded="true" aria-controls="defaultAccordionOne">
+                                          {{ forloop.counter }}.  {{ product.product }}  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        </div>
+                                      </section>
+                                    </div>
+
+                                    <div id="defaultAccordionOne" class="collapse" aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                      <div class="card-body">
+
+
+                                                {% if product.suppliers.all %}
+                                                <!-- NOTIFY SUPPLIERS-->
+                                                <h4>Notified Suppliers</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th>Supplier ID</th>
+                                                                <th>Supplier Name</th>
+                                                                <th>Mobile</th>
+                                                                <th class="text-center">Email</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for supplier in product.suppliers.all %}
+                                                            <tr>
+                                                                <td class="text-center">1</td>
+                                                                <td>Supplier Code</td>
+                                                                <td>
+                                                                   Supplier Name
+                                                                </td>
+                                                                <td><p class="text-danger">8178340031</p></td>
+                                                                <td>
+                                                                   saksham1991999@gmail.com
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {% endif %}
+
+                                                    <h4>Supplier Quotations</h4>
+                                                    <div class="widget-content widget-content-area vertical-pill">
+                                                        <div class="row mb-4 mt-3">
+                                                            <div class="col-sm-3 col-12">
+                                                                <div class="nav flex-column nav-pills mb-sm-0 mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                                    {% for supplier in product.suppliers.all %}
+                                                                          <a class="nav-link mb-2" id="v-pills-{{ forloop.counter }}-tab" data-toggle="pill" href="#v-pills-{{ forloop.counter }}" role="tab" aria-controls="v-pills-{{ forloop.counter }}" aria-selected="false">CTS-{{ supplier.id }}</a>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-9 col-12">
+                                                                <div class="tab-content" id="v-pills-tabContent">
+                                                                    {% for supplier in product.suppliers.all %}
+                                                                  <div class="tab-pane fade" id="v-pills-{{ forloop.counter }}" role="tabpanel" aria-labelledby="v-pills-{{ forloop.counter }}-tab">
+                                                                    <h4 class="mb-4">Supplier Name</h4>
+                                                                    <div class="table-responsive">
+                                                                        <table class="table table-bordered">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th class="text-center">#</th>
+                                                                                    <th>Date</th>
+                                                                                    <th>Price/Kg</th>
+                                                                                    <th>Payment Terms</th>
+                                                                                    <th class="text-center">Quotation</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+
+
+                                                                                <tr>
+                                                                                    <td class="text-center">1</td>
+                                                                                    <td>02-02-2020</td>
+                                                                                    <td>
+                                                                                       3
+                                                                                    </td>
+                                                                                    <td><p class="text-danger">Term</p></td>
+                                                                                    <td>
+                                                                                       File
+                                                                                    </td>
+                                                                                </tr>
+
+
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                  </div>
+                                                                        {% endfor %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                {% if inquiry.forwarded_quotation.quotations.all %}
+                                                <h4>Quotations Forwarded to Customer</h4>
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">#</th>
+                                                                <th>Quotation ID</th>
+                                                                <th>Supplier</th>
+                                                                <th>Total Price</th>
+                                                                <th class="text-center">Quotation</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for quotation in inquiry.forwarded_quotation.quotations.all %}
+                                                            <tr>
+                                                                <td class="text-center">{{ forloop.counter }}</td>
+                                                                <td>{{ quotation.id }}</td>
+                                                                <td>
+                                                                   {{ quotation.supplier.id }}
+                                                                </td>
+                                                                <td><p class="text-danger">Rs {{ quotation.total_price }}</p></td>
+                                                                <td>
+                                                                   <a href="{{ quotation.document.url }}">download</a>
+                                                                </td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {% endif %}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!--FORLOOP ENDS-->
+                                {% endfor %}
+                                    </div>
+                                </div>
+
+                        {% endif %}
+
+
+
+                        {% comment %}
                         {% if inquiry.notified_suppliers.suppliers.all %}
                         <div id="tableProgress" class="col-lg-12 col-12 layout-spacing">
                             <div class="statbox widget box box-shadow">
@@ -504,6 +663,7 @@
                             </div>
                         </div>
                         {% endif %}
+                        {% endcomment %}
 
                     {% if inquiry.inquiry_update_set.all %}
                     <div class="row layout-top-spacing">
@@ -559,9 +719,13 @@
 {% block extra_scripts %}
     <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
     <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+    <script src="{% static 'assets/js/components/ui-accordions.js' %}"></script>
     <script>
         checkall('todoAll', 'todochkbox');
         $('[data-toggle="tooltip"]').tooltip()
     </script>
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
+
 {% endblock extra_scripts %}

@@ -1,0 +1,42 @@
+Tutorials to be completed this Vacations
+
+Wagtail
+Google API 
+Andrew NG Courses
+Cormen/ Competitive Programming
+Machine Learning API with Django 
+
+
+Balu
+The New List
+
+MousePad 299-20
+Type C-hub 899-40 
+watch1 279-20
+watch2 338-25
+Total - 1710 (of the above products)
+
+Peanut Butter 2 - 1047 
+
+
+Admin Templates
+https://designreset.com/cork/ltr/demo6/
+http://html.phoenixcoded.net/empire/bootstrap/default/
+https://modernadmin.evolvision.com/dashboard
+http://themepixels.me/dashforge/1.1/template/classic/dashboard-one.html
+https://coderthemes.com/ubold/layouts/material/index.html
+https://themes.laborator.co/#theme=neon
+https://www.nobleui.com/html/template/demo_1/dashboard-one.html
+http://themesbox.in/admin-templates/soyuz/html/light-vertical/index.html
+https://dashlite.themenio.com/general/index.html
+http://react.pixelstrap.com/endless/dashboard/ecommerce
+
+
+Tomorrow we could discuss about
+Final Entities and Attributes (with choices and abbreviations)
+Employees Designation and their Use Cases 
+Required Charts, Graphs and Reports
+Required Emails, Notisfications, SMS etc.
+
+
+Mail Coding Blocks Varun Bhaiya

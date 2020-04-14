@@ -13,6 +13,8 @@ admin.site.register(models.note)
 admin.site.register(models.updates)
 admin.site.register(models.notifications)
 admin.site.register(models.suplus_product)
+admin.site.register(models.PaymentTerms)
+
 
 #PRODUCT MODELS
 admin.site.register(models.category)
@@ -26,7 +28,6 @@ admin.site.register(models.product)
 #INQUIRY MODELS
 admin.site.register(models.inquiry)
 admin.site.register(models.inquiry_product)
-admin.site.register(models.notified_suppliers)
 admin.site.register(models.supplier_quotations)
 admin.site.register(models.forwarded_quotation)
 admin.site.register(models.inquiry_update)

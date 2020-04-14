@@ -66,6 +66,7 @@ def ProfileView(request):
         }
         return render(request, 'form.html', context)
 
+#EMPLOYEE VIEWS
 def EmployeesView(request):
     employees = models.employee.objects.all()
     context = {
@@ -131,6 +132,7 @@ def EmployeeDeleteView(request, id):
     employee.delete()
     return redirect('employee:employees')
 
+#SUPPLIER VIEWS
 def SuppliersView(request):
     suppliers = suppliermodels.supplier.objects.all()
     context = {
@@ -201,6 +203,7 @@ def SupplierDeleteView(request, id):
     supplier.delete()
     return redirect('employee:suppliers')
 
+#SUB-AGENT VIEWS
 def SubAgentView(request):
     agents = agentmodels.agent.objects.all()
     context = {
@@ -261,6 +264,7 @@ def SubAgentDeleteView(request, id):
     sub_agent.delete()
     return redirect('employee:sub_agents')
 
+#BUYER VIEWS
 def BuyersView(request):
     buyers = buyermodels.buyer.objects.all()
     context = {
@@ -322,6 +326,7 @@ def BuyerDeleteView(request, id):
     buyer.delete()
     return redirect('employee:buyers')
 
+#PRODUCT VIEWS
 def ProductsView(request):
     products = coremodels.product.objects.all()
     context = {
@@ -382,6 +387,12 @@ def ProductView(request, id):
     }
 
     return render(request, 'list_users/single_product.html', context)
+
+
+
+
+
+
 
 def EnquiriesView(request):
     enquiries = coremodels.order.objects.all()
@@ -940,25 +951,30 @@ def DeleteInquiryProductView(request, id):
 
 def InquiryNotifySuppliersView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
-    InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry',),
-                                                  can_delete=False, extra=0)
 
     if request.method == 'POST':
-        formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
-        if formset.is_valid():
-            formset.save()
-            messages.success(
-                request,
-                'Product Details Added Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
+        print(request.POST)
+        total_forms = request.POST["total-forms"]
+        for formidx in range(int(total_forms)):
+            inquiry_product_id_str = "inquiry-product-id-"+str(formidx)
+            inquiry_product_suppliers_str = "inquiry-product-suppliers-"+str(formidx)
+            inquiry_product_id = request.POST[inquiry_product_id_str]
+            inquiry_product_suppliers = request.POST.getlist(inquiry_product_suppliers_str)
+
+            inquiry_product = coremodels.inquiry_product.objects.get(id=inquiry_product_id)
+            inquiry_product.suppliers.clear()
+            for supplier_id in inquiry_product_suppliers:
+                supplier = suppliermodels.supplier.objects.get(id=supplier_id)
+                inquiry_product.suppliers.add(supplier)
+            inquiry_product.save()
+        inquiry.reply_datetime = datetime.datetime.now()
         return redirect('employee:inquiry', id)
     else:
-        formset = InquiryProductFormSet(prefix='Product', instance=inquiry)
-        formtitle = 'Add Inquiry Product Details'
+        formtitle = 'Select Suppliers'
+        InquiryProducts = coremodels.inquiry_product.objects.filter(inquiry = inquiry)
         context = {
             'formtitle': formtitle,
-            'formset': formset,
+            'InquiryProducts': InquiryProducts,
         }
         return render(request, 'list_inquiry/SelectProductSuppliers_formset.html', context)
 
@@ -988,30 +1004,50 @@ def AddSupplierQuotationView(request, id):
 
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
+    inquiry_products = coremodels.inquiry_product.objects.filter(inquiry=inquiry)
 
-    SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations,
-                                            exclude=('inquiry', 'id'),
-                                            can_delete=False, extra=6)
-    # queryset=coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
     if request.method == 'POST':
-        formset = SupplierFormSet(request.POST, instance=inquiry, prefix='Product')
-        if formset.is_valid():
-            formset.save()
-            messages.success(
-                request,
-                'Product Details Added Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
-        return redirect('employee:inquiry', id)
-    else:
-        formset = SupplierFormSet(instance=inquiry, prefix='Product')
+        print(request.POST)
+        total_products = request.POST['total_products']
+        print(total_products)
+        for product_idx in range(1, int(total_products)+1):
+            total_forms = request.POST['total_forms_product_'+str(product_idx)]
+            inquiry_product_id = request.POST['inquiry_product_id_'+str(product_idx)]
+            inquiry_product = coremodels.inquiry_product.objects.get(id = inquiry_product_id)
+            print(inquiry_product)
+            for form_idx in range(int(total_forms)):
+                try:
+                    supplier_str = 'supplier_' + str(product_idx) + '_form_' + str(form_idx)
+                    price_kg_str = 'price_kg_' + str(product_idx) + '_form_' + str(form_idx)
+                    payment_terms_str = 'payment_term_' + str(product_idx) + '_form_' + str(form_idx)
 
+                    supplier_id = request.POST[supplier_str]
+                    supplier = coremodels.supplier.objects.get(id=supplier_id)
+                    price_kg = request.POST[price_kg_str]
+                    payment_terms = request.POST[payment_terms_str]
+                    print("##########################################################################")
+                    quotation = coremodels.supplier_quotations.objects.create(inquiry = inquiry,
+                                                                              product = inquiry_product,
+                                                                              price_kg = price_kg,
+                                                                              payment_terms_id = payment_terms,
+                                                                              supplier=supplier
+                                                                              )
+                    quotation.save()
+                    print(str(product_idx) + '_form_' + str(form_idx) + ' Save Successfully')
+                except:
+                    pass
+        inquiry.received_quotation_datetime = datetime.datetime.now()
+        return redirect('employee:inquiry' , inquiry.id)
+    else:
+        paymentterms = coremodels.PaymentTerms.objects.all()
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
-            'formset': formset,
+            'inquiry_products': inquiry_products,
+            'paymentterms': paymentterms,
         }
-        return render(request, 'list_inquiry/formset.html', context)
+        return render(request, 'list_inquiry/AddSupplierQuotation_formset2.html', context)
+
 
 def SelectForwardQuotationsView(request, id):
     if request.method == 'POST':
