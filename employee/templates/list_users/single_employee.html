@@ -100,7 +100,7 @@
                                                         <label class="customer-info-item">{{ employee.dob }}</label>
                                                     </li>
                                                     <li class="contacts-block__item">Document :
-                                                        <label class="customer-info-item"><a href="{{ employee.document.url }}">Download</a></label>
+                                                        {% if employee.document %}<label class="customer-info-item"><a href="{{ employee.document.url }}">Download</a></label>{% endif %}
                                                     </li>
                                                 </ul>
                                             </div>

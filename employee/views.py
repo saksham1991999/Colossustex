@@ -879,8 +879,6 @@ def AddInquiryView(request):
         if form.is_valid():
             new_form = form.save(commit=False)
             new_form.received_datetime = datetime.datetime.now()
-            employee = models.employee.objects.get(user=request.user)
-            new_form.inquiry_user = employee
             new_form.save()
             messages.success(
                 request,

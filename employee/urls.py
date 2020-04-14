@@ -28,7 +28,7 @@ urlpatterns = [
     path('buyers/', views.BuyersView, name='buyers'),
     path('buyers/add/', views.BuyersAddView, name='add_buyer'),
     path('buyers/edit/<int:id>/', views.BuyersEditView, name='edit_buyer'),
-    path('buyers/view/<int:id>/', views.BuyersViewView, name='edit_buyer'),
+    path('buyers/view/<int:id>/', views.BuyersViewView, name='view_buyer'),
     path('buyers/delete/<int:id>/', views.BuyerDeleteView, name='delete_buyer'),
 
     path('products/', views.ProductsView, name='products'),

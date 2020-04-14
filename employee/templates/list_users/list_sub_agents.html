@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/custom_dt_custom.css' %}">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/datatables.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
+    <!-- END PAGE LEVEL STYLES -->
 {% endblock extra_stylesheet %}
 
 
@@ -40,7 +46,7 @@
                                         <div class="dt-buttons" style="float: right;">
                                             <a href="{% url 'employee:add_sub_agent' %}">
                                                 <button class="dt-button buttons-copy buttons-html5 btn">
-                                                    <span>Add Sub-Agent</span>
+                                                    <span>Add</span>
                                                 </button>
                                             </a>
                                         </div>
@@ -69,9 +75,9 @@
                                             <tr>
                                                 <td class="checkbox-column text-center"> 7 </td>
                                                 <td class="text-center">
-                                                    <span><img src="{{ agent.image }}" class="profile-img" alt="avatar"></span>
+                                                    <a><a href="{% url 'employee:view_sub_agent' agent.id %}"></a><img src="{{ agent.image }}" class="profile-img" alt="avatar"></a></span>
                                                 </td>
-                                                <td>{{ agent.name }}</td>
+                                                <td><a href="{% url 'employee:view_sub_agent' agent.id %}">{{ agent.name }}</a></td>
                                                 <td>{{ agent.mobile }}</td>
                                                 <td>{{ agent.email }}</td>
                                                 <td>{{ agent.state }}, {{ agent.country }}</td>

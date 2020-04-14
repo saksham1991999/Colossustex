@@ -7,6 +7,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/custom_dt_custom.css' %}">
     <!-- END PAGE LEVEL CUSTOM STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/datatables.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
+    <!-- END PAGE LEVEL STYLES -->
 {% endblock extra_stylesheet %}
 
 
@@ -67,9 +73,9 @@
 
                                             {% for supplier in suppliers %}
                                             <tr>
-                                                <td class="checkbox-column text-center"> {{ supplier.cts }} </td>
-                                                <td>{{ supplier.name }}</td>
-                                                <td>{{ supplier.mobile }}</td>
+                                                <td class="checkbox-column text-center"> CTS {{ supplier.id }} </td>
+                                                <td><a href="{% url 'employee:view_supplier' supplier.id %} ">{{ supplier.name }}</a></td>
+                                                <td><a href="{% url 'employee:view_supplier' supplier.id %} ">{{ supplier.mobile }}</a></td>
                                                 <td>{{ supplier.email }}</td>
                                                 <td>{{ supplier.state }}, {{ supplier.country }}</td>
 

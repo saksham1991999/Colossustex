@@ -45,7 +45,7 @@
                                         <div class="dt-buttons" style="float: right;">
                                             <a href="{% url 'employee:add_employee' %}">
                                                 <button class="dt-button buttons-copy buttons-html5 btn">
-                                                    <span>Add Employee</span>
+                                                    <span>Add</span>
                                                 </button>
                                             </a>
                                         </div>
@@ -72,9 +72,9 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <div class="usr-img-frame mr-2 rounded-circle">
-                                                        <img alt="avatar" class="img-fluid rounded-circle" src="{{ employee.image.url }}">
+                                                        <a href="{% url 'employee:view_employee' employee.id %} "><img alt="avatar" class="img-fluid rounded-circle" src="{{ employee.image.url }} or None"></a>
                                                     </div>
-                                                    <p class="align-self-center mb-0 admin-name"> {{ employee.name }} </p>
+                                                    <p class="align-self-center mb-0 admin-name"> <a href="{% url 'employee:view_employee' employee.id %} ">{{ employee.name }}</a> </p>
                                                 </div>
                                             </td>
                                             <td>{{ employee.department }}</td>
@@ -89,11 +89,11 @@
                                     <tfoot>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                            <th>Start date</th>
-                                            <th>Salary</th>
+                                            <th>Department</th>
+                                            <th>Mobile</th>
+                                            <th>Email</th>
+                                            <th>Date of Birth</th>
+                                            <th>State</th>
                                         </tr>
                                     </tfoot>
                                 </table>

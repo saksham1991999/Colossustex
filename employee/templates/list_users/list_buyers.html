@@ -73,8 +73,8 @@
 
                                             {% for buyer in buyers %}
                                             <tr>
-                                                <td class="checkbox-column text-center"> {{ buyer.ctc }} </td>
-                                                <td>{{ buyer.name }}</td>
+                                                <td class="checkbox-column text-center"> <a href="{% url 'employee:view_buyer' buyer.id %}">CTC-{{ buyer.id }}</a> </td>
+                                                <td><a href="{% url 'employee:view_buyer' buyer.id %}">{{ buyer.name }}</a></td>
                                                 <td>{{ buyer.mobile }}</td>
                                                 <td>{{ buyer.email }}</td>
                                                 <td>{{ buyer.state }}, {{ buyer.country }}</td>
