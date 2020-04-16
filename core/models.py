@@ -129,7 +129,6 @@ class required_no_of_nips(models.Model):
         verbose_name_plural = 'Required No of Nips'
 
 class product(models.Model):
-    product_code = models.SlugField()
     name = models.CharField(max_length=200)
     category = models.ForeignKey(category, on_delete=models.DO_NOTHING)
     sub_category_1 = models.ForeignKey(subcategory1, on_delete=models.DO_NOTHING)
@@ -142,8 +141,8 @@ class product(models.Model):
     required_no_of_nips = models.ForeignKey(required_no_of_nips, on_delete=models.DO_NOTHING)
     lycra_percent_or_any_additional_additive = models.CharField(max_length=4)
     shade = models.ForeignKey(product_shade, on_delete=models.DO_NOTHING)
-    additional_info = models.TextField()
-    remarks = models.TextField()
+    additional_info = models.TextField(blank=True, null=True)
+    remarks = models.TextField(blank=True, null=True)
 
 
     def __str__(self):

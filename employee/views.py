@@ -1046,7 +1046,6 @@ def AddSupplierQuotationView2(request, id):
         }
         return render(request, 'list_inquiry/AddSupplierQuotation_formset2.html', context)
 
-
 def SelectForwardQuotationsView(request, id):
     if request.method == 'POST':
         form = forms.ForwardedQuotationsForm(request.POST, request.FILES)

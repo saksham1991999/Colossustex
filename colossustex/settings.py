@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'storages',
     'widget_tweaks',
+    'import_export',
 
     'core',
     'employee',

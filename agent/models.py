@@ -3,17 +3,17 @@ from django.db import models
 
 class agent(models.Model):
     user = models.ForeignKey('core.User', on_delete=models.DO_NOTHING, blank=True, null=True)
-    cta = models.SlugField()
     name = models.CharField(max_length=100)
     addr1 = models.CharField(max_length=100)
     addr2 = models.CharField(max_length=100)
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
     country = models.CharField(max_length=20)
+    country_code = models.CharField(max_length=3)
     mobile = models.CharField(max_length=10)
     commission = models.IntegerField(blank=True, null = True)
     email = models.EmailField()
-    document = models.FileField()
+    document = models.FileField(blank=True, null=True)
     image = models.ImageField(blank=True, null=True)
 
     def __str__(self):

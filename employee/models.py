@@ -22,6 +22,7 @@ class employee(models.Model):
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
     country = models.CharField(max_length=20)
+    country_code = models.CharField(max_length=3, default='91')
     mobile = models.CharField(max_length=10)
     email = models.EmailField()
     image = models.ImageField(blank=True, null=True)

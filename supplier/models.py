@@ -3,17 +3,19 @@ from django.db import models
 
 class supplier(models.Model):
     user = models.ForeignKey('core.User', on_delete=models.DO_NOTHING, blank=True, null = True)
-    cts = models.SlugField()
     products = models.ManyToManyField('core.product')
     name = models.CharField(max_length=100)
+    mobile = models.CharField(max_length=10)
     addr1 = models.CharField(max_length=100)
     addr2 = models.CharField(max_length=100)
     state = models.CharField(max_length=20)
     pincode = models.CharField(max_length=6)
+    country_code = models.CharField(max_length=3)
     country = models.CharField(max_length=20)
-    mobile = models.CharField(max_length=10)
+    concerned_person_name = models.CharField(max_length=100)
+    concerned_person_mobile = models.CharField(max_length=10)
     email = models.EmailField()
-    document = models.FileField()
+    document = models.FileField(blank=True, null=True)
 
     def __str__(self):
         return self.name
