@@ -68,6 +68,13 @@
                                                                     {{ form.payment_terms.errors }}
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="address">Quotation File</label>
+                                                                    {{ form.file }}
+                                                                    {{ form.file.errors }}
+                                                                </div>
+                                                            </div>
 
                                                             {% for field in form.hidden_fields %}
                                                                 {{ field }}
@@ -119,6 +126,13 @@
                                         <label for="address">Payment Terms</label>
                                         {{ formset.empty_form.payment_terms }}
                                         {{ formset.empty_form.payment_terms.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Quotation File</label>
+                                        {{ formset.empty_form.file }}
+                                        {{ formset.empty_form.file.errors }}
                                     </div>
                                 </div>
 

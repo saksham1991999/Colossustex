@@ -966,6 +966,7 @@ def InquiryNotifySuppliersView(request, id):
                 inquiry_product.suppliers.add(supplier)
             inquiry_product.save()
         inquiry.reply_datetime = datetime.datetime.now()
+        inquiry.save()
         return redirect('employee:inquiry', id)
     else:
         formtitle = 'Select Suppliers'
@@ -978,6 +979,7 @@ def InquiryNotifySuppliersView(request, id):
 
 def AddSupplierQuotationView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
+    inquiry_products = coremodels.inquiry_product.objects.filter(inquiry=inquiry)
     SupplierFormSet = inlineformset_factory(coremodels.inquiry, coremodels.supplier_quotations, exclude=('inquiry',),
                                             can_delete=False, extra=1)
 
@@ -997,8 +999,9 @@ def AddSupplierQuotationView(request, id):
         context = {
             'formtitle': formtitle,
             'formset': formset,
+            'inquiry_products':inquiry_products,
         }
-        return render(request, 'list_inquiry/AddSupplierQuotation_formset.html', context)
+        return render(request, 'list_inquiry/AddSupplierQuotation_formset3.html', context)
 
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
@@ -1043,6 +1046,7 @@ def AddSupplierQuotationView2(request, id):
             'formtitle': formtitle,
             'inquiry_products': inquiry_products,
             'paymentterms': paymentterms,
+            'inquiry':inquiry,
         }
         return render(request, 'list_inquiry/AddSupplierQuotation_formset2.html', context)
 

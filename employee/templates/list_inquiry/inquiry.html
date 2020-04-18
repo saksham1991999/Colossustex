@@ -387,13 +387,13 @@
                                   <div class="card">
                                     <div class="card-header" id="headingOne1">
                                       <section class="mb-0 mt-0">
-                                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordionOne" aria-expanded="true" aria-controls="defaultAccordionOne">
+                                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordion{{ forloop.counter }}" aria-expanded="true" aria-controls="defaultAccordion{{ forloop.counter }}">
                                           {{ forloop.counter }}.  {{ product.product }}  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                         </div>
                                       </section>
                                     </div>
 
-                                    <div id="defaultAccordionOne" class="collapse" aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                    <div id="defaultAccordion{{ forloop.counter }}" class="collapse" aria-labelledby="headingOne1" data-parent="#toggleAccordion">
                                       <div class="card-body">
 
 
@@ -414,14 +414,14 @@
                                                         <tbody>
                                                         {% for supplier in product.suppliers.all %}
                                                             <tr>
-                                                                <td class="text-center">1</td>
-                                                                <td>Supplier Code</td>
+                                                                <td class="text-center">{{ forloop.counter }}</td>
+                                                                <td>CTS-{{ supplier.id }}</td>
                                                                 <td>
-                                                                   Supplier Name
+                                                                   {{ supplier.name|upper }}
                                                                 </td>
-                                                                <td><p class="text-danger">8178340031</p></td>
+                                                                <td><p class="text-danger">{{ supplier.country_code }}-{{ supplier.mobile }}</p></td>
                                                                 <td>
-                                                                   saksham1991999@gmail.com
+                                                                   {{ supplier.email }}
                                                                 </td>
                                                             </tr>
                                                         {% endfor %}

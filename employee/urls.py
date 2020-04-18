@@ -7,35 +7,54 @@ urlpatterns = [
     path('', views.HomeView, name='home'),
     path('profile/', views.ProfileView, name='profile'),
 
+    # EMPLOYEE URLS
     path('employees/', views.EmployeesView, name='employees'),
     path('employees/add/', views.EmployeeAddView, name='add_employee'),
     path('employees/edit/<int:id>/', views.EmployeeEditView, name='edit_employee'),
     path('employees/view/<int:id>/', views.EmployeeViewView, name='view_employee'),
     path('employees/delete/<int:id>/', views.EmployeeDeleteView, name='delete_employee'),
 
+    # SUPPLIERS URLS
     path('suppliers/', views.SuppliersView, name='suppliers'),
     path('suppliers/add/', views.SuppliersAddView, name='add_supplier'),
     path('suppliers/edit/<int:id>/', views.SupplierEditView, name='edit_supplier'),
     path('suppliers/view/<int:id>/', views.SupplierViewView, name='view_supplier'),
     path('suppliers/delete/<int:id>/', views.SupplierDeleteView, name='delete_supplier'),
 
+    # SUB-AGENT URLS
     path('sub_agents/', views.SubAgentView, name='sub_agents'),
     path('sub_agents/add/', views.SubAgentAddView, name='add_sub_agent'),
     path('sub_agents/edit/<int:id>/', views.SubAgentEditView, name='edit_sub_agent'),
     path('sub_agents/view/<int:id>/', views.SubAgentViewView, name='view_sub_agent'),
     path('sub_agents/delete/<int:id>/', views.SubAgentEditView, name='delete_sub_agent'),
 
+    # BUYER URLS
     path('buyers/', views.BuyersView, name='buyers'),
     path('buyers/add/', views.BuyersAddView, name='add_buyer'),
     path('buyers/edit/<int:id>/', views.BuyersEditView, name='edit_buyer'),
     path('buyers/view/<int:id>/', views.BuyersViewView, name='view_buyer'),
     path('buyers/delete/<int:id>/', views.BuyerDeleteView, name='delete_buyer'),
 
+    # PRODUCT URLS
     path('products/', views.ProductsView, name='products'),
     path('products/add/', views.ProductAddView, name='add_product'),
     path('products/edit/<int:id>/', views.ProductEditView, name='edit_product'),
     path('products/delete/<int:id>/', views.ProductDeleteView, name='delete_product'),
     path('products/<int:id>/', views.ProductView, name='single_product'),
+
+    # INQUIRY URLS
+    path('inquiries/', views.InquiresView, name='inquiries'),
+    path('inquiries/add/', views.AddInquiryView, name='add_inquiry'),
+    path('inquiry/<int:id>/', views.InquiryView, name='inquiry'),
+    path('inquiry/<int:id>/add-product/', views.AddInquiryProductView, name='inquiry_add_product'),
+    path('inquiry/<int:id>/edit-product/', views.EditInquiryProductView, name='inquiry_edit_product'),
+    path('inquiry/delete-product/<int:id>/', views.DeleteInquiryProductView, name='inquiry_delete_product'),
+    path('inquiry/select-suppliers/<int:id>/', views.InquiryNotifySuppliersView, name='inquiry_select_suppliers'),
+    path('inquiry/add-quotation/<int:id>/', views.AddSupplierQuotationView, name='inquiry_add_quotation'),
+    path('inquiry/select-quotations/<int:id>/', views.SelectForwardQuotationsView, name='inquiry_select_quotations'),
+    path('inquiry/add-customer-feedback/<int:id>/', views.AddInquiryUpdateView, name='inquiry_add_customer_feedback'),
+    path('inquiry/confirm/<int:id>/', views.ConfirmInquiryView, name='inquiry_confirm'),
+    path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 
 
     path('bills/', views.BillsView, name='bills'),
@@ -105,19 +124,6 @@ urlpatterns = [
     path('enquiries/edit/', views.EnquiryEditView, name='edit_enquiry'),
     path('enquiries/delete/<int:id>/', views.EnquiryDeleteView, name='delete_enquiry'),
 
-    #INQUIRY VIEWS
-    path('inquiries/', views.InquiresView, name='inquiries'),
-    path('inquiries/add/', views.AddInquiryView, name='add_inquiry'),
-    path('inquiry/<int:id>/', views.InquiryView, name='inquiry'),
-    path('inquiry/<int:id>/add-product/', views.AddInquiryProductView, name='inquiry_add_product'),
-    path('inquiry/<int:id>/edit-product/', views.EditInquiryProductView, name='inquiry_edit_product'),
-    path('inquiry/delete-product/<int:id>/', views.DeleteInquiryProductView, name='inquiry_delete_product'),
-    path('inquiry/select-suppliers/<int:id>/', views.InquiryNotifySuppliersView, name='inquiry_select_suppliers'),
-    path('inquiry/add-quotation/<int:id>/', views.AddSupplierQuotationView2, name='inquiry_add_quotation'),
-    path('inquiry/select-quotations/<int:id>/', views.SelectForwardQuotationsView, name='inquiry_select_quotations'),
-    path('inquiry/add-customer-feedback/<int:id>/', views.AddInquiryUpdateView, name='inquiry_add_customer_feedback'),
-    path('inquiry/confirm/<int:id>/', views.ConfirmInquiryView, name='inquiry_confirm'),
-    path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 
     #SAMPLE REQUEST
     path('sample-requests/', views.SampleRequestsView, name='sample_requests'),

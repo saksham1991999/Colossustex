@@ -227,7 +227,7 @@ class inquiry(models.Model):
 class inquiry_product(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.product', on_delete=models.DO_NOTHING)
-    qty = models.PositiveSmallIntegerField()
+    qty = models.FloatField()
     inco_terms = models.CharField(max_length=56)
     delivery_date = models.DateField()
     payment_terms = models.ForeignKey('core.PaymentTerms', on_delete=models.DO_NOTHING, blank=True, null=True)
@@ -250,7 +250,7 @@ class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
     product = models.ForeignKey('core.inquiry_product', on_delete=models.DO_NOTHING)
-    price_kg = models.PositiveIntegerField()
+    price_kg = models.FloatField()
     payment_terms = models.ForeignKey('core.PaymentTerms', on_delete=models.DO_NOTHING, blank=True, null=True)
     date = models.DateField(auto_now_add=True)
     file = models.FileField(blank=True, null=True)

@@ -58,6 +58,7 @@
                                                 <th>Category</th>
                                                 <th>Sub Category 1</th>
                                                 <th>Sub Category 2</th>
+                                                {% comment %}
                                                 <th>Application</th>
                                                 <th>Polymer Fiber</th>
                                                 <th>Luster</th>
@@ -66,6 +67,7 @@
                                                 <th class="text-center">Required No of Nips</th>
                                                 <th class="text-center">Lycra Percent/Additional Additive</th>
                                                 <th class="text-center">Shade</th>
+                                                {% endcomment %}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -73,11 +75,12 @@
 
                                             {% for product in products %}
                                             <tr>
-                                                <td class="checkbox-column text-center"> {{ product.product_code }} </td>
+                                                <td class="checkbox-column text-center"> {{ product.id }} </td>
                                                 <td>{{ product.name }}</td>
                                                 <td class="text-center"><span class="shadow-none badge badge-primary">{{ product.category }}</span></td>
                                                 <td>{{ product.sub_category_1 }}</td>
                                                 <td>{{ product.sub_category_2 }}</td>
+                                                {% comment %}
                                                 <td>{{ product.application }}</td>
                                                 <td>{{ product.polymer_fiber }}</td>
                                                 <td>{{ product.luster }}</td>
@@ -86,8 +89,7 @@
                                                 <td>{{ product.required_no_of_nips }}</td>
                                                 <td>{{ product.lycra_percent_or_any_additional_additive }}</td>
                                                 <td>{{ product.shade }}</td>
-
-
+                                                {% endcomment %}
 
                                                 <td class="text-center">
                                                     <ul class="table-controls">

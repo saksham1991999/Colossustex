@@ -30,25 +30,34 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                         <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <input type="hidden" name="quotation-TOTAL_FORMS" value="1" id="id_quotation-TOTAL_FORMS"><input type="hidden" name="quotation-INITIAL_FORMS" value="0" id="id_quotation-INITIAL_FORMS"><input type="hidden" name="quotation-MIN_NUM_FORMS" value="0" id="id_quotation-MIN_NUM_FORMS"><input type="hidden" name="quotation-MAX_NUM_FORMS" value="1000" id="id_quotation-MAX_NUM_FORMS">
-
+                                        <input type="hidden" name="quotation-TOTAL_FORMS" value="{{ inquiry_products.count }}" id="id_quotation-TOTAL_FORMS">
+                                        <input type="hidden" name="quotation-INITIAL_FORMS" value="0" id="id_quotation-INITIAL_FORMS">
+                                        <input type="hidden" name="quotation-MIN_NUM_FORMS" value="0" id="id_quotation-MIN_NUM_FORMS">
+                                        <input type="hidden" name="quotation-MAX_NUM_FORMS" value="1000" id="id_quotation-MAX_NUM_FORMS">
+                                        
                                         <input type="hidden" name="total_products" value="{{ inquiry_products.count }}">
                                         <div class="info">
                                             <h5 class="">{{ formtitle }}</h5>
 
                                             {% for product in inquiry_products %}
+                                                {% with forloop.counter0 as product_loop %}
                                             <div class="row" style="margin-bottom: 50px">
                                                 <h5 style="margin-left: 2%"> {{ product.product }} </h5>
-                                                <input type="hidden" name="total_forms_product_{{ forloop.counter }}" id="total_forms_product_{{ forloop.counter }}" value="1">
-                                                <input type="hidden" name="inquiry_product_id_{{ forloop.counter }}" value="{{ product.id }}">
                                                 <div class="col-md-11 mx-auto">
 
                                                     <div id="form_set_product_{{ forloop.counter }}">
+
+                                                    <input type="hidden" name="quotation-{{ product_loop }}-id" id="id_quotation-{{ product_loop }}-id">
+                                                    <input type="hidden" name="quotation-0-inquiry" value="{{ inquiry.id }}" id="id_quotation-0-inquiry">
+                                                    <select name="quotation-{{ product_loop }}-product" id="id_quotation-{{ product_loop }}-product" hidden>
+                                                        <option value="{{ product.id }}" selected="">{{ product }}</option>
+                                                    </select>
+
                                                         <div class="row">
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="address">Supplier</label>
-                                                                    <select name="supplier_{{ forloop.counter }}_form_0">
+                                                                    <select name="quotation-{{ product_loop }}-supplier" id="id_quotation-{{ product_loop }}-supplier">
                                                                           <option value="">---------</option>
                                                                         {% for supplier in product.suppliers.all %}
                                                                               <option value="{{ supplier.id }}">{{ supplier.name }}</option>
@@ -56,16 +65,18 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label for="address">Price/Kg</label>
-                                                                    <input type="number" name="price_kg_{{ forloop.counter }}_form_0" min="0">
+                                                                    <input type="number" name="quotation-{{ product_loop }}-price_kg" min="0" id="id_quotation-{{ product_loop }}-price_kg">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+
+                                                            <div class="col-md-2">
                                                                 <div class="form-group">
                                                                     <label for="address">Payment Terms</label>
-                                                                    <select name="payment_term_{{ forloop.counter }}_form_0">
+                                                                    <select name="quotation-{{ product_loop }}-payment_terms" id="id_quotation-{{ product_loop }}-payment_terms">
                                                                           <option value="">---------</option>
                                                                         {% for term in paymentterms %}
                                                                               <option value="{{ term.id }}">{{ term.term }}</option>
@@ -73,41 +84,19 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+
+
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="address">Quotation File</label>
+                                                                    <input type="file" name="quotation-{{ product_loop }}-file" id="id_quotation-{{ product_loop }}-file">
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
 
-                                                    <div id="empty_form_product_{{ forloop.counter }}" style="display:none">
-                                                        <div class="row">
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <label for="address">Supplier</label>
-                                                                    <select name="supplier_{{ forloop.counter }}_form___prefix__">
-                                                                          <option value="">---------</option>
-                                                                        {% for supplier in product.suppliers.all %}
-                                                                              <option value="{{ supplier.id }}">{{ supplier.name }}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-2">
-                                                                <div class="form-group">
-                                                                    <label for="address">Price/Kg</label>
-                                                                    <input type="number" name="price_kg_{{ forloop.counter }}_form___prefix__" min="0">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <div class="form-group">
-                                                                    <label for="address">Payment Terms</label>
-                                                                    <select name="payment_term_{{ forloop.counter }}_form___prefix__">
-                                                                          <option value="">---------</option>
-                                                                        {% for term in paymentterms %}
-                                                                              <option value="{{ term.id }}">{{ term.term }}</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
 
                                                     <div class="d-sm-flex justify-content-between">
                                                         <div class="field-wrapper">
@@ -116,6 +105,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                                {% endwith %}
                                             {% endfor %}
                                             <div class="d-sm-flex justify-content-between">
                                                 <div class="field-wrapper">
@@ -128,43 +118,55 @@
                             </div>
 
 
-                        <div id="empty_form" style="display:none">
-                            <div class="row">
+                        {% for product in inquiry_products %}
+                            <div id="empty_form_product_{{ forloop.counter }}" style="display:none">
+                                <input type="hidden" name="quotation-__prefix__-id" id="id_quotation-__prefix__-id">
+                                <input type="hidden" name="quotation-0-inquiry" value="{{ inquiry.id }}" id="id_quotation-0-inquiry">
+                                <select name="quotation-__prefix__-product" id="id_quotation-__prefix__-product" hidden>
+                                    <option value="{{ product.id }}" selected="">{{ product }}</option>
+                                </select>
 
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Supplier</label>
-                                        {{ formset.empty_form.supplier }}
-                                        {{ formset.empty_form.supplier.errors }}
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="address">Product</label>
-                                        {{ formset.empty_form.product }}
-                                        {{ formset.empty_form.product.errors }}
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Price/Kg</label>
-                                        {{ formset.empty_form.price_kg }}
-                                        {{ formset.empty_form.price_kg.errors }}
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label for="address">Payment Terms</label>
-                                        {{ formset.empty_form.payment_terms }}
-                                        {{ formset.empty_form.payment_terms.errors }}
-                                    </div>
-                                </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="address">Supplier</label>
+                                                <select name="quotation-__prefix__-supplier" id="id_quotation-__prefix__-supplier">
+                                                      <option value="">---------</option>
+                                                    {% for supplier in product.suppliers.all %}
+                                                          <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
 
-                                {% for field in formset.empty_form.hidden_fields %}
-                                    {{ field }}
-                                {% endfor %}
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="address">Price/Kg</label>
+                                                <input type="number" name="quotation-__prefix__-price_kg" min="0" id="id_quotation-__prefix__-price_kg">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="address">Payment Terms</label>
+                                                <select name="quotation-__prefix__-payment_terms" id="id_quotation-__prefix__-payment_terms">
+                                                      <option value="">---------</option>
+                                                    {% for term in paymentterms %}
+                                                          <option value="{{ term.id }}">{{ term.term }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="address">Quotation File</label>
+                                                <input type="file" name="quotation-__prefix__-file" id="id_quotation-__prefix__-file">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        {% endfor %}
 
                         </div>
                     </div>
@@ -189,10 +191,10 @@
     {% for product in inquiry_products %}
     $('#add_more_product_{{ forloop.counter }}').click(function() {
         console.log('button clicked');
-        var form_idx = $('#total_forms_product_{{ forloop.counter }}').val();
+        var form_idx = $('#id_quotation-TOTAL_FORMS').val();
         console.log(form_idx);
         $('#form_set_product_{{ forloop.counter }}').append($('#empty_form_product_{{ forloop.counter }}').html().replace(/__prefix__/g, form_idx));
-        $('#total_forms_product_{{ forloop.counter }}').val(parseInt(form_idx) + 1);
+        $('#id_quotation-TOTAL_FORMS').val(parseInt(form_idx) + 1);
     });
     {% endfor %}
 
