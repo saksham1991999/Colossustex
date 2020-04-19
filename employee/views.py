@@ -890,9 +890,15 @@ def AddInquiryView(request):
     else:
         form = forms.InquiryForm()
         formtitle = 'Add Inquiry Details'
+        buyers = buyermodels.buyer.objects.all()
+        employees = models.employee.objects.all()
+        agents = agentmodels.agent.objects.all()
         context = {
             'formtitle': formtitle,
             'form': form,
+            'buyers':buyers,
+            'employees':employees,
+            'agents':agents
         }
         return render(request, 'list_inquiry/add_inquiry.html', context)
 
@@ -994,14 +1000,16 @@ def AddSupplierQuotationView(request, id):
             )
             return redirect('employee:inquiry', id)
     else:
+        paymentterms = coremodels.PaymentTerms.objects.all()
         formset = SupplierFormSet(instance=inquiry, prefix='quotation')
         formtitle = 'Add Inquiry Product Details'
         context = {
             'formtitle': formtitle,
             'formset': formset,
             'inquiry_products':inquiry_products,
+            'paymentterms':paymentterms
         }
-        return render(request, 'list_inquiry/AddSupplierQuotation_formset3.html', context)
+        return render(request, 'list_inquiry/AddSupplierQuotation_formset.html', context)
 
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)

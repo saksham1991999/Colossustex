@@ -364,10 +364,6 @@ admin.site.register(models.CustomerSampleRef)
 admin.site.register(models.SampleRequestDispatch)
 admin.site.register(models.SampleRequestFeedback)
 
-admin.site.register(models.order)
-admin.site.register(models.payment)
-admin.site.register(models.shipment)
-admin.site.register(models.bill)
 
 
 

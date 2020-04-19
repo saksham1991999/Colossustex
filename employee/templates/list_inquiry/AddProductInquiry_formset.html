@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block extra_stylesheet %}
 <!--  BEGIN CUSTOM STYLE FILE  -->
 <link rel="stylesheet" type="text/css" href="{% static 'plugins/dropify/dropify.min.css' %}">
 <link href="{% static 'assets/css/users/account-setting.css' %}" rel="stylesheet" type="text/css">
 <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
 <!--  END CUSTOM STYLE FILE  -->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.css" />
 {% endblock extra_stylesheet %}
 
 {% block content %}
@@ -42,7 +46,7 @@
                                                                 <div class="col-md-2">
                                                                     <div class="form-group">
                                                                         <label for="address">Select Product</label>
-                                                                        {{ form.product }}
+                                                                        {% render_field form.product data-live-search="true" class="selectpicker" %}
                                                                         {{ form.product.errors }}
                                                                     </div>
                                                                 </div>
@@ -121,7 +125,7 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="address">Select Product</label>
-                                        {{ formset.empty_form.product }}
+                                        {% render_field formset.empty_form.product %}
                                         {{ formset.empty_form.product.errors }}
                                     </div>
                                 </div>
@@ -197,6 +201,10 @@
 {% block extra_scripts %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script>
 
 <script>
     $('#add_more').click(function() {
