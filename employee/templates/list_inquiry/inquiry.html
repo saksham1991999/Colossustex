@@ -126,7 +126,6 @@
                                         <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Select Suppliers</button>
                                         </a>
-
                                     {% endif %}
 
 
@@ -331,10 +330,7 @@
                                                     <th>Payment Terms</th>
                                                     <th>Packing Requirements</th>
                                                     <th>Destination Port</th>
-                                                    {% if inquiry.reply_datetime %}
-                                                        {% else %}
-                                                    <th class="text-center">Action</th>
-                                                        {% endif %}
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -351,6 +347,7 @@
                                                     <td><p class="text-danger">{{ product.payment_terms }}</p></td>
                                                     <td><p class="text-danger">{{ product.packing_requirement }}</p></td>
                                                     <td><p class="text-danger">{{ product.destination_port }}</p></td>
+                                                {% comment %}
                                                     {% if inquiry.reply_datetime %}
                                                         {% else %}
                                                     <td class="text-center">
@@ -360,6 +357,7 @@
                                                         </ul>
                                                     </td>
                                                 {% endif %}
+                                                {% endcomment %}
                                                 </tr>
                                                 {% endfor %}
 
@@ -384,16 +382,17 @@
                                 <div id="toggleAccordion">
 
                                 {% for product in inquiry.inquiry_product_set.all %}
+                                    {% with forloop.counter as productforloop %}
                                   <div class="card">
                                     <div class="card-header" id="headingOne1">
                                       <section class="mb-0 mt-0">
-                                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordion{{ forloop.counter }}" aria-expanded="true" aria-controls="defaultAccordion{{ forloop.counter }}">
-                                          {{ forloop.counter }}.  {{ product.product }}  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                                        <div role="menu" class="collapsed" data-toggle="collapse" data-target="#defaultAccordion{{ productforloop }}" aria-expanded="true" aria-controls="defaultAccordion{{ productforloop }}">
+                                          {{ productforloop }}.  {{ product.product }}  <div class="icons"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                                         </div>
                                       </section>
                                     </div>
 
-                                    <div id="defaultAccordion{{ forloop.counter }}" class="collapse" aria-labelledby="headingOne1" data-parent="#toggleAccordion">
+                                    <div id="defaultAccordion{{ productforloop }}" class="collapse" aria-labelledby="headingOne1" data-parent="#toggleAccordion">
                                       <div class="card-body">
 
 
@@ -430,13 +429,14 @@
                                                 </div>
                                                 {% endif %}
 
+                                                {% if inquiry.received_quotation_datetime %}
                                                     <h4>Supplier Quotations</h4>
                                                     <div class="widget-content widget-content-area vertical-pill">
                                                         <div class="row mb-4 mt-3">
                                                             <div class="col-sm-3 col-12">
                                                                 <div class="nav flex-column nav-pills mb-sm-0 mb-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                                                     {% for supplier in product.suppliers.all %}
-                                                                          <a class="nav-link mb-2" id="v-pills-{{ forloop.counter }}-tab" data-toggle="pill" href="#v-pills-{{ forloop.counter }}" role="tab" aria-controls="v-pills-{{ forloop.counter }}" aria-selected="false">CTS-{{ supplier.id }}</a>
+                                                                          <a class="nav-link mb-2" id="v-pills-{{ productforloop }}-{{ forloop.counter }}-tab" data-toggle="pill" href="#v-pills-{{ productforloop }}-{{ forloop.counter }}" role="tab" aria-controls="v-pills-{{ productforloop }}-{{ forloop.counter }}" aria-selected="false">CTS-{{ supplier.id }}</a>
                                                                     {% endfor %}
                                                                 </div>
                                                             </div>
@@ -444,7 +444,7 @@
                                                             <div class="col-sm-9 col-12">
                                                                 <div class="tab-content" id="v-pills-tabContent">
                                                                     {% for supplier in product.suppliers.all %}
-                                                                  <div class="tab-pane fade" id="v-pills-{{ forloop.counter }}" role="tabpanel" aria-labelledby="v-pills-{{ forloop.counter }}-tab">
+                                                                  <div class="tab-pane fade" id="v-pills-{{ productforloop }}-{{ forloop.counter }}" role="tabpanel" aria-labelledby="v-pills-{{ productforloop }}-{{ forloop.counter }}-tab">
                                                                     <h4 class="mb-4">Supplier Name</h4>
                                                                     <div class="table-responsive">
                                                                         <table class="table table-bordered">
@@ -482,6 +482,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                {% endif %}
 
                                                 {% if inquiry.forwarded_quotation.quotations.all %}
                                                 <h4>Quotations Forwarded to Customer</h4>
@@ -518,6 +519,7 @@
                                         </div>
                                       </div>
                                       <!--FORLOOP ENDS-->
+                                    {% endwith %}
                                 {% endfor %}
                                     </div>
                                 </div>

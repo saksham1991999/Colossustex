@@ -905,7 +905,7 @@ def AddInquiryView(request):
 def AddInquiryProductView(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
     InquiryProductFormSet = inlineformset_factory(coremodels.inquiry, coremodels.inquiry_product, exclude=('inquiry', 'suppliers'),
-                                                  can_delete=False, extra=1)
+                                                  can_delete=False, extra=10)
 
     if request.method == 'POST':
         formset = InquiryProductFormSet(request.POST, instance=inquiry, prefix='Product', )
@@ -993,6 +993,8 @@ def AddSupplierQuotationView(request, id):
         formset = SupplierFormSet(request.POST, instance=inquiry, prefix='quotation')
         if formset and formset.is_valid():
             formset.save()
+            inquiry.received_quotation_datetime = datetime.datetime.now()
+            inquiry.save()
             messages.success(
                 request,
                 'Quotation Details Added Successfully',
@@ -1009,7 +1011,7 @@ def AddSupplierQuotationView(request, id):
             'inquiry_products':inquiry_products,
             'paymentterms':paymentterms
         }
-        return render(request, 'list_inquiry/AddSupplierQuotation_formset.html', context)
+        return render(request, 'list_inquiry/AddSupplierQuotation_formset3.html', context)
 
 def AddSupplierQuotationView2(request, id):
     inquiry = coremodels.inquiry.objects.get(id=id)
