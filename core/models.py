@@ -5,6 +5,7 @@ from agent.models import agent
 from buyer.models import buyer
 from employee.models import employee
 from hr.models import *
+import datetime
 
 Product_PolymerFiber_Choices = (
     ('P', 'Polyster'),
@@ -196,33 +197,36 @@ class inquiry(models.Model):
     def inquiry_id(self):
         return 'CTI-'+ str(self.id)
 
-    # def suppliers_notified_otif(self):
-    #     timedelta = self.reply_datetime - self.received_datetime
-    #     if timedelta.hour > 48:
-    #         return False
-    #     else:
-    #         return True
-    #
-    # def received_quotation_otif(self):
-    #     timedelta = self.received_quotation_datetime - self.received_datetime
-    #     if timedelta.hour > 48:
-    #         return False
-    #     else:
-    #         return True
-    #
-    # def selected_quotation_otif(self):
-    #     timedelta = self.selected_quotation_datetime - self.received_datetime
-    #     if timedelta.hour > 48:
-    #         return False
-    #     else:
-    #         return True
-    #
-    # def customer_feedback_otif(self):
-    #     timedelta = self.customer_feedback_datetime - self.received_datetime
-    #     if timedelta.hour > 15:
-    #         return False
-    #     else:
-    #         return True
+    def suppliers_notified_otif(self):
+        timedelta_hour = datetime.timedelta(hours=48)
+        timedelta = self.reply_datetime - self.received_datetime
+        if timedelta > timedelta_hour:
+            return True
+        else:
+            return False
+
+    def received_quotation_otif(self):
+        timedelta_hour = datetime.timedelta(hours=48)
+        timedelta = self.received_quotation_datetime - self.received_datetime
+        if timedelta > timedelta_hour:
+            return True
+        else:
+            return False
+
+    def selected_quotation_otif(self):
+        timedelta_hour = datetime.timedelta(hours=48)
+        timedelta = self.selected_quotation_datetime - self.received_datetime
+        if timedelta > timedelta_hour:
+            return True
+        else:
+            return False
+    def customer_feedback_otif(self):
+        timedelta_hour = datetime.timedelta(hours=48)
+        timedelta = self.customer_feedback_datetime - self.received_datetime
+        if timedelta > timedelta_hour:
+            return True
+        else:
+            return False
 
 class inquiry_product(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)

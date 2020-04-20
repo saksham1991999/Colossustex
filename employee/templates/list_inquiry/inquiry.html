@@ -94,7 +94,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                     {% if inquiry.customer_feedback_datetime %}
                                         <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Inquiry Update</button>
@@ -104,6 +103,10 @@
                                         </a>
                                         <a href="{% url 'employee:inquiry_close' inquiry.id %}">
                                             <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
+                                    {% elif inquiry.selected_quotation_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Inquiry Update/Customer Feedback</button>
                                         </a>
                                     {% elif inquiry.received_quotation_datetime %}
                                         <a href="{% url 'employee:inquiry_select_quotations' inquiry.id %}">
@@ -237,7 +240,11 @@
                                         </div>
                                         <div class="t-text">
                                             <p>Received Seller Quotations</p>
-                                            <p>OTIF Passed</p>
+                                            {% if inquiry.received_quotation_otif %}
+                                                <p>Fail</p>
+                                            {% else %}
+                                                <p>Pass</p>
+                                            {% endif %}
                                         </div>
                                     </div>
                                     {% endif %}
@@ -252,10 +259,10 @@
                                         <div class="t-text">
                                             <p>Sent Selected Quotations</p>
                                             {% if inquiry.selected_quotation_otif %}
-                                            <p>Fail</p>
-                                                {% else %}
+                                                <p>Fail</p>
+                                            {% else %}
                                                 <p>Pass</p>
-                                                {% endif %}
+                                            {% endif %}
                                         </div>
                                     </div>
                                     {% endif %}
