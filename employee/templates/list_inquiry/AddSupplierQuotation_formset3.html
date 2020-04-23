@@ -30,7 +30,7 @@
                                 <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                                         <form id="contact" class="section contact" method="post" enctype="multipart/form-data">
                                         {% csrf_token %}
-                                        <input type="hidden" name="quotation-TOTAL_FORMS" value="{{ inquiry_products.count }}" id="id_quotation-TOTAL_FORMS">
+                                        <input type="hidden" name="quotation-TOTAL_FORMS" value="0" id="id_quotation-TOTAL_FORMS">
                                         <input type="hidden" name="quotation-INITIAL_FORMS" value="0" id="id_quotation-INITIAL_FORMS">
                                         <input type="hidden" name="quotation-MIN_NUM_FORMS" value="0" id="id_quotation-MIN_NUM_FORMS">
                                         <input type="hidden" name="quotation-MAX_NUM_FORMS" value="1000" id="id_quotation-MAX_NUM_FORMS">
@@ -45,8 +45,10 @@
                                                 <h5 style="margin-left: 2%"> {{ product.product }} </h5>
                                                 <div class="col-md-11 mx-auto">
 
+
                                                     <div id="form_set_product_{{ forloop.counter }}">
 
+                                                    {% comment %}
                                                     <input type="hidden" name="quotation-{{ product_loop }}-id" id="id_quotation-{{ product_loop }}-id">
                                                     <input type="hidden" name="quotation-0-inquiry" value="{{ inquiry.id }}" id="id_quotation-0-inquiry">
                                                     <select name="quotation-{{ product_loop }}-product" id="id_quotation-{{ product_loop }}-product" hidden>
@@ -54,6 +56,7 @@
                                                     </select>
 
                                                         <div class="row">
+
                                                             <div class="col-md-4">
                                                                 <div class="form-group">
                                                                     <label for="address">Supplier</label>
@@ -72,6 +75,14 @@
                                                                     <input type="number" name="quotation-{{ product_loop }}-price_kg" min="0" id="id_quotation-{{ product_loop }}-price_kg" step="any">
                                                                 </div>
                                                             </div>
+
+                                                            <div class="col-md-2">
+                                                                <div class="form-group">
+                                                                    <label for="address">INCO</label>
+                                                                    <input type="text" name="quotation-{{ product_loop }}-inco" id="id_quotation-{{ product_loop }}-inco">
+                                                                </div>
+                                                            </div>
+
 
                                                             <div class="col-md-2">
                                                                 <div class="form-group">
@@ -94,13 +105,14 @@
                                                             </div>
 
                                                         </div>
+                                                    {% endcomment %}
                                                     </div>
 
 
 
                                                     <div class="d-sm-flex justify-content-between">
                                                         <div class="field-wrapper">
-                                                            <button type="button" class="btn btn-primary" id='add_more_product_{{ forloop.counter }}' value="">Add</button>
+                                                            <button type="button" class="btn btn-primary" id='add_more_product_{{ forloop.counter }}' value="">Add Quotation</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -143,6 +155,13 @@
                                             <div class="form-group">
                                                 <label for="address">Price/Kg</label>
                                                 <input type="number" name="quotation-__prefix__-price_kg" min="0" id="id_quotation-__prefix__-price_kg" step="any">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label for="address">INCO</label>
+                                                <input type="text" name="quotation-__prefix__-inco" id="id_quotation-__prefix__-inco">
                                             </div>
                                         </div>
 

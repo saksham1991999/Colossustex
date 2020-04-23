@@ -108,6 +108,9 @@
                                         <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Inquiry Update/Customer Feedback</button>
                                         </a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
                                     {% elif inquiry.received_quotation_datetime %}
                                         <a href="{% url 'employee:inquiry_select_quotations' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Select Quotations</button>
@@ -117,6 +120,9 @@
                                         </a>
                                         <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
                                             <button class="btn btn-primary mb-2">Add Inquiry Update</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
                                         </a>
                                     {% elif inquiry.reply_datetime %}
                                         <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
@@ -294,7 +300,7 @@
                                         <div class="t-dot">
                                         </div>
                                         <div class="t-text">
-                                            <p>Order Confirmed</p>
+                                            <p>Closed</p>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -331,12 +337,16 @@
                                                 <tr>
                                                     <th class="text-center">#</th>
                                                     <th>Product</th>
+                                                    <th>Colour</th>
+                                                    <th>Lusture</th>
                                                     <th>Quantity</th>
                                                     <th>Inco Terms</th>
                                                     <th>Delivery Date</th>
                                                     <th>Payment Terms</th>
                                                     <th>Packing Requirements</th>
-                                                    <th>Destination Port</th>
+                                                    <th>Port</th>
+                                                    <th>Instructions</th>
+                                                    <th>Remarks</th>
 
                                                 </tr>
                                             </thead>

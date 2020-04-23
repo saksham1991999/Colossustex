@@ -50,6 +50,20 @@
                                                                         {{ form.product.errors }}
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Colour</label>
+                                                                        {% render_field form.colour %}
+                                                                        {{ form.colour.errors }}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Lusture</label>
+                                                                        {% render_field form.lusture %}
+                                                                        {{ form.lusture.errors }}
+                                                                    </div>
+                                                                </div>
 
                                                                 <div class="col-md-3">
                                                                     <div class="row">
@@ -99,6 +113,21 @@
                                                                     </div>
                                                                 </div>
 
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Instructions</label>
+                                                                        {{ form.instructions }}
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <label for="address">Remarks</label>
+                                                                        {{ form.remarks }}
+                                                                    </div>
+                                                                </div>
+
+
                                                             {% for field in form.hidden_fields %}
                                                                 {{ field }}
                                                             {% endfor %}
@@ -127,6 +156,20 @@
                                         <label for="address">Select Product</label>
                                         {% render_field formset.empty_form.product %}
                                         {{ formset.empty_form.product.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Colour</label>
+                                        {% render_field formset.empty_form.colour %}
+                                        {{ formset.empty_form.colour.errors }}
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Lusture</label>
+                                        {% render_field formset.empty_form.lusture %}
+                                        {{ formset.empty_form.lusture.errors }}
                                     </div>
                                 </div>
 
@@ -178,6 +221,24 @@
                                     </div>
                                 </div>
 
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Instruction</label>
+                                        {% render_field formset.empty_form.instructions %}
+                                        {{ formset.empty_form.instructions.errors }}
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="address">Remarks</label>
+                                        {% render_field formset.empty_form.remarks %}
+                                        {{ formset.empty_form.remarks.errors }}
+                                    </div>
+                                </div>
+
                                 {% for field in formset.empty_form.hidden_fields %}
                                     {{ field }}
                                 {% endfor %}
@@ -211,8 +272,9 @@
     $('#add_more').click(function() {
         var form_idx = $('#id_Product-TOTAL_FORMS').val();
         $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        // $('#id_Product-' + form_idx + '-product' ).addClass('selectpicker');
+        // $('#id_Product-' + form_idx + '-product' ).attr("data-live-search","true");
         $('#id_Product-TOTAL_FORMS').val(parseInt(form_idx) + 1);
-
 
         var datefieldid = "#id_Product-" + form_idx + "-delivery_date";
         console.log(datefieldid);

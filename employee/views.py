@@ -855,6 +855,8 @@ def SubmitLeaveApplicationView(request):
         }
         return render(request, 'form.html', context)
 
+
+
 # INQUIRY MANAGEMENT VIEWS
 @login_required(login_url='/accounts/login/')
 def InquiresView(request):
@@ -870,7 +872,7 @@ def InquiryView(request, id):
     context = {
         'inquiry': inquiry,
     }
-    return render(request, 'list_inquiry/inquiry.html', context)
+    return render(request, 'list_inquiry/inquiry_new.html', context)
 
 @login_required(login_url='/accounts/login/')
 def AddInquiryView(request):
@@ -1001,6 +1003,8 @@ def AddSupplierQuotationView(request, id):
                 extra_tags='alert alert-success alert-dismissible fade show'
             )
             return redirect('employee:inquiry', id)
+        else:
+            print(formset.errors)
     else:
         paymentterms = coremodels.PaymentTerms.objects.all()
         formset = SupplierFormSet(instance=inquiry, prefix='quotation')
@@ -1062,31 +1066,61 @@ def AddSupplierQuotationView2(request, id):
 
 def SelectForwardQuotationsView(request, id):
     if request.method == 'POST':
-        form = forms.ForwardedQuotationsForm(request.POST, request.FILES)
-        if form.is_valid():
-            new_form = form.save(commit=False)
-            inquiry = coremodels.inquiry.objects.get(id=id)
-            inquiry.selected_quotation_datetime = datetime.datetime.now()
-            inquiry.save()
-            new_form.inquiry = inquiry
-            new_form.save()
-            form.save_m2m()
-            messages.success(
-                request,
-                'Quotations Selected Successfully',
-                extra_tags='alert alert-success alert-dismissible fade show'
-            )
-        return redirect('employee:inquiry', id)
-    else:
-        form = forms.ForwardedQuotationsForm()
+        quotations_id = request.POST.getlist('quotations')
+        forwarded_quotations = coremodels.forwarded_quotation.objects.filter(inquiry_id = id)
+
+        print(request.POST)
+        print(forwarded_quotations)
+        if forwarded_quotations.exists():
+            forwarded_quotations = coremodels.forwarded_quotation.objects.get(inquiry_id = id)
+            forwarded_quotations.quotations.clear()
+            for quotation_id in quotations_id:
+                quotation_qs = coremodels.supplier_quotations.objects.get(id = quotation_id)
+                forwarded_quotations.quotations.add(quotation_qs)
+                forwarded_quotations.save()
+            print('Already Exists')
+            print(forwarded_quotations.quotations)
+        else:
+            forwarded_quotations = coremodels.forwarded_quotation.objects.create(inquiry_id=id)
+            for quotation_id in quotations_id:
+                quotation_qs = coremodels.supplier_quotations.objects.get(id = quotation_id)
+                forwarded_quotations.quotations.add(quotation_qs)
+                forwarded_quotations.save()
+                print('Updated')
+                print(forwarded_quotations.quotations)
         inquiry = coremodels.inquiry.objects.get(id=id)
-        form.fields['quotations'].queryset = coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
-        formtitle = 'Select Quotations Forwarded'
-        context = {
-            'formtitle': formtitle,
-            'form': form,
-        }
-        return render(request, 'form.html', context)
+        inquiry.selected_quotation_datetime = datetime.datetime.now()
+        inquiry.save()
+        return redirect('employee:inquiry', id)
+
+
+# def SelectForwardQuotationsView(request, id):
+#     if request.method == 'POST':
+#         form = forms.ForwardedQuotationsForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             new_form = form.save(commit=False)
+#             inquiry = coremodels.inquiry.objects.get(id=id)
+#             inquiry.selected_quotation_datetime = datetime.datetime.now()
+#             inquiry.save()
+#             new_form.inquiry = inquiry
+#             new_form.save()
+#             form.save_m2m()
+#             messages.success(
+#                 request,
+#                 'Quotations Selected Successfully',
+#                 extra_tags='alert alert-success alert-dismissible fade show'
+#             )
+#         return redirect('employee:inquiry', id)
+#     else:
+#         form = forms.ForwardedQuotationsForm()
+#         inquiry = coremodels.inquiry.objects.get(id=id)
+#         form.fields['quotations'].queryset = coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
+#         formtitle = 'Select Quotations Forwarded'
+#         context = {
+#             'formtitle': formtitle,
+#             'form': form,
+#         }
+#         return render(request, 'form.html', context)
 
 def AddInquiryUpdateView(request, id):
     if request.method == 'POST':

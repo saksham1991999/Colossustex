@@ -1,0 +1,469 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load template_tag %}
+{% block extra_stylesheet %}
+    <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link href="{% static 'assets/css/users/user-profile.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
+    <link href="{% static 'assets/css/tables/table-basic.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/scrollspyNav.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'assets/css/components/timeline/custom-timeline.css' %}" rel="stylesheet" type="text/css">
+    <!--  END CUSTOM STYLE FILE  -->
+
+    <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid grey;
+    }
+
+    .education .widget-content-area .timeline-alter .item-timeline .t-meta-date {
+        padding: 1px;
+    }
+    .widget-content-area {
+        padding: 2px;
+        position: relative;
+        background-color: #fff;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+
+    </style>
+{% endblock extra_stylesheet %}
+
+
+
+{% block content %}
+    <!--  BEGIN MAIN CONTAINER  -->
+    <div class="main-container" id="container">
+
+        <div class="overlay"></div>
+        <div class="cs-overlay"></div>
+        <div class="search-overlay"></div>
+        {% include 'sidebar.html' %}
+
+         <!--  BEGIN CONTENT AREA  -->
+        <div id="content" class="main-content">
+            <div class="layout-px-spacing">
+
+                <div class="row layout-spacing" style="display: inline-block;">
+
+                    <!-- Content -->
+                    <div style="float:left;" class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+
+                        <div class="card" style="background:white;">
+                            <h5 class="" style="text-align: center;">Inquiry Info</h5>
+                            <p class=""  style="text-align: center;">CTI-{{ inquiry.id }}</p>
+                            <div class="">
+                                <ul class="contacts-block list-unstyled">
+                                    <li class="contacts-block__item">
+                                        &ensp;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-coffee">
+                                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                                        </svg>&ensp; <a href="{% url 'employee:view_buyer' inquiry.buyer.id %}">{{ inquiry.buyer }}</a>
+                                    </li>
+                                    {% comment %}
+                                    <li class="contacts-block__item">
+                                        &ensp;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-calendar">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                                        </svg>&ensp;Jan 20, 1989
+                                    </li>
+                                    {% endcomment %}
+                                    <li class="contacts-block__item">
+                                        &ensp;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-map-pin">
+                                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                            <circle cx="12" cy="10" r="3"></circle>
+                                        </svg> &ensp;{{ inquiry.buyer.state }}, {{ inquiry.buyer.country }}
+                                    </li>
+                                    <li class="contacts-block__item">
+                                        &ensp;
+                                        <a href="mailto:example@mail.com"><svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24" viewbox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round" class="feather feather-mail">
+                                                <path
+                                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                                </path>
+                                                <polyline points="22,6 12,13 2,6"></polyline>
+                                            </svg>&ensp;{{ inquiry.buyer.email }}</a>
+                                    </li>
+                                    <li class="contacts-block__item">
+                                        &ensp;
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round"
+                                            class="feather feather-phone">
+                                            <path
+                                                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                            </path>
+                                        </svg>&ensp; {{ inquiry.buyer.country_code }} {{ inquiry.buyer.mobile }}
+                                    </li>
+                                    {% if inquiry.agent %}
+                                        <li class="contacts-block__item">
+                                            &ensp;
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                                stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-coffee">
+                                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                                                <line x1="6" y1="1" x2="6" y2="4"></line>
+                                                <line x1="10" y1="1" x2="10" y2="4"></line>
+                                                <line x1="14" y1="1" x2="14" y2="4"></line>
+                                            </svg>&ensp; <a href="{% url 'employee:view_sub_agent' inquiry.agent.id %}">{{ inquiry.agent }}</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                            <div class="education">
+                                <div class="timeline-alter">
+                                    <div class="education layout-spacing ">
+                                        <div class="widget-content widget-content-area">
+                                        {% comment %}
+                                            <h3 class="">Dates</h3>
+                                            {% endcomment %}
+                                            <div class="timeline-alter">
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.received_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Received</p>
+                                                    </div>
+                                                </div>
+
+                                                {% if inquiry.reply_datetime %}
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.reply_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Notified Suppliers</p>
+                                                        {% if inquiry.suppliers_notified_otif %}
+                                                        <p>Fail</p>
+                                                            {% else %}
+                                                            <p>Pass</p>
+                                                            {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                                {% if inquiry.received_quotation_datetime %}
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.received_quotation_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Received Quotations</p>
+                                                        {% if inquiry.received_quotation_otif %}
+                                                            <p>Fail</p>
+                                                        {% else %}
+                                                            <p>Pass</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                                {% if inquiry.selected_quotation_datetime %}
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.selected_quotation_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Selected Quotations</p>
+                                                        {% if inquiry.selected_quotation_otif %}
+                                                            <p>Fail</p>
+                                                        {% else %}
+                                                            <p>Pass</p>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+
+                                                {% if inquiry.customer_feedback_datetime %}
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.customer_feedback_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Customer Feedback</p>
+                                                        {% if inquiry.customer_feedback_otif %}
+                                                        <p>Fail</p>
+                                                            {% else %}
+                                                            <p>Pass</p>
+                                                            {% endif %}
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                                {% if inquiry.confirmation_datetime %}
+                                                <div class="item-timeline">
+                                                    <div class="t-meta-date">
+                                                        <p class="">{{ inquiry.confirmation_datetime }}</p>
+                                                    </div>
+                                                    <div class="t-dot">
+                                                    </div>
+                                                    <div class="t-text">
+                                                        <p>Closed</p>
+                                                    </div>
+                                                </div>
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                            {% if inquiry.customer_feedback_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Inquiry Update</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_confirm' inquiry.id %}">
+                                            <button class="btn btn-success mb-2">Confirm Inquiry</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
+                                    {% elif inquiry.selected_quotation_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Inquiry Update/Customer Feedback</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
+                                    {% elif inquiry.received_quotation_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Update Supplier Quotation</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Inquiry Update</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_close' inquiry.id %}">
+                                            <button class="btn btn-danger mb-2">Close Inquiry</button>
+                                        </a>
+                                    {% elif inquiry.reply_datetime %}
+                                        <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Supplier Quotation</button>
+                                        </a>
+                                    {% else %}
+                                        <a href="{% url 'employee:inquiry_add_product' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Add Product</button>
+                                        </a>
+                                        <a href="{% url 'employee:inquiry_select_suppliers' inquiry.id %}">
+                                            <button class="btn btn-primary mb-2">Select Suppliers</button>
+                                        </a>
+                                    {% endif %}
+
+                        </div>
+                    </div>
+
+                    <div style="float:right;" class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+
+                        {% if inquiry.inquiry_product_set.all %}
+                        <div class="card" style="padding:5px;">
+                            <div width=100%" id="quotation_main">
+                                <h6>Products</h6>
+                                <div class="table-responsive mb-1" style="height:180px;margin:0px;">
+                                    <table style="width:100%;overflow-x: auto;overflow-y: auto;" id="products_table">
+                                        <thead style="border-bottom: none;">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Product</th>
+                                                <th>Colour</th>
+                                                <th>Lusture</th>
+                                                <th>Quantity</th>
+                                                <th>Inco Terms</th>
+                                                <th>Delivery Date</th>
+                                                <th>Payment Terms</th>
+                                                <th>Packing Requirements</th>
+                                                <th>Port</th>
+                                                <th>Instructions</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for product in inquiry.inquiry_product_set.all %}
+                                                <tr>
+                                                    <td><input id="product-{{ forloop.counter }}" type="radio" name="quotations"></td>
+
+                                                    <td>
+                                                        <a href="{% url 'employee:single_product' product.product.id %}">{{ product.product.name }}</a>
+                                                    </td>
+                                                    <td><p class="text-danger">{{ product.colour }}</p></td>
+                                                    <td><p class="text-danger">{{ product.lusture }}</p></td>
+                                                    <td><p class="text-danger">{{ product.qty }}</p></td>
+                                                    <td><p class="text-danger">{{ product.inco_terms }}</p></td>
+                                                    <td><p class="text-danger">{{ product.delivery_date|date }}</p></td>
+                                                    <td><p class="text-danger">{{ product.payment_terms }}</p></td>
+                                                    <td><p class="text-danger">{{ product.packing_requirement }}</p></td>
+                                                    <td><p class="text-danger">{{ product.destination_port }}</p></td>
+                                                    <td><p class="text-danger">{{ product.instructions }}</p></td>
+                                                    <td><p class="text-danger">{{ product.remarks }}</p></td>
+                                                </tr>
+                                            {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.reply_datetime %}
+                        <div class="card">
+                            <div width="100%" id="quotation_main"  style="padding:10px 5px;">
+                            <form method="post" action="{% url 'employee:inquiry_select_quotations' inquiry.id %}">
+                            {% csrf_token %}
+                                <div class="row" style="margin-left: 5px">
+                                    <h6 style="text-align: center;">Supplier Quotations</h6>
+                                    {% if inquiry.customer_feedback_datetime %}
+                                    {% else %}
+                                        <input type="submit" id='select_quotations' style="float: right;margin-left: auto; margin-right: 5px" value="select">
+                                    {% endif %}
+                                </div>
+                                <div class="table-responsive mb-1" style="height:160px;margin:0px;" id="quotation_tables">
+                                    {% for product in inquiry.inquiry_product_set.all %}
+                                        {% with forloop.counter as productloop %}
+                                    <table style="width:100%;overflow-x: auto;overflow-y: auto;" id="product-{{ productloop }}">
+                                        <thead style="border-bottom: none;">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Supplier</th>
+                                                <th>Product</th>
+                                                <th>Quantity</th>
+                                                <th>INCO</th>
+                                                <th>Payment</th>
+                                                <th>Date</th>
+                                                <th>File</th>
+                                                <th>Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for supplier in product.suppliers.all %}
+                                                {% for quotation in product|product_supplier_quotations:supplier %}
+                                                    <tr>
+                                                        <td><input type="checkbox" name="quotations" value="{{ quotation.id }}" {% if quotation in inquiry.forwarded_quotation.quotations.all %}checked{% endif %}></td>
+                                                        <td>{{ quotation.supplier }}</td>
+                                                        <td>{{ quotation.product.product }}</td>
+                                                        <td>{{ quotation.product.qty }}</td>
+                                                        <td>{{ quotation.inco }}</td>
+                                                        <td>{{ quotation.payment_terms }}</td>
+                                                        <td>{{ quotation.date }}</td>
+                                                        <td>{% if quotation.file %}<a href="{{ quotation.file.url }}">File</a>{% else %}-{% endif %}</td>
+                                                        <td>{{ quotation.price_kg }}</td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>{{ supplier }}</td>
+                                                        <td>{{ product.product }}</td>
+                                                        <td>{{ product.qty }}</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>-</td>
+                                                        <td>Awaited</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                        {% endwith %}
+                                    {% endfor %}
+                                </div>
+                            </form>
+                            </div>
+
+                        </div>
+                        {% endif %}
+
+                        {% if inquiry.inquiry_update_set.all %}
+                        <div class="card" style="padding:10px 10px 10px 10px;">
+                            <h6 class="">Customer Feedback</h6>
+                            {% for update in inquiry.inquiry_update_set.all %}
+                            <p>{{ update.employee.name }}, {{ update.update_date_time }}</p>
+                            <p>Subject: {{ update.subject }}</p>
+                            <p>{{ update.content|escape|linebreaks }}</p>
+                            {% if update.document %}
+                                <a href="{{ update.document.url }}">Download</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+    <!--  END CONTENT AREA  -->
+
+    </div>
+    <!-- END MAIN CONTAINER -->
+{% endblock content %}
+
+{% block extra_scripts %}
+    <!-- BEGIN PAGE LEVEL CUSTOM SCRIPTS -->
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+
+    <script src="{% static 'assets/js/scrollspyNav.js' %}"></script>
+    <script src="{% static 'assets/js/components/ui-accordions.js' %}"></script>
+    <script>
+        checkall('todoAll', 'todochkbox');
+        $('[data-toggle="tooltip"]').tooltip()
+    </script>
+    <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
+
+                <!--BEGIN JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#quotation_tables table').hide();
+
+            $('#products_table input[type="radio"]').click(function () {
+                product_idx = $(this).attr('id');
+                $('#quotation_tables table').hide();
+                $("#quotation_tables #"+product_idx).show();
+            });
+        });
+    </script>
+    <!-- END JS -->
+{% endblock extra_scripts %}
