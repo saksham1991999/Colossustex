@@ -98,9 +98,11 @@
                                                     <li class="contacts-block__item">Mobile :
                                                         <label class="customer-info-item">{{ buyer.mobile }}</label>
                                                     </li>
+                                                    {% if buyer.document %}
                                                     <li class="contacts-block__item">Document :
                                                         <label class="customer-info-item"><a href="{{ buyer.document.url }}">Download</a></label>
                                                     </li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>

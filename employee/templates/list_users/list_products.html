@@ -76,7 +76,7 @@
                                             {% for product in products %}
                                             <tr>
                                                 <td class="checkbox-column text-center"> {{ product.id }} </td>
-                                                <td>{{ product.name }}</td>
+                                                <td><a href="{% url 'employee:single_product' %}">{{ product.name }}</a></td>
                                                 <td class="text-center"><span class="shadow-none badge badge-primary">{{ product.category }}</span></td>
                                                 <td>{{ product.sub_category_1 }}</td>
                                                 <td>{{ product.sub_category_2 }}</td>

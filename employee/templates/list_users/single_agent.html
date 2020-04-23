@@ -96,9 +96,11 @@
                                                     <li class="contacts-block__item">Commission :
                                                         <label class="customer-info-item">{{ agent.commission }}</label>
                                                     </li>
+                                                    {% if agent.document %}
                                                     <li class="contacts-block__item">Document :
                                                         <label class="customer-info-item"><a href="{{ agent.document.url }}">Download</a></label>
                                                     </li>
+                                                    {% endif %}
                                                 </ul>
                                             </div>
                                         </div>

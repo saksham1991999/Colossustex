@@ -72,7 +72,7 @@
                                             <td>
                                                 <div class="d-flex">
                                                     <div class="usr-img-frame mr-2 rounded-circle">
-                                                        <a href="{% url 'employee:view_employee' employee.id %} "><img alt="avatar" class="img-fluid rounded-circle" src="{{ employee.image.url }} or None"></a>
+                                                        <a href="{% url 'employee:view_employee' employee.id %} "><img alt="" class="img-fluid rounded-circle" src="{% if employee.image %}{{ employee.image.url }}{% endif %}"></a>
                                                     </div>
                                                     <p class="align-self-center mb-0 admin-name"> <a href="{% url 'employee:view_employee' employee.id %} ">{{ employee.name }}</a> </p>
                                                 </div>
