@@ -34,6 +34,12 @@ def profileimage(user):
             pass
     return ' '
 
+@register.filter
+def product_forwarded_quotations(product):
+    quotations = coremodels.forwarded_quotation.objects.get(inquiry = product.inquiry).quotations.all()
+    product_quotations = quotations.filter(product = product)
+    return product_quotations
+
 # @register.filter
 # def inquiry_product_quotation(product, supplier):
 #     quotations = coremodels.supplier_quotations.objects.filter(product=product, supplier = supplier)

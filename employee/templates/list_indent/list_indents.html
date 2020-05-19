@@ -37,16 +37,7 @@
                                 <div class="widget-header">
                                     <div class="row">
                                         <div class="col-xl-8 col-md-8 col-sm-8 col-8">
-                                            <h4>Payments</h4>
-                                        </div>
-                                        <div class="col-xl-4 col-md-4 col-sm-4 col-4">
-                                            <div class="dt-buttons" style="float: right;">
-                                                <a href="{% url 'employee:add_payment' %}">
-                                                <button class="dt-button buttons-copy buttons-html5 btn" href="{% url 'employee:add_payment' %}">
-                                                    <span>Add Payment Details</span>
-                                                </button>
-                                                </a>
-                                            </div>
+                                            <h4>Indents</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -54,39 +45,38 @@
                                 <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Bill No.</th>
-                                            <th>Currency</th>
-                                            <th>Payment Terms</th>
-                                            <th>Payment Due Date</th>
-                                            <th>Remarks</th>
-                                            <th>Payment Status</th>
+                                            <th>Indent No.</th>
+                                            <th>Inquiry No</th>
+                                            <th>Supplier</th>
+                                            <th>Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                    {% for payment in payments %}
+                                    {% for indent in indents %}
                                         <tr>
-                                            <td>{{ payment.bill }}</td>
-                                            <td>{{ payment.currency }}</td>
-                                            <td>{{ payment.payment_terms }}</td>
-                                            <td>{{ payment.payment_due_date }}</td>
-                                            <td>{{ payment.remarks }}</td>
-                                            <td>{{ payment.payment_status }}</td>
-
+                                            <td>{{ indent.id }}</td>
+                                            <td>{{ indent.inquiry }}</td>
+                                            <td>{{ indent.supplier }}</td>
+                                            <td>{{ indent.date }}</td>
 
                                             <td>
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-dark btn-sm">Open</button>
+
+                                                    <a href=""><button type="button" class="btn btn-dark btn-sm">Open</button></a>
+
                                                     <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                                                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
                                                     </button>
                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference1">
-                                                      <a class="dropdown-item" href="#">Action</a>
-                                                      <a class="dropdown-item" href="#">Another action</a>
+
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
                                                       <a class="dropdown-item" href="#">Something else here</a>
                                                       <div class="dropdown-divider"></div>
                                                       <a class="dropdown-item" href="#">Separated link</a>
+
                                                     </div>
                                                   </div>
                                             </td>
@@ -139,7 +129,7 @@
             },
             "stripeClasses": [],
             "lengthMenu": [7, 10, 20, 50],
-            "pageLength": 7
+            "pageLength": 20
         } );
     </script>
     <!-- END PAGE LEVEL CUSTOM SCRIPTS -->

@@ -25,7 +25,7 @@ from buyer import models as buyermodels
 from buyer import forms as buyerforms
 from core import models as coremodels
 from hr import models as hrmodels
-
+from .render_pdf import render_to_pdf
 import datetime
 
 def TestView(request):
@@ -1091,36 +1091,20 @@ def SelectForwardQuotationsView(request, id):
         inquiry = coremodels.inquiry.objects.get(id=id)
         inquiry.selected_quotation_datetime = datetime.datetime.now()
         inquiry.save()
-        return redirect('employee:inquiry', id)
 
+        context = {
+            # 'supplier':supplier,
+            'inquiry':inquiry,
+            'forwarded_quotations':forwarded_quotations.quotations,
+        }
+        return render(request, 'mail_tenplates/inquiry_offer.html', context)
+            #
+            # context = {
+            #     'inquiry': inquiry,
+            # }
+            # pdf = render_to_pdf('list_inquiry/InquiryConfirmation.html', context)
+            # return HttpResponse(pdf, content_type='application/pdf')
 
-# def SelectForwardQuotationsView(request, id):
-#     if request.method == 'POST':
-#         form = forms.ForwardedQuotationsForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             new_form = form.save(commit=False)
-#             inquiry = coremodels.inquiry.objects.get(id=id)
-#             inquiry.selected_quotation_datetime = datetime.datetime.now()
-#             inquiry.save()
-#             new_form.inquiry = inquiry
-#             new_form.save()
-#             form.save_m2m()
-#             messages.success(
-#                 request,
-#                 'Quotations Selected Successfully',
-#                 extra_tags='alert alert-success alert-dismissible fade show'
-#             )
-#         return redirect('employee:inquiry', id)
-#     else:
-#         form = forms.ForwardedQuotationsForm()
-#         inquiry = coremodels.inquiry.objects.get(id=id)
-#         form.fields['quotations'].queryset = coremodels.supplier_quotations.objects.filter(inquiry=inquiry)
-#         formtitle = 'Select Quotations Forwarded'
-#         context = {
-#             'formtitle': formtitle,
-#             'form': form,
-#         }
-#         return render(request, 'form.html', context)
 
 def AddInquiryUpdateView(request, id):
     if request.method == 'POST':
@@ -1170,13 +1154,60 @@ def CloseInquiryView(request, id):
 
 def ConfirmInquiryView(request, id):
     print('----------------CONFIRMED INQUIRY------------------')
-    inquiry = coremodels.inquiry.objects.get(id=id)
-    inquiry.status = 'CM'
-    employee = models.employee.objects.get(user=request.user)
-    inquiry.confirming_user = employee
-    inquiry.confirmation_datetime = datetime.datetime.now()
-    inquiry.save()
-    return redirect('employee:inquiry', id)
+    inquiry = coremodels.inquiry.objects.get(id = id)
+    products = coremodels.inquiry_product.objects.filter(inquiry = inquiry)
+
+    if request.method == 'POST':
+
+        print(request.POST)
+        for product in products:
+            try:
+                quotation_id = request.POST['quotation-'+ str(product.id)]
+                quotation = coremodels.supplier_quotations.objects.get(id=id)
+
+                indent = coremodels.Indent.objects.get_or_create(inquiry=inquiry, supplier = quotation.supplier)
+
+                fob_price = request.POST['fob-price-' + str(product.id)]
+                commission = request.POST['comission-' + str(product.id)]
+                ex_factory_dispatch = request.POST['ex-facotry-dispatch-' + str(product.id)]
+                etd = request.POST['etd-date-' + str(product.id)]
+                eta = request.POST['eta-date-' + str(product.id)]
+
+                indent_product = coremodels.IndentProduct.objects.create(
+                    indent=indent,
+                    quotation=quotation,
+                    fob_price=fob_price,
+                    commission=commission,
+                    ex_factory_dispatch = ex_factory_dispatch,
+                    etd=etd,
+                    eta=eta,
+                )
+            except:
+                pass
+        return redirect('employee:indents')
+
+
+    else:
+        context = {
+            'inquiry':inquiry,
+        }
+        return render(request, 'list_inquiry/InquiryConfirmation.html', context)
+
+    # inquiry = coremodels.inquiry.objects.get(id=id)
+    # inquiry.status = 'CM'
+    # employee = models.employee.objects.get(user=request.user)
+    # inquiry.confirming_user = employee
+    # inquiry.confirmation_datetime = datetime.datetime.now()
+    # inquiry.save()
+    # return redirect('employee:inquiry', id)
+
+# INDENT VIEWS
+def IndentsView(request):
+    indents = coremodels.Indent.objects.all()
+    context = {
+        'indents':indents,
+    }
+    return render(request, 'list_indent/list_indents.html', context)
 
 #SAMPLE REQUEST MANAGEMENT
 def SampleRequestsView(request):

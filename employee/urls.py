@@ -56,6 +56,8 @@ urlpatterns = [
     path('inquiry/confirm/<int:id>/', views.ConfirmInquiryView, name='inquiry_confirm'),
     path('inquiry/close/<int:id>/', views.CloseInquiryView, name='inquiry_close'),
 
+    # INDENT URLS
+    path('indents/', views.IndentsView, name='indents'),
 
     path('bills/', views.BillsView, name='bills'),
     path('bills/add/', views.BillAddView, name='add_bill'),

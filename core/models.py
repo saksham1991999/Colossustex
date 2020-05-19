@@ -239,7 +239,6 @@ class inquiry_product(models.Model):
     payment_terms = models.ForeignKey('core.PaymentTerms', on_delete=models.DO_NOTHING, blank=True, null=True)
     packing_requirement = models.CharField(max_length=56)
     destination_port = models.CharField(max_length=100)
-
     instructions = models.CharField(max_length=100, blank=True, null=True)
     remarks = models.CharField(max_length=100, blank=True, null=True)
     suppliers = models.ManyToManyField('supplier.supplier')
@@ -254,7 +253,6 @@ class inquiry_product(models.Model):
         suppliers = supplier.objects.filter(products__in=[self.product]).order_by('name')
         return suppliers
 
-
 class supplier_quotations(models.Model):
     inquiry = models.ForeignKey('core.inquiry', on_delete=models.DO_NOTHING)
     supplier = models.ForeignKey('supplier.supplier', on_delete=models.DO_NOTHING)
@@ -267,6 +265,9 @@ class supplier_quotations(models.Model):
 
     def __str__(self):
         return str(self.product) + ': ' + str(self.supplier) + ' - ' + str(self.price_kg)
+
+    def get_total_price(self):
+        return float(self.price_kg*float(self.product.qty))
 
     class Meta:
         verbose_name_plural = 'Inquiry Supplier Quotations'
@@ -294,6 +295,24 @@ class inquiry_update(models.Model):
 
     class Meta:
         verbose_name_plural = 'Inquiry Customer Feedback'
+
+# INDENT DETAILS
+class Indent(models.Model):
+    inquiry = models.ForeignKey('core.inquiry', on_delete=models.PROTECT)
+    supplier = models.ForeignKey('supplier.supplier', on_delete=models.PROTECT)
+    date = models.DateField(auto_now_add=True)
+
+class IndentProduct(models.Model):
+    indent = models.ForeignKey('core.Indent', on_delete=models.PROTECT)
+    quotation = models.ForeignKey('core.supplier_quotations', on_delete=models.PROTECT)
+    fob_price = models.PositiveSmallIntegerField()
+    commission = models.PositiveSmallIntegerField()
+    ex_factory_dispatch = models.CharField(max_length=100)
+    etd = models.DateField()
+    eta = models.DateField()
+
+
+
 
 sample_request_choices = (
     ('IQ', 'Inquiry'),

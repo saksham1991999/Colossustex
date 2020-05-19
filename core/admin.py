@@ -341,7 +341,7 @@ admin.site.register(models.suplus_product)
 admin.site.register(models.PaymentTerms, PaymentTermAdmin)
 
 
-#PRODUCT MODELS
+# PRODUCT MODELS
 admin.site.register(models.category, CategoryAdmin)
 admin.site.register(models.subcategory1, SubCategory1Admin)
 admin.site.register(models.subcategory2, SubCategory2Admin)
@@ -350,21 +350,23 @@ admin.site.register(models.intermingle, IntermingleAdmin)
 admin.site.register(models.required_no_of_nips, RequiredNoOfNipsAdmin)
 admin.site.register(models.product, ProductAdmin)
 
-#INQUIRY MODELS
+# INQUIRY MODELS
 admin.site.register(models.inquiry, InquiryAdmin)
 admin.site.register(models.inquiry_product, InquiryProductAdmin)
 admin.site.register(models.supplier_quotations, SupplierQuotationsAdmin)
 admin.site.register(models.forwarded_quotation, ForwardedQuotationsAdmin)
 admin.site.register(models.inquiry_update, InquiryUpdatesAdmin)
 
-#SAMPLE REQUESTS
+# SAMPLE REQUESTS
 admin.site.register(models.SampleRequest)
 admin.site.register(models.SampleRequestProduct)
 admin.site.register(models.CustomerSampleRef)
 admin.site.register(models.SampleRequestDispatch)
 admin.site.register(models.SampleRequestFeedback)
 
-
+# INDENT MODELS
+admin.site.register(models.Indent)
+admin.site.register(models.IndentProduct)
 
 
 

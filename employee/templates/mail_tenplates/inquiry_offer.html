@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Mail Draft</title>
+        <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+        <link href=".css" rel="stylesheet" type="text/css">
+        <style>
+            body{
+            }
+            #main-div{
+                border: solid black 2px;
+                padding:15px;
+                width:500px;
+            }
+            #inquiry-table-div{
+                display:inline-block
+            }
+            #inquiry-table1{
+                float: left;
+            }
+            #inquiry-table1 td{
+                height:36px;
+            }
+            #inquiry-table2{
+                margin-left: 200px;
+            }
+            #inquiry-table2 td{
+                width:130px;
+            }
+            td,th{
+                //border:solid black 1px;
+            }
+            #packing{
+                margin-left: 100px;
+            }
+            #inquiry-table-div2-1{
+                border: solid black 1px;
+            }
+            #inquiry-table3 th,td{
+                width: 100px;
+                margin:0px;
+            }
+            #inquiry-table3 thead{
+                text-align: left;
+            }
+            #inquiry-table3-head-div{
+                padding:3px
+            }
+            #total-div{
+                display:inline-block
+                width:300px;
+                margin:5px;
+            }
+            #total{
+                text-align: center;
+                float:right;
+                border: solid black 1px;
+                margin-right: 30px;
+                width:200px;
+            }
+            #inquiry-table3-head-div{
+                border-bottom: solid black 1px;
+            }
+        </style>
+        <!-- END PAGE LEVEL CUSTOM STYLES -->
+    </head>
+    <body>
+        <div id="main-div">
+            <h5>Dear Sir,</h5>
+            <p>Refering to your Inguiry, we are pleased to offer as below: </p>
+            <h5>{{ forwarded_quotations.first.supplier }}</h5>
+            <div id="inquiry-table-div">
+                <table id="inquiry-table1">
+                    <tr>
+                        <td>Inquiry No.:</td>
+                        <td>{{ inquiry.id }}</td>
+                    </tr>
+                    <tr>
+                        <td>Inquiry Date:</td>
+                        <td>{{ inquiry.received_datetime.date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Category:</td>
+                        <td>Yarn</td>
+                    </tr>
+                </table>
+                <table id="inquiry-table2">
+                    <tr>
+                        <td>INCO Terms:</td>
+                        <td>{{ forwarded_quotations.first.inco }}</td>
+                    </tr>
+                    <tr>
+                        <td>Destination:</td>
+                        <td>{{ forwarded_quotations.first.product.destination_port }}</td>
+                    </tr>
+                    <tr>
+                        <td>DELIVERY:</td>
+                        <td>{{ forwarded_quotations.first.product.delivery_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Payment Terms:</td>
+                        <td>{{ forwarded_quotations.first.payment_terms }}</td>
+                    </tr>
+                    {% if inquiry.agent %}
+                    <tr>
+                        <td>Commission:</td>
+                        <td>{{ inquiry.agent.commission }}</td>
+                    </tr>
+                    {% endif %}
+                </table>
+            </div>
+            <div id="inquiry-table-div2">
+                <p><span id="country">Country of Origin: <b>India</b></span><span id="packing">packing: <b>Carton</b></span></p>
+                <div id="inquiry-table-div2-1">
+                    <div id="inquiry-table3-head-div"><b>Buyer Name: <span id="inquiry-table3-head">YDX Ltd.</span></b></div>
+                    <table id="inquiry-table3">
+                        <thead>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Color</th>
+                            <th>XXX</th>
+                            <th>Price</th>
+                            <th>Amount</th>
+                            <th>Remarks</th>
+                        </thead>
+                        {% for quotation in forwarded_quotations.all %}
+                            <tr>
+                                <td>ABC</td>
+                                <td>9</td>
+                                <td>Red</td>
+                                <td>---</td>
+                                <td>499</td>
+                                <td>4491</td>
+                                <td>None</td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                    <div id="total-div"><b>Total:</b><span id="total">4711</span></div>
+                </div>
+            </div>
+            <div>Hope you find above in order.</div>
+            Thanks
+        </div>
+    </body>
+</html>

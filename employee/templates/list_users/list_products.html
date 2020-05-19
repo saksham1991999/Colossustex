@@ -2,6 +2,11 @@
 {% load static %}
 {% block extra_stylesheet %}
     <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/custom_dt_html5.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
+    <!-- END PAGE LEVEL CUSTOM STYLES -->
+
+        <!-- BEGIN PAGE LEVEL CUSTOM STYLES -->
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/datatables.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'assets/css/forms/theme-checkbox-radio.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'plugins/table/datatable/dt-global_style.css' %}">
@@ -58,6 +63,7 @@
                                                 <th>Category</th>
                                                 <th>Sub Category 1</th>
                                                 <th>Sub Category 2</th>
+                                                <th>Actions</th>
                                                 {% comment %}
                                                 <th>Application</th>
                                                 <th>Polymer Fiber</th>
@@ -76,7 +82,7 @@
                                             {% for product in products %}
                                             <tr>
                                                 <td class="checkbox-column text-center"> {{ product.id }} </td>
-                                                <td><a href="{% url 'employee:single_product' %}">{{ product.name }}</a></td>
+                                                <td><a href="{% url 'employee:single_product' product.id %}">{{ product.name }}</a></td>
                                                 <td class="text-center"><span class="shadow-none badge badge-primary">{{ product.category }}</span></td>
                                                 <td>{{ product.sub_category_1 }}</td>
                                                 <td>{{ product.sub_category_2 }}</td>
@@ -179,8 +185,8 @@
                "sLengthMenu": "Results :  _MENU_",
             },
             "stripeClasses": [],
-            "lengthMenu": [5, 10, 20, 50],
-            "pageLength": 5
+            "lengthMenu": [20, 50, 100, 200],
+            "pageLength": 20
         });
 
         multiCheck(c3);

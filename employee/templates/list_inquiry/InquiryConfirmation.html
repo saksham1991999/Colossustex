@@ -83,8 +83,7 @@
 
                         <div class="card" style="background:white;">
                             <h5 class="" style="text-align: center;">Inquiry Info</h5>
-                            <p class=""  style="text-align: center;">CTS-{{ sample_request.id }}</p>
-                            {% comment %}
+                            <p class=""  style="text-align: center;">CTI-{{ inquiry.id }}</p>
                             <div class="">
                                 <ul class="contacts-block list-unstyled">
                                     <li class="contacts-block__item">
@@ -150,15 +149,14 @@
                                     {% endif %}
                                 </ul>
                             </div>
-                            {% endcomment %}
-                            {% comment %}
+
                             <div class="education">
                                 <div class="timeline-alter">
                                     <div class="education">
                                         <div class="widget-content widget-content-area">
-
+                                        {% comment %}
                                             <h3 class="">Dates</h3>
-
+                                            {% endcomment %}
                                             <div class="timeline-alter">
                                                 <div class="item-timeline">
                                                     <div class="t-meta-date">
@@ -266,13 +264,16 @@
 
                                 </div>
                             </div>
-                            {% endcomment %}
 
-                            {% comment %}
                             <a href="{% url 'employee:inquiry' inquiry.id %}">
                                 <button class="btn btn-primary mb-2">Go Back to Inquiry</button>
                             </a>
-
+                            {% comment %}
+                            <a href="{% url 'employee:inquiry_add_quotation' inquiry.id %}">
+                                <button class="btn btn-primary mb-2">Add Remarks</button>
+                            </a>
+                            <br>
+                            {% endcomment %}
                             <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
                                 <button class="btn btn-primary mb-2">SAVE</button>
                             </a><br>
@@ -285,7 +286,7 @@
                             <a href="{% url 'employee:inquiry_add_customer_feedback' inquiry.id %}">
                                 <button class="btn btn-primary mb-2">Issue Commission Advise</button>
                             </a>
-                            {% endcomment %}
+
                         </div>
                     </div>
 
